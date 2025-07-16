@@ -1,4 +1,9 @@
-import {ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection} from '@angular/core';
+import {
+    APP_INITIALIZER,
+    ApplicationConfig, importProvidersFrom, provideAppInitializer,
+    provideBrowserGlobalErrorListeners,
+    provideZonelessChangeDetection
+} from '@angular/core';
 import {provideRouter, withInMemoryScrolling} from '@angular/router';
 import {
     HTTP_INTERCEPTORS,
@@ -12,31 +17,52 @@ import {provideAnimationsAsync} from '@angular/platform-browser/animations/async
 import {provideEffects} from '@ngrx/effects'
 import {provideStore} from '@ngrx/store'
 import {provideStoreDevtools} from '@ngrx/store-devtools'
+import {appReducers} from '@src/app/app.reducers';
 
 //primeng
 import Aura from '@primeng/themes/aura'
 import {providePrimeNG} from 'primeng/config'
+import {initializeApp} from '@src/app/core/config/app-config.service';
+import {AuthInterceptor} from '@src/app/core/interceptors/auth.interceptor';
+import {initializePermissions, LoadPermissionsService} from '@src/app/core/config/load-permissions.service';
+import {NgxPermissionsModule, NgxPermissionsService, USE_PERMISSIONS_STORE} from 'ngx-permissions';
+
 
 export const appConfig: ApplicationConfig = {
-    providers: [
-        provideBrowserGlobalErrorListeners(),
-        provideZonelessChangeDetection(),
-        provideRouter(routes, withInMemoryScrolling({scrollPositionRestoration: 'top'})),
-        provideHttpClient(withInterceptorsFromDi()),
-        provideAnimationsAsync(),
-        provideStore(),
-        provideEffects(),
-        provideStoreDevtools({
-            maxAge: 25,
-            logOnly: false,
-        }),
-        providePrimeNG({
-            theme: {
-                preset: Aura,
-                options: {
-                    darkModeSelector: '.dark',
+        providers: [
+            {
+                provide: HTTP_INTERCEPTORS,
+                useClass: AuthInterceptor,
+                multi: true,
+            },
+            LoadPermissionsService,
+            NgxPermissionsService,
+            {
+                provide: USE_PERMISSIONS_STORE,
+                useValue: true
+            },
+            provideAppInitializer(initializeApp),
+            provideAppInitializer(initializePermissions),
+            provideBrowserGlobalErrorListeners(),
+            provideZonelessChangeDetection(),
+            importProvidersFrom(NgxPermissionsModule.forRoot()),
+            provideRouter(routes, withInMemoryScrolling({scrollPositionRestoration: 'top'})),
+            provideHttpClient(withInterceptorsFromDi()),
+            provideAnimationsAsync(),
+            provideStore(appReducers),
+            provideEffects([]),
+            provideStoreDevtools({
+                maxAge: 25,
+                logOnly: false,
+            }),
+            providePrimeNG({
+                theme: {
+                    preset: Aura,
+                    options: {
+                        darkModeSelector: '.dark',
+                    }
                 }
-            }
-        }),
-    ]
-};
+            }),
+        ]
+    }
+;
