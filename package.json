@@ -52,5 +52,16 @@
         "postcss": "^8.4.49",
         "tailwindcss": "^3.4.16",
         "typescript": "~5.8.2"
+    },
+    "overrides": {
+        "@ngrx/effects": {
+            "@angular/core": "$@angular/core"
+        },
+        "@ngrx/store": {
+            "@angular/core": "$@angular/core"
+        },
+        "@ngrx/store-devtools": {
+            "@angular/core": "$@angular/core"
+        }
     }
 }
