@@ -24,6 +24,12 @@
             "@api/*": [
                 "./src/app/core/api/*"
             ],
+            "@components": [
+                "./src/app/components"
+            ],
+            "@views": [
+                "./src/app/views"
+            ],
             "@enums": [
                 "./src/app/core/interfaces/enums"
             ],

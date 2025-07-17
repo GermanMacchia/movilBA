@@ -1,14 +1,17 @@
 <h1 class="font-medium" style="font-size: 2.5rem">MóvilBA</h1>
 <img src="assets/login.png" alt="login_img" class="h-40">
-<!--nombre-->
+<!--email-->
 <p-floatlabel variant="on" class="w-full">
-    <input pInputText id="on_label" [(ngModel)]="value" autocomplete="off" class="w-full"/>
+    <input name="email" pInputText id="on_label" [(ngModel)]="email" autocomplete="off" class="w-full"/>
     <label for="on_label">Email</label>
 </p-floatlabel>
 <!--password-->
-<p-floatlabel variant="on" class="w-full">
-    <p-password [(ngModel)]="value2" inputId="on_label" inputStyleClass="w-full" [feedback]="false" class="w-full"/>
+<p-floatlabel  variant="on" class="w-full">
+    <p-password name="clave" [(ngModel)]="clave" inputId="on_label" inputStyleClass="w-full" [feedback]="false"
+                class="w-full"/>
     <label for="on_label">Contraseña</label>
 </p-floatlabel>
 <p class="hover:cursor-pointer">¿Olvidaste tu contraseña?</p>
-<p-button label="Continuar" severity="contrast" class="w-full" styleClass="w-full"  />
+<p-button [loading]="loading()" [disabled]="!email || !clave" (onClick)="submit()"
+          [label]="loading() ? '' :' Continuar'" severity="contrast" class="w-full" styleClass="h-12 w-full"/>
+

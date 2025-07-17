@@ -16,7 +16,7 @@ export class ApiService {
 
     login = (email: string, clave: string) => {
         switch (email) {
-            case 'Admin':
+            case 'admin':
                 return of({usuario: {nombre: 'Administrador', rol: 'ADMINISTRADOR'}})
             default:
                 return of({usuario: {nombre: 'Visitante', rol: 'VISITANTE'}})
