@@ -1,1 +1,8 @@
-<p>sidebar works!</p>
+<p-drawer [(visible)]="visible" [modal]="false" styleClass=!bg-ui>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat.
+    </p>
+</p-drawer>
+<p-button (click)="visible = true" icon="pi pi-arrow-right" styleClass="h-12" />

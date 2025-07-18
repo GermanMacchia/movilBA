@@ -4,3 +4,9 @@
 @tailwind utilities;
 
 @import "primeicons/primeicons.css";
+
+$background: #9baab8;
+
+.bg-ui {
+    background-color: $background;
+}
