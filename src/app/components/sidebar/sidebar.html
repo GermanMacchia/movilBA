@@ -8,7 +8,7 @@
             <p style="font-size: 2rem;" class="font-bold my-4">MóvilBA</p>
         </div>
         <div class="flex flex-col flex-grow my-4 w-full">
-            @for (item of menuItems; track item.label) {
+            @for (item of menuItems(); track item.label) {
                 <div [class]="item.label === 'Salir' ? 'mt-auto': ''">
                     <button [disabled]="item.icon === 'pi pi-user'"
                             [class]="item.icon === 'pi pi-user' ? 'pointer-events-none' :''" (click)="item.command()"

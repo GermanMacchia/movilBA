@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 import {Usuario} from '@src/app/core/interfaces/interfaces';
 import {selectUsuario} from '@src/app/core/store/selectors';
 import {AppService} from '@src/app/core/services/app-service';
-import {filter, map, tap} from 'rxjs';
+import {filter, map, take, tap} from 'rxjs';
 
 @Component({
     selector: 'app-header',
@@ -21,7 +21,7 @@ export class Header implements OnInit {
     ngOnInit(): void {
         this.ruta.set(this.route.url.toUpperCase().replace('/', ''))
 
-        this.store$.select(selectUsuario).subscribe(this.usuario.set);
+        this.store$.select(selectUsuario).pipe(take(1)).subscribe(this.usuario.set);
 
         this.subscribeRoute()
     }

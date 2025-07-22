@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, OnDestroy, OnInit, signal} from '@angular/core';
 import {ButtonModule} from 'primeng/button';
 import {DrawerModule} from 'primeng/drawer';
 import {MenuModule} from 'primeng/menu';
@@ -7,7 +7,8 @@ import {AuthService} from '@src/app/core/services/auth-service';
 import {selectUsuario} from '@src/app/core/store/selectors';
 import {Store} from '@ngrx/store';
 import {Usuario} from '@interfaces';
-import {take} from 'rxjs';
+import {Subscription, take} from 'rxjs';
+import {MenuItem, MenuItemCommandEvent} from 'primeng/api';
 
 @Component({
     selector: 'app-sidebar',
@@ -21,14 +22,13 @@ export class Sidebar implements OnInit {
     public appService = inject(AppService);
     private authService = inject(AuthService);
     private store$ = inject(Store);
-
-    menuItems: { label: string, icon: string, command: () => void }[] | undefined;
+    menuItems  = signal<{label:string, icon:string, command: () => void}[]>([])
 
     ngOnInit() {
-        this.store$.select(selectUsuario).pipe(take(1)).subscribe( (usuario: Usuario | null) => {
+       this.store$.select(selectUsuario).pipe(take(1)).subscribe( (usuario: Usuario | null) => {
             if (!usuario) return
 
-            this.menuItems = [
+            this.menuItems.set([
                 {
                     label: 'Inicio',
                     icon: 'pi pi-home',
@@ -37,10 +37,10 @@ export class Sidebar implements OnInit {
                 {
                     label: usuario.nombre,
                     icon: 'pi pi-user',
-                    command: () => console.log()
+                    command: () => {}
                 },
                 {label: 'Salir', icon: 'pi pi-sign-out', command: () => this.authService.logout()},
-            ];
+            ])
 
         });
     }
