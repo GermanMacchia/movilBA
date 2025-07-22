@@ -337,7 +337,7 @@
             }
         ]
     },
-    "ROL1": {
+    "AUDITOR": {
         "modulos": [
             {
                 "label": "RUTAP (Colectivos)",
@@ -612,7 +612,7 @@
             }
         ]
     },
-    "ROL2": {
+    "OPERADOR": {
         "modulos": [
             {
                 "label": "RUTAP (Colectivos)",
