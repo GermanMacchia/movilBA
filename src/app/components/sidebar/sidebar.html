@@ -1,26 +1,27 @@
 @if (appService.isDrawerOpen()) {
-    <div [style]="{width: '11rem', 'box-shadow': 'none', border: 'none'}"
-         class="bg-ui flex flex-col h-screen">
-        <div class="mx-5 flex flex-col items-start">
-            <button (click)="appService.switchDrawer()" class="h-12 bg-ui">
-                <i class="pi pi-caret-left text-white"></i>
-            </button>
-            <p style="font-size: 2rem;" class="font-bold my-4">MóvilBA</p>
-        </div>
-        <div class="flex flex-col flex-grow my-4 w-full">
-            @for (item of menuItems(); track item.label) {
-                <div [class]="item.label === 'Salir' ? 'mt-auto': ''">
-                    <button [disabled]="item.icon === 'pi pi-user'"
-                            [class]="item.icon === 'pi pi-user' ? 'pointer-events-none' :''" (click)="item.command()"
-                            class="h-12 px-5 w-full bg-ui hover:brightness-[1.10]">
-                        <span class="flex items-center gap-4 side-menu">
-                            <i [class]="item.icon"></i>
-                            <p class="font-medium"> {{ item.label }} </p>
-                        </span>
-                    </button>
-                </div>
-            }
-        </div>
+<div [style]="{width: '11rem', 'box-shadow': 'none', border: 'none'}" class="bg-ui flex flex-col h-screen">
+    <div class="mx-5 flex flex-col items-start">
+        <button (click)="appService.switchDrawer()" class="h-12 bg-ui">
+            <i class="pi pi-caret-left text-white"></i>
+        </button>
+        <p style="font-size: 2rem;" class="font-bold my-4">MóvilBA</p>
     </div>
-}
+    <!-- <div *ngxPermissionsOnly="[rolesUsuarios.ADMINISTRADOR, rolesUsuarios.AUDITOR]">
+    </div> -->
+    <div class="flex flex-col flex-grow my-4 w-full">
+        @for (item of menuItems(); track item.label) {
+        <div [class]="item.label === 'Salir' ? 'mt-auto': ''">
+            <button [disabled]="item.icon === 'pi pi-user'"
+                [class]="item.icon === 'pi pi-user' ? 'pointer-events-none' :''" (click)="item.command()"
+                class="h-12 px-5 w-full bg-ui hover:brightness-[1.10]">
+                <span class="flex items-center gap-4 side-menu">
+                    <i [class]="item.icon"></i>
+                    <p class="font-medium"> {{ item.label }} </p>
+                </span>
+            </button>
+        </div>
+        }
+    </div>
 
+</div>
+}
