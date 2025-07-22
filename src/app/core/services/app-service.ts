@@ -1,32 +1,38 @@
-import {inject, Injectable, signal} from '@angular/core';
-import {filter, pairwise} from 'rxjs';
-import {NavigationEnd, Router} from '@angular/router';
+import { inject, Injectable, signal } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter, pairwise, take } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class AppService {
-    router = inject(Router)
+    router = inject(Router);
 
-    isDrawerOpen = signal<boolean>(true)
+    isDrawerOpen = signal<boolean>(true);
 
-    switchDrawer = () => this.isDrawerOpen.update(value => !value)
+    switchDrawer = () => this.isDrawerOpen.update((value) => !value);
 
-    previousUrl: string = ''
-    currentUrl: string = ''
+    previousUrl: string = '';
+    currentUrl: string = '';
 
     constructor() {
-        this.previousUrl = 'login'
+        this.previousUrl = 'login';
+
+        this.router.events
+            .pipe(filter((event) => event instanceof NavigationEnd))
+            .pipe(take(1))
+            .subscribe((first) => (this.previousUrl = first.url));
+
         this.router.events
             .pipe(
-                filter(event => event instanceof NavigationEnd),
+                filter((event) => event instanceof NavigationEnd),
                 pairwise()
             )
             .subscribe(([prev, curr]) => {
-                if (prev.url.includes('login')) this.previousUrl = 'login'
+                if (prev.url.includes('login')) this.previousUrl = 'login';
 
                 this.previousUrl = prev.url;
-                this.currentUrl = curr.url
+                this.currentUrl = curr.url;
             });
     }
 }

@@ -32,6 +32,7 @@ import {
 } from 'ngx-permissions';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
+import { initializePermissions } from './core/config/load-permissions.service';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -54,6 +55,11 @@ export const appConfig: ApplicationConfig = {
             routes,
             withInMemoryScrolling({ scrollPositionRestoration: 'top' })
         ),
+        {
+            provide: 'APP_BOOTSTRAP_LISTENER',
+            multi: true,
+            useFactory: initializePermissions,
+        },
         provideHttpClient(withInterceptorsFromDi()),
         provideAnimations(),
         provideStore(appReducers),
