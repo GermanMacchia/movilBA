@@ -1,19 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { RolesUsuarios } from '@enums';
 import { ACCESS_VALUES } from '@src/app/core/services/auth-service';
 import { NgxPermissionsService } from 'ngx-permissions';
 
+@Injectable({ providedIn: 'root' })
 export class LoadPermissionsService {
     public loadPermissions() {
-        if (!sessionStorage.getItem(ACCESS_VALUES))
-            return new Promise((res) => res([RolesUsuarios.OPERADOR]));
-
-        const access_values = JSON.parse(
-            sessionStorage.getItem(ACCESS_VALUES) as string
-        );
-
-        return new Promise((res) => res([access_values.usuario.rol]));
+        const stored = sessionStorage.getItem(ACCESS_VALUES);
+        const permisos = stored
+            ? JSON.parse(stored)
+            : { usuario: { rol: RolesUsuarios.OPERADOR } };
+        return new Promise((res) => res(permisos.usuario.rol));
     }
 }
 
@@ -22,6 +20,6 @@ export function initializePermissions() {
     const ngxPermissionsService = inject(NgxPermissionsService);
 
     return loadPermissionsService.loadPermissions().then((permissions: any) => {
-        return ngxPermissionsService.loadPermissions(permissions);
+        return ngxPermissionsService.addPermission(permissions);
     });
 }

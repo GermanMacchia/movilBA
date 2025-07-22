@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter, pairwise, take } from 'rxjs';
+import { filter, pairwise } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -16,12 +16,7 @@ export class AppService {
     currentUrl: string = '';
 
     constructor() {
-        this.previousUrl = 'login';
-
-        this.router.events
-            .pipe(filter((event) => event instanceof NavigationEnd))
-            .pipe(take(1))
-            .subscribe((first) => (this.previousUrl = first.url));
+        this.previousUrl = '/login';
 
         this.router.events
             .pipe(
@@ -29,7 +24,7 @@ export class AppService {
                 pairwise()
             )
             .subscribe(([prev, curr]) => {
-                if (prev.url.includes('login')) this.previousUrl = 'login';
+                if (prev.url.includes('login')) this.previousUrl = '/login';
 
                 this.previousUrl = prev.url;
                 this.currentUrl = curr.url;

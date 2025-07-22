@@ -47,6 +47,7 @@ export const appConfig: ApplicationConfig = {
             provide: USE_PERMISSIONS_STORE,
             useValue: true,
         },
+        provideAppInitializer(initializePermissions),
         provideAppInitializer(initializeApp),
         provideBrowserGlobalErrorListeners(),
         provideZonelessChangeDetection(),
@@ -55,11 +56,6 @@ export const appConfig: ApplicationConfig = {
             routes,
             withInMemoryScrolling({ scrollPositionRestoration: 'top' })
         ),
-        {
-            provide: 'APP_BOOTSTRAP_LISTENER',
-            multi: true,
-            useFactory: initializePermissions,
-        },
         provideHttpClient(withInterceptorsFromDi()),
         provideAnimations(),
         provideStore(appReducers),
