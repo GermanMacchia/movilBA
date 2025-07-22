@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModulosMenu } from './modulos-menu';
+import { ModulosMenu } from './modulo-menu';
 
 describe('ModulosMenu', () => {
   let component: ModulosMenu;

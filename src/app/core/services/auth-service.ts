@@ -10,7 +10,6 @@ export const ACCESS_VALUES = 'access_values';
 export class AuthService {
     private router = inject(Router);
     isPermissionGranted = signal<boolean>(false);
-    auth = signal<Auth | null>(null);
 
     logout = () => {
         this.flushPermission();
@@ -19,8 +18,8 @@ export class AuthService {
 
     setAccessValues = (auth: any) => {
         this.isPermissionGranted.set(true);
-        this.auth.set(auth);
         localStorage.setItem(ACCESS_VALUES, JSON.stringify(auth));
+        this.redirectByRol(auth.usuario.rol);
     };
 
     redirectByRol = (rol: string) => {
@@ -29,12 +28,13 @@ export class AuthService {
                 this.router.navigate(['modulos']);
                 return;
             default:
-                this.router.navigate(['opciones']);
+                this.router.navigate(['/opciones']);
                 return;
         }
     };
+
     flushPermission = () => {
         this.isPermissionGranted.set(false);
-        this.auth.set(null);
+        localStorage.removeItem(ACCESS_VALUES);
     };
 }

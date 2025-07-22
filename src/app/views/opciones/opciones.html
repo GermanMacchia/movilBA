@@ -1,1 +1,5 @@
-<p>opciones works!</p>
+<div class="grid grid-cols-3 gap-10" >
+@for (opcion of opciones; track opcion.label) {
+    <app-opcion-card [titulo]="opcion.label!" [menuLinks]="opcion.items!"></app-opcion-card>
+}
+</div>

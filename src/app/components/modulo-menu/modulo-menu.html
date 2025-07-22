@@ -1,5 +1,5 @@
-@for (item of seccionesRoutes; track item.label) {
-    <div class="w-2/3 h-10 gap-">
+@for (item of modulosRoutes; track item.label) {
+    <div class="w-2/5 h-10 gap-">
         @if (item.label) {
             <button [routerLink]="item.routerLink" class="h-full w-full rounded-md hover:brightness-[1.10]" [style]="{background: item['color']}">
                 <p>{{ item.label }}</p>

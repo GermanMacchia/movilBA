@@ -1,7 +1,7 @@
-import { Injectable, inject } from '@angular/core';
-import { Router, UrlTree } from '@angular/router';
-import { AuthService } from '@src/app/core/services/auth-service';
-import { Observable } from 'rxjs';
+import {Injectable, inject} from '@angular/core';
+import {Router, UrlTree} from '@angular/router';
+import {AuthService} from '@src/app/core/services/auth-service';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -15,8 +15,7 @@ export class LoginGuard {
         | Promise<boolean | UrlTree>
         | boolean
         | UrlTree {
-        // this.router.navigate([''])
-        // if (this.authService.isPermissionGranted()) this.router.navigate([''])
+        if (this.authService.isPermissionGranted()) this.router.navigate([''])
 
         return true;
     }

@@ -1,4 +1,5 @@
 export * from './header/header'
 export * from './sidebar/sidebar'
-export * from './opciones-card/opciones-card'
 export * from './seccion-menu/seccion-menu'
+export * from './modulo-menu/modulo-menu'
+export * from './opcion-menu/opcion-menu'

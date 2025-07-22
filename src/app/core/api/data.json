@@ -1,0 +1,231 @@
+{
+    "ADMINISTRADOR": {
+        "modulos": [
+            {
+                "label": "RUTAP (Colectivos)",
+                "routerLink": "/secciones",
+                "color": "#5EABD6"
+            },
+            {
+                "label": "RUTAX (Taxis)",
+                "routerLink": "/secciones",
+                "color": "#FFAB5B"
+            },
+            {
+                "label": "RUREM (Remises)",
+                "routerLink": "/secciones",
+                "color": "#E9A5F1"
+            },
+            {
+                "label": "RUTRAMUR (Moto/Bici Delivery)",
+                "routerLink": "/secciones",
+                "color": "#B771E5"
+            },
+            {
+                "label": "Cursos de capacitación",
+                "routerLink": "/secciones",
+                "color": "#C68EFD"
+            },
+            {
+                "label": "VTV",
+                "routerLink": "/secciones",
+                "color": "#4DA1A9"
+            },
+            {
+                "label": "Escolares",
+                "routerLink": "/secciones",
+                "color": "#FFAB5B"
+            },
+            {
+                "label": "Pesados",
+                "routerLink": "/secciones",
+                "color": "#465aba"
+            },
+            {
+                "label": "Verificaciones especiales",
+                "routerLink": "/secciones",
+                "color": "#A1E3F9"
+            },
+            {
+                "label": "",
+                "routerLink": "",
+                "color": ""
+            }
+        ],
+        "secciones": [
+            {
+                "label": "Planificación económica del Transporte",
+                "routerLink": "/opciones",
+                "color": "#5EABD6"
+            },
+            {
+                "label": "Control de la movilidad",
+                "routerLink": "/opciones",
+                "color": "#FFAB5B"
+            },
+            {
+                "label": "Control económico del uso de las compensaciones tarifarias",
+                "routerLink": "/opciones",
+                "color": "#E9A5F1"
+            },
+            {
+                "label": "Permisos de transporte de colectivos",
+                "routerLink": "/opciones",
+                "color": "#B771E5"
+            },
+            {
+                "label": "Planificación de servicios",
+                "routerLink": "/opciones",
+                "color": "#C68EFD"
+            }
+        ],
+        "opciones": [
+            {
+                "label": "Rendiciones",
+                "routerLink": "/opciones",
+                "items": [
+                    {
+                        "label": "Alta de rendición",
+                        "items": [
+                            { "label": "Nueva rendición", "routerLink": "/rendiciones/alta/nueva" },
+                            { "label": "Desde plantilla", "routerLink": "/rendiciones/alta/plantilla" },
+                            { "label": "Importar desde Excel", "routerLink": "/rendiciones/alta/importar" }
+                        ]
+                    },
+                    {
+                        "label": "Estado de trámite",
+                        "items": [
+                            { "label": "En revisión", "routerLink": "/rendiciones/tramite/revision" },
+                            { "label": "Aprobadas", "routerLink": "/rendiciones/tramite/aprobadas" },
+                            { "label": "Rechazadas", "routerLink": "/rendiciones/tramite/rechazadas" },
+                            { "label": "Observadas", "routerLink": "/rendiciones/tramite/observadas" }
+                        ]
+                    },
+                    {
+                        "label": "Consilta de empresas",
+                        "items": [
+                            { "label": "Buscar por CUIT", "routerLink": "/rendiciones/consulta/cuit" },
+                            { "label": "Historial de rendiciones", "routerLink": "/rendiciones/consulta/historial" },
+                            { "label": "Empresas pendientes", "routerLink": "/rendiciones/consulta/pendientes" }
+                        ]
+                    },
+                    {
+                        "label": "Edición fechas",
+                        "items": [
+                            { "label": "Modificar vencimiento", "routerLink": "/rendiciones/fechas/vencimiento" },
+                            { "label": "Prorrogar entrega", "routerLink": "/rendiciones/fechas/prorroga" },
+                            { "label": "Revertir fecha", "routerLink": "/rendiciones/fechas/revertir" }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Transferencias Vinculadas",
+                "routerLink": "/opciones",
+                "items": [
+                    {
+                        "label": "Subsidios abonado",
+                        "items": [
+                            { "label": "Detalle de pagos", "routerLink": "/transferencias/subsidios/detalle" },
+                            { "label": "Comprobantes", "routerLink": "/transferencias/subsidios/comprobantes" },
+                            { "label": "Historial de pagos", "routerLink": "/transferencias/subsidios/historial" }
+                        ]
+                    },
+                    {
+                        "label": "Alta de rendición",
+                        "items": [
+                            { "label": "Nuevo subsidio", "routerLink": "/transferencias/alta/nuevo" },
+                            { "label": "Subsidio recurrente", "routerLink": "/transferencias/alta/recurrente" },
+                            { "label": "Carga masiva", "routerLink": "/transferencias/alta/masiva" }
+                        ]
+                    },
+                    {
+                        "label": "Alta de rendición",
+                        "items": [
+                            { "label": "Alta individual", "routerLink": "/transferencias/alta/individual" },
+                            { "label": "Desde archivo", "routerLink": "/transferencias/alta/archivo" },
+                            { "label": "Revisión automática", "routerLink": "/transferencias/alta/revision" }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Documentaciones",
+                "routerLink": "/opciones",
+                "items": [
+                    {
+                        "label": "Carga de archivos",
+                        "items": [
+                            { "label": "Cargar PDF", "routerLink": "/documentaciones/carga/pdf" },
+                            { "label": "Adjuntar XML", "routerLink": "/documentaciones/carga/xml" },
+                            { "label": "Cargar múltiples", "routerLink": "/documentaciones/carga/multiple" }
+                        ]
+                    },
+                    {
+                        "label": "Alta de rendición",
+                        "items": [
+                            { "label": "Nuevo documento", "routerLink": "/documentaciones/alta/nuevo" },
+                            { "label": "Plantilla existente", "routerLink": "/documentaciones/alta/plantilla" },
+                            { "label": "Editar campos", "routerLink": "/documentaciones/alta/editar" }
+                        ]
+                    },
+                    {
+                        "label": "Alta de rendición",
+                        "items": [
+                            { "label": "Versión preliminar", "routerLink": "/documentaciones/alta/preliminar" },
+                            { "label": "Subir con firma", "routerLink": "/documentaciones/alta/firma" },
+                            { "label": "Validar datos", "routerLink": "/documentaciones/alta/validar" }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Documentaciones",
+                "routerLink": "/opciones",
+                "items": [
+                    {
+                        "label": "Carga de archivos",
+                        "items": [
+                            { "label": "Seleccionar archivos", "routerLink": "/documentaciones/carga/seleccionar" },
+                            { "label": "Escanear documento", "routerLink": "/documentaciones/carga/escanear" },
+                            { "label": "Subir comprimido", "routerLink": "/documentaciones/carga/zip" }
+                        ]
+                    },
+                    {
+                        "label": "Alta de rendición",
+                        "items": [
+                            { "label": "Nuevo ingreso", "routerLink": "/documentaciones/alta/ingreso" },
+                            { "label": "Usar borrador", "routerLink": "/documentaciones/alta/borrador" },
+                            { "label": "Enviar a revisión", "routerLink": "/documentaciones/alta/revision" }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Documentaciones",
+                "routerLink": "/opciones",
+                "items": [
+                    {
+                        "label": "Carga de archivos",
+                        "items": [
+                            { "label": "Cargar documento", "routerLink": "/documentaciones/carga/doc" },
+                            { "label": "Agregar metadata", "routerLink": "/documentaciones/carga/metadata" },
+                            { "label": "Revisar duplicados", "routerLink": "/documentaciones/carga/duplicados" }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "VISITANTE": {
+        "secciones": [
+            {
+                "label": "Planificación económica del Transporte",
+                "route": "opciones",
+                "color": "5EABD6"
+            }
+        ],
+        "modulos": [],
+        "opciones": []
+    }
+}

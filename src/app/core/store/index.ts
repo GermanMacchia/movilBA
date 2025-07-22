@@ -1,3 +1,6 @@
 export * from './actions/login.actions'
 export * from './reducers/login.reducer'
 export * from './effects/login.effects'
+export * from './actions/data.actions'
+export * from './reducers/data.reducer'
+export * from './effects/data.effects'

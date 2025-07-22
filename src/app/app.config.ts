@@ -28,7 +28,7 @@ import {
     LoadPermissionsService,
 } from '@src/app/core/config/load-permissions.service';
 import { AuthInterceptor } from '@src/app/core/interceptors/auth.interceptor';
-import { LoginEffects } from '@src/app/core/store';
+import {DataEffects, LoginEffects} from '@src/app/core/store';
 import {
     NgxPermissionsModule,
     NgxPermissionsService,
@@ -36,6 +36,7 @@ import {
 } from 'ngx-permissions';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
+import {provideAnimations} from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -61,9 +62,9 @@ export const appConfig: ApplicationConfig = {
             withInMemoryScrolling({ scrollPositionRestoration: 'top' })
         ),
         provideHttpClient(withInterceptorsFromDi()),
-        provideAnimationsAsync(),
+        provideAnimations(),
         provideStore(appReducers),
-        provideEffects([LoginEffects]),
+        provideEffects([LoginEffects, DataEffects]),
         provideStoreDevtools({
             maxAge: 25,
             logOnly: false,
@@ -73,6 +74,10 @@ export const appConfig: ApplicationConfig = {
                 preset: Aura,
                 options: {
                     darkModeSelector: '.dark',
+                    cssLayer: {
+                        name: 'primeng',
+                        order: 'tailwind-base, primeng, tailwind-utilities'
+                    }
                 },
             },
         }),

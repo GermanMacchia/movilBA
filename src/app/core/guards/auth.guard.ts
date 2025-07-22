@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Injectable, inject } from '@angular/core';
-import { Router, UrlTree } from '@angular/router';
-import { AuthService } from '@src/app/core/services/auth-service';
-import { Observable } from 'rxjs';
+import {Injectable, inject} from '@angular/core';
+import {Router, UrlTree} from '@angular/router';
+import {AuthService} from '@src/app/core/services/auth-service';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -16,10 +16,10 @@ export class AppGuard {
         | Promise<boolean | UrlTree>
         | boolean
         | UrlTree {
-        // if (!this.authService.isPermissionGranted()) {
-        //     // this.router.navigate(['login'])
-        //     return false;
-        // }
+        if (!this.authService.isPermissionGranted()) {
+            this.router.navigate(['login'])
+            return false;
+        }
 
         return true;
     }

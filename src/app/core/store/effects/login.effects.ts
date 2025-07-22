@@ -20,7 +20,6 @@ export class LoginEffects {
                     delay(1000),
                     map((auth: Auth) => {
                         this.authService.setAccessValues(auth)
-
                         return loginActions.setUsuario({usuario: auth.usuario})
                     }),
                     catchError(error => of(loginActions.loginError({error}))),
@@ -32,7 +31,7 @@ export class LoginEffects {
     usuario$ = createEffect(() =>
         this.actions$.pipe(
             ofType(loginActions.setUsuario),
-            map(() => loginActions.loginSuccess())
+            map(({usuario}) => loginActions.loginSuccess({rol:usuario.rol})),
         ),
     )
 

@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Header, Sidebar } from '@components';
+import {Component, inject, signal} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import {Header, Sidebar} from '@components';
+import {AppService} from '@src/app/core/services/app-service';
+import {Location} from '@angular/common';
+
 
 @Component({
     selector: 'app-home',
     imports: [RouterOutlet, Header, Sidebar],
     templateUrl: './home.html',
-    styleUrl: './home.scss',
     host: {
-        class: 'h-screen',
-    },
+        class: 'text-center',
+    }
 })
-export class Home {}
+export class Home {
+    appService = inject(AppService)
+    location = inject(Location)
+}

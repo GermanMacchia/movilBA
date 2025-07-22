@@ -2,7 +2,9 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ENDPOINTS} from '@api/endpoints';
 import {AppConfigService} from '@src/app/core/config/app-config.service';
-import {of} from 'rxjs';
+import {Observable, of} from 'rxjs';
+import {RolesUsuarios} from '@enums';
+import data from '@api/data.json';
 
 @Injectable({
     providedIn: 'root'
@@ -17,9 +19,18 @@ export class ApiService {
     login = (email: string, clave: string) => {
         switch (email) {
             case 'admin':
-                return of({usuario: {nombre: 'Administrador', rol: 'ADMINISTRADOR'}})
+                return of({usuario: {nombre: 'Admin', rol: RolesUsuarios.ADMINISTRADOR}})
             default:
-                return of({usuario: {nombre: 'Visitante', rol: 'VISITANTE'}})
+                return of({usuario: {nombre: 'Visitante', rol: RolesUsuarios.VISITANTE}})
+        }
+    }
+
+    getData(rol: string) : Observable<{data:any}>{
+        switch (rol) {
+            case RolesUsuarios.ADMINISTRADOR:
+                return of({data:data[RolesUsuarios.ADMINISTRADOR]})
+            default:
+                return of({data:data[RolesUsuarios.VISITANTE]})
         }
     }
 }
