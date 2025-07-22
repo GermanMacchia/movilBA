@@ -3,7 +3,13 @@
     <div class="flex-grow w-full">
         <div class="flex h-screen flex-col">
             <app-header></app-header>
-            <router-outlet class="flex-grow"></router-outlet>
+            @if (loading()) {
+                <div class="flex-grow flex justify-center items-center">
+                    <div class="loader"></div>
+                </div>
+            } @else {
+                <router-outlet class="flex-grow"></router-outlet>
+            }
         </div>
     </div>
 </div>

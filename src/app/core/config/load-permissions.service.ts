@@ -8,7 +8,7 @@ import {inject} from '@angular/core';
 export class LoadPermissionsService {
     public loadPermissions() {
         if (!sessionStorage.getItem(ACCESS_VALUES))
-            return new Promise(res => res([RolesUsuarios.VISITANTE]))
+            return new Promise(res => res([RolesUsuarios.ROL2]))
 
         const access_values = JSON.parse(
             sessionStorage.getItem(ACCESS_VALUES) as string,

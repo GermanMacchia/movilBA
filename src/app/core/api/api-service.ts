@@ -20,8 +20,12 @@ export class ApiService {
         switch (email) {
             case 'admin':
                 return of({usuario: {nombre: 'Admin', rol: RolesUsuarios.ADMINISTRADOR}})
+            case 'rol1':
+                return of({usuario: {nombre: 'rol1', rol: RolesUsuarios.ROL1}})
+            case 'rol2':
+                return of({usuario: {nombre: 'rol2', rol: RolesUsuarios.ROL2}})
             default:
-                return of({usuario: {nombre: 'Visitante', rol: RolesUsuarios.VISITANTE}})
+                return of({usuario: {nombre: 'rol2', rol: RolesUsuarios.ROL2}})
         }
     }
 
@@ -29,8 +33,12 @@ export class ApiService {
         switch (rol) {
             case RolesUsuarios.ADMINISTRADOR:
                 return of({data:data[RolesUsuarios.ADMINISTRADOR]})
+            case RolesUsuarios.ROL1:
+                return of({data:data[RolesUsuarios.ROL1]})
+            case RolesUsuarios.ROL2:
+                return of({data:data[RolesUsuarios.ROL2]})
             default:
-                return of({data:data[RolesUsuarios.VISITANTE]})
+                return of({data:data[RolesUsuarios.ROL2]})
         }
     }
 }

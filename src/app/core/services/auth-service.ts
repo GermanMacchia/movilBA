@@ -27,6 +27,12 @@ export class AuthService {
             case 'ADMINISTRADOR':
                 this.router.navigate(['modulos']);
                 return;
+            case 'ROL1':
+                this.router.navigate(['modulos']);
+                return;
+            case 'ROL2':
+                this.router.navigate(['modulos']);
+                return;
             default:
                 this.router.navigate(['/opciones']);
                 return;

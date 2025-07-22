@@ -1,29 +1,35 @@
 import {inject, Injectable} from '@angular/core'
 import {Actions, createEffect, ofType} from '@ngrx/effects'
-import {catchError, map, mergeMap, of} from 'rxjs'
+import {catchError, delay, map, mergeMap, of, tap} from 'rxjs'
 
 import * as dataActions from '../actions/data.actions'
 import * as loginActions from '../actions/login.actions'
 import {ApiService} from '@api/api-service';
+import {Store} from '@ngrx/store';
 
 @Injectable()
 export class DataEffects {
     private actions$ = inject(Actions)
     private apiService = inject(ApiService)
+    private store$ = inject(Store)
 
-    getData$ = createEffect(() =>
+    loadData$ = createEffect(() =>
         this.actions$.pipe(
             ofType(loginActions.loginSuccess),
-            mergeMap(({rol}) =>
-                this.apiService.getData(rol).pipe(
+            mergeMap(({rol}) =>{
+                this.store$.dispatch(dataActions.dataLoading())
+                return this.apiService.getData(rol).pipe(
+                    delay(1000),
                     map(( {data}) => {
                         return dataActions.setData({data})
                     }),
                     catchError(error => of(dataActions.dataLoadingError({error})))
                 )
-            )
+            })
         )
     )
+
+
 
     dataLoaded$ = createEffect(() =>
         this.actions$.pipe(
