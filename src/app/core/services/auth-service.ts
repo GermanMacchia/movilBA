@@ -28,9 +28,9 @@ export class AuthService {
     };
 
     setAccessValues = (auth: any) => {
+        this.ngxPermissionsService.addPermission(auth.usuario.rol);
         this.isPermissionGranted.set(true);
         localStorage.setItem(ACCESS_VALUES, JSON.stringify(auth));
-        this.ngxPermissionsService.addPermission(auth.usuario.rol);
         this.redirectByRol(auth.usuario.rol);
     };
 

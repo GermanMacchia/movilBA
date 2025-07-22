@@ -10,7 +10,6 @@ import {
     provideBrowserGlobalErrorListeners,
     provideZonelessChangeDetection,
 } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { routes } from './app.routes';
 
@@ -21,14 +20,11 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { appReducers } from '@src/app/app.reducers';
 
 //primeng
+import { provideAnimations } from '@angular/platform-browser/animations';
 import Aura from '@primeng/themes/aura';
 import { initializeApp } from '@src/app/core/config/app-config.service';
-import {
-    initializePermissions,
-    LoadPermissionsService,
-} from '@src/app/core/config/load-permissions.service';
 import { AuthInterceptor } from '@src/app/core/interceptors/auth.interceptor';
-import {DataEffects, LoginEffects} from '@src/app/core/store';
+import { DataEffects, LoginEffects } from '@src/app/core/store';
 import {
     NgxPermissionsModule,
     NgxPermissionsService,
@@ -36,7 +32,6 @@ import {
 } from 'ngx-permissions';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
-import {provideAnimations} from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -45,7 +40,6 @@ export const appConfig: ApplicationConfig = {
             useClass: AuthInterceptor,
             multi: true,
         },
-        LoadPermissionsService,
         MessageService,
         NgxPermissionsService,
         {
@@ -53,7 +47,6 @@ export const appConfig: ApplicationConfig = {
             useValue: true,
         },
         provideAppInitializer(initializeApp),
-        provideAppInitializer(initializePermissions),
         provideBrowserGlobalErrorListeners(),
         provideZonelessChangeDetection(),
         importProvidersFrom(NgxPermissionsModule.forRoot()),
@@ -76,8 +69,8 @@ export const appConfig: ApplicationConfig = {
                     darkModeSelector: '.dark',
                     cssLayer: {
                         name: 'primeng',
-                        order: 'tailwind-base, primeng, tailwind-utilities'
-                    }
+                        order: 'tailwind-base, primeng, tailwind-utilities',
+                    },
                 },
             },
         }),

@@ -13,7 +13,7 @@ export class LoadPermissionsService {
             sessionStorage.getItem(ACCESS_VALUES) as string
         );
 
-        return new Promise((res) => res([access_values.rol]));
+        return new Promise((res) => res([access_values.usuario.rol]));
     }
 }
 
