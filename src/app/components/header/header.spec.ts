@@ -1,6 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideMockStore } from '@ngrx/store/testing';
+import { DataInitialState, LoginInitialState } from '@src/app/core/store';
 import { Header } from './header';
+
+const mockStore = {
+    login: LoginInitialState,
+    data: DataInitialState
+}
 
 describe('Header', () => {
   let component: Header;
@@ -8,7 +14,10 @@ describe('Header', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Header]
+      imports: [Header],
+      providers: [
+        provideMockStore(mockStore)
+      ]
     })
     .compileComponents();
 

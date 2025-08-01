@@ -5,6 +5,8 @@
 /tmp
 /out-tsc
 /bazel-out
+
+bs-config.json
 # Node
 /node_modules
 npm-debug.log

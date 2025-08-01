@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter, pairwise } from 'rxjs';
+import { filter } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -13,20 +13,13 @@ export class AppService {
     switchDrawer = () => this.isDrawerOpen.update((value) => !value);
 
     previousUrl: string = '';
-    currentUrl: string = '';
+    currentUrl: string = '/login';
 
     constructor() {
-        this.previousUrl = '/login';
-
         this.router.events
-            .pipe(
-                filter((event) => event instanceof NavigationEnd),
-                pairwise()
-            )
-            .subscribe(([prev, curr]) => {
-                if (prev.url.includes('login')) this.previousUrl = '/login';
-
-                this.previousUrl = prev.url;
+            .pipe(filter((event) => event instanceof NavigationEnd))
+            .subscribe((curr) => {
+                this.previousUrl = this.currentUrl;
                 this.currentUrl = curr.url;
             });
     }

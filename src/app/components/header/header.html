@@ -1,12 +1,12 @@
 <div class="h-12 flex items-center bg-ui" [class]="appService.isDrawerOpen() ? 'justify-end': 'justify-between'">
     @if (!appService.isDrawerOpen()) {
-        <button (click)="appService.switchDrawer()" class="h-12 bg-ui py-3 px-4">
-            <i class="pi pi-bars text-white"></i>
-        </button>
+    <button data-testid="drawer-action" (click)="appService.switchDrawer()" class="h-12 bg-ui py-3 px-4">
+        <i class="pi pi-bars text-white"></i>
+    </button>
     }
     <div class="flex gap-3 mx-4">
-        <p>Usuario: {{ usuario()?.nombre }} | </p>
-        <p>Rol: {{ usuario()?.rol }} | </p>
-        <p>{{ ruta() }}</p>
+        <p data-testid="usuario">Usuario: {{ usuario()?.nombre }} | </p>
+        <p data-testid="rol">Rol: {{ usuario()?.rol }} | </p>
+        <p data-testid="ruta">{{ ruta() }}</p>
     </div>
 </div>
