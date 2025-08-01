@@ -54,16 +54,16 @@ export class AuthService {
     redirectByRol = (rol: string) => {
         switch (rol) {
             case RolesUsuarios.ADMINISTRADOR:
-                this.router.navigate(['modulos']);
+                this.router.navigate(['/modulos']);
                 return;
             case RolesUsuarios.AUDITOR:
-                this.router.navigate(['modulos']);
+                this.router.navigate(['/modulos']);
                 return;
             case RolesUsuarios.OPERADOR:
-                this.router.navigate(['opciones']);
+                this.router.navigate(['/opciones']);
                 return;
             default:
-                this.router.navigate(['opciones']);
+                this.router.navigate(['/opciones']);
                 return;
         }
     };
