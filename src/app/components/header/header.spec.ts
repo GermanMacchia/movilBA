@@ -1,12 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideMockStore } from '@ngrx/store/testing';
-import { DataInitialState, LoginInitialState } from '@src/app/core/store';
 import { Header } from './header';
-
-const mockStore = {
-    login: LoginInitialState,
-    data: DataInitialState
-}
+import { provideMockStore} from '@ngrx/store/testing';
+import {mockStore} from '@utils/test-utils';
 
 describe('Header', () => {
   let component: Header;
