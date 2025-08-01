@@ -18,6 +18,7 @@
 Bienvenido a **movilBA**!
 
 Este es un pequeño **MVP (Producto Mínimo Viable)** desarrollado para presentación. Simula un sistema integral de gestión para la movilidad urbana de Buenos Aires.
+La interfaz de usuario no fue delegada en otro miembro de equipo.
 
 ## Aplicación Desplegada
 
