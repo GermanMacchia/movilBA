@@ -1,11 +1,14 @@
-import { defineConfig } from "cypress";
+import {defineConfig} from "cypress";
 
 export default defineConfig({
     reporter: 'cypress-mochawesome-reporter',
-	video: false,
+    video: false,
+    defaultCommandTimeout: 10000,
+    watchForFileChanges: false,
     e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
+        specPattern: ['./**.cy.ts'],
+        baseUrl: 'http://localhost:4200',
+        setupNodeEvents(on, config) {
+        },
     },
-  },
 });

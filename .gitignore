@@ -6,6 +6,9 @@
 /out-tsc
 /bazel-out
 
+/cypress/reports/*
+/cypress/screenshots/*
+
 bs-config.json
 # Node
 /node_modules

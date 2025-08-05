@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import data from '@api/data.json';
+import data from '@utils/mockData.json';
 import { ENDPOINTS } from '@api/endpoints';
 import { RolesUsuarios } from '@enums';
 import { AppConfigService } from '@src/app/core/config/app-config.service';
