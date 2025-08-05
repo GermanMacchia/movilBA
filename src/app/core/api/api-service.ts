@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import data from '@utils/mockData.json';
 import { ENDPOINTS } from '@api/endpoints';
 import { RolesUsuarios } from '@enums';
 import { AppConfigService } from '@src/app/core/config/app-config.service';
+import data from '@utils/mockData.json';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -16,8 +16,8 @@ export class ApiService {
 
     getApiUrl = () => this.config.getConfigByKey('apiUrl');
 
-    login = (email: string, clave: string) => {
-        switch (email) {
+    login = (cuit: string, clave: string) => {
+        switch (cuit) {
             case 'admin':
                 return of({
                     usuario: {

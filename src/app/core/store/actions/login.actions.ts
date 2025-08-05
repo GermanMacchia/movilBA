@@ -1,10 +1,10 @@
-import {createAction, props} from '@ngrx/store'
-import {Usuario} from '@interfaces';
+import { Usuario } from '@interfaces';
+import { createAction, props } from '@ngrx/store';
 
 
 export const login = createAction(
     '[Auth] Login',
-    props<{ email: string; clave: string }>(),
+    props<{ cuit: string; clave: string }>(),
 )
 
 export const loginSuccess = createAction(

@@ -1,3 +1,6 @@
+@use 'material-symbols';
+@use 'material-icons/iconfont/material-icons.scss';
+
 @layer tailwind-base, primeng, tailwind-utilities;
 
 @layer tailwind-base {
@@ -9,7 +12,8 @@
     @tailwind utilities;
 }
 
-@import "primeicons/primeicons.css";
+
+// @import "primeicons/primeicons.css";
 
 $background: #A2AADB;
 

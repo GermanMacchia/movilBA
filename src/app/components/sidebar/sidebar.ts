@@ -38,18 +38,18 @@ export class Sidebar implements OnInit {
                 this.menuItems.set([
                     {
                         label: 'Inicio',
-                        icon: 'pi pi-home',
+                        icon: 'home',
                         command: () =>
                             this.authService.redirectByRol(usuario.rol),
                     },
                     {
                         label: usuario.nombre,
-                        icon: 'pi pi-user',
+                        icon: 'account_circle',
                         command: () => {},
                     },
                     {
                         label: 'Salir',
-                        icon: 'pi pi-sign-out',
+                        icon: 'logout',
                         command: () => this.authService.logout(),
                     },
                 ]);

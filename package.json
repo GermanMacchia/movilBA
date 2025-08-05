@@ -26,6 +26,8 @@
         "@ngrx/store": "^19.2.1",
         "@ngrx/store-devtools": "^19.2.1",
         "@primeng/themes": "^18.0.0",
+        "material-icons": "^1.13.14",
+        "material-symbols": "^0.33.0",
         "ngx-permissions": "^19.0.0",
         "primeicons": "^7.0.0",
         "primeng": "^20.0.0",

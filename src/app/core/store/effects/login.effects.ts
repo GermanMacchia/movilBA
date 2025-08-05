@@ -1,10 +1,10 @@
-import {inject, Injectable} from '@angular/core'
-import {Actions, createEffect, ofType} from '@ngrx/effects'
-import {catchError, delay, map, mergeMap, of} from 'rxjs'
-import {AuthService} from '@src/app/core/services/auth-service';
-import * as loginActions from '../actions/login.actions'
-import {Auth} from '@interfaces';
-import {ApiService} from '@api/api-service';
+import { inject, Injectable } from '@angular/core';
+import { ApiService } from '@api/api-service';
+import { Auth } from '@interfaces';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { AuthService } from '@src/app/core/services/auth-service';
+import { catchError, delay, map, mergeMap, of } from 'rxjs';
+import * as loginActions from '../actions/login.actions';
 
 @Injectable()
 export class LoginEffects {
@@ -15,8 +15,8 @@ export class LoginEffects {
     login$ = createEffect(() =>
         this.actions$.pipe(
             ofType(loginActions.login),
-            mergeMap(({email, clave}) =>
-                this.apiService.login(email, clave).pipe(
+            mergeMap(({cuit, clave}) =>
+                this.apiService.login(cuit, clave).pipe(
                     delay(1000),
                     map((auth: Auth) => {
                         this.authService.setAccessValues(auth)

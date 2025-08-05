@@ -1,8 +1,8 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
-import {MenuItem} from 'primeng/api';
-import {Store} from '@ngrx/store';
-import {selectModulos} from '@src/app/core/store/selectors';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectModulos } from '@src/app/core/store/selectors';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-modulo-menu',
