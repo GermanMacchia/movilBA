@@ -1,5 +1,5 @@
-import {createAction, props} from '@ngrx/store'
-import {DataJSON} from '@interfaces';
+import { createAction, props } from '@ngrx/store'
+
 
 export const dataLoading = createAction('[Data] Loading')
 

@@ -1,10 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as dataEffects from '@src/app/core/store';
-import * as loginEffects from '@src/app/core/store';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { RolesUsuarios } from '../interfaces/enums';
+import { loginSuccess } from '../store';
 
 export const ACCESS_VALUES = 'access_values';
 export const DATA = 'data';
@@ -19,37 +18,36 @@ export class AuthService {
     isPermissionGranted = signal<boolean>(false);
 
     constructor() {
-        this.setDataOnReload();
+        setTimeout(() => this.setDataOnReload(),0)
     }
 
     logout = () => {
         this.flushPermission();
-        this.router.navigate(['login']);
+        location.reload()
     };
 
     setAccessValues = (auth: any) => {
         this.ngxPermissionsService.addPermission(auth.usuario.rol);
-        this.isPermissionGranted.set(true);
         localStorage.setItem(ACCESS_VALUES, JSON.stringify(auth));
+        this.isPermissionGranted.set(true);
         this.redirectByRol(auth.usuario.rol);
     };
 
-    setData = (data: any) => {
-        localStorage.setItem(DATA, JSON.stringify(data));
-    };
-
     setDataOnReload = () => {
-        const data = localStorage.getItem(DATA);
         const auth = localStorage.getItem(ACCESS_VALUES);
+        const now = Math.floor(new Date().getTime() / 1000);
 
-        if (!data || !auth) return;
+        if (!auth) return;
 
-        this.setAccessValues(JSON.parse(auth));
-        this.store$.dispatch(dataEffects.setData({ data: JSON.parse(data) }));
-        this.store$.dispatch(
-            loginEffects.setUsuario({ usuario: JSON.parse(auth).usuario })
-        );
+        const parsedAuth = JSON.parse(auth)
+
+        if(parsedAuth.exp < now ) this.logout()
+
+        this.isPermissionGranted.set(true);
+        this.store$.dispatch(loginSuccess(parsedAuth))
+        this.redirectByRol(parsedAuth.usuario.rol);
     };
+
 
     redirectByRol = (rol: string) => {
         switch (rol) {

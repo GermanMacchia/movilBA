@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectModulos } from '@src/app/core/store/selectors';
@@ -15,9 +15,9 @@ import { MenuItem } from 'primeng/api';
 export class ModuloMenu implements OnInit {
     router = inject(Router)
     store$ = inject(Store)
-    modulosRoutes: MenuItem[] = []
+    modulosRoutes = signal<MenuItem[]>([])
 
     ngOnInit() {
-        this.store$.select(selectModulos).subscribe(data => this.modulosRoutes = data)
+        this.store$.select(selectModulos).subscribe(this.modulosRoutes.set)
     }
 }

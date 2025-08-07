@@ -7,7 +7,8 @@ import { NgxPermissionsService } from 'ngx-permissions';
 @Injectable({ providedIn: 'root' })
 export class LoadPermissionsService {
     public loadPermissions() {
-        const stored = sessionStorage.getItem(ACCESS_VALUES);
+        const stored = localStorage.getItem(ACCESS_VALUES);
+
         const permisos = stored
             ? JSON.parse(stored)
             : { usuario: { rol: RolesUsuarios.OPERADOR } };

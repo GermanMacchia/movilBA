@@ -17,6 +17,10 @@ export class ApiService {
     getApiUrl = () => this.config.getConfigByKey('apiUrl');
 
     login = (cuit: string, clave: string) => {
+        const now = new Date();
+        const iat = Math.floor(now.getTime() / 1000); // Tiempo actual en segundos
+        const exp = iat + 300; // Expira en 5 minutos (600 segundos)
+
         switch (cuit) {
             case 'admin':
                 return of({
@@ -24,10 +28,17 @@ export class ApiService {
                         nombre: 'Admin',
                         rol: RolesUsuarios.ADMINISTRADOR,
                     },
+                    iat,
+                    exp
                 });
             case 'audit':
                 return of({
-                    usuario: { nombre: 'Auditor', rol: RolesUsuarios.AUDITOR },
+                    usuario: {
+                        nombre: 'Auditor',
+                        rol: RolesUsuarios.AUDITOR
+                    },
+                    iat,
+                    exp
                 });
             case 'opera':
                 return of({
@@ -35,6 +46,8 @@ export class ApiService {
                         nombre: 'Operador',
                         rol: RolesUsuarios.OPERADOR,
                     },
+                    iat,
+                    exp
                 });
             default:
                 return of({
@@ -42,6 +55,8 @@ export class ApiService {
                         nombre: 'Operador',
                         rol: RolesUsuarios.OPERADOR,
                     },
+                    iat,
+                    exp
                 });
         }
     };

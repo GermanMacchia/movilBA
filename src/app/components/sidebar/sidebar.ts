@@ -9,7 +9,6 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 import { MenuModule } from 'primeng/menu';
-import { take } from 'rxjs';
 
 @Component({
     selector: 'app-sidebar',
@@ -31,10 +30,9 @@ export class Sidebar implements OnInit {
     ngOnInit() {
         this.store$
             .select(selectUsuario)
-            .pipe(take(1))
             .subscribe((usuario: Usuario | null) => {
-                if (!usuario) return;
 
+                if (!usuario) return;
                 this.menuItems.set([
                     {
                         label: 'Inicio',

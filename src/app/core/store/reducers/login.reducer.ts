@@ -1,6 +1,6 @@
-import {Action, createReducer, on} from '@ngrx/store'
-import {Usuario} from '@interfaces'
-import {login, loginError, loginSuccess, setUsuario} from '@src/app/core/store'
+import { Usuario } from '@interfaces'
+import { Action, createReducer, on } from '@ngrx/store'
+import { login, loginError, loginSuccess } from '@src/app/core/store'
 
 //STATE
 export interface LoginState {
@@ -25,8 +25,9 @@ const _LoginReducer = createReducer(
         loading: true,
     })),
 
-    on(loginSuccess, state => ({
+    on(loginSuccess, (state, {usuario}) => ({
         ...state,
+        usuario,
         loading: false,
     })),
 
@@ -34,11 +35,6 @@ const _LoginReducer = createReducer(
         ...state,
         loading: false,
         error: error?.error,
-    })),
-
-    on(setUsuario, (state, {usuario}) => ({
-        ...state,
-        usuario,
     })),
 )
 

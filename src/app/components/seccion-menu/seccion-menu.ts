@@ -1,8 +1,8 @@
-import {Component, inject} from '@angular/core';
-import {RouterLink} from '@angular/router';
-import {Store} from '@ngrx/store';
-import {selectSecciones} from '@src/app/core/store/selectors';
-import {MenuItem} from 'primeng/api';
+import { Component, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectSecciones } from '@src/app/core/store/selectors';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-seccion-menu',
@@ -14,9 +14,9 @@ import {MenuItem} from 'primeng/api';
 })
 export class SeccionMenu {
     store$ = inject(Store)
-    seccionesRoutes: MenuItem[] = []
+    seccionesRoutes =  signal<MenuItem[]>([])
 
     ngOnInit() {
-        this.store$.select(selectSecciones).subscribe((data) => this.seccionesRoutes = data)
+        this.store$.select(selectSecciones).subscribe(this.seccionesRoutes.set)
     }
 }

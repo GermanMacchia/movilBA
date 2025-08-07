@@ -1,4 +1,4 @@
-import {MenuItem} from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 
 export interface Usuario{
     nombre: string
@@ -7,6 +7,8 @@ export interface Usuario{
 
 export interface Auth{
     usuario: Usuario
+    iat: number
+    exp: number
 }
 
 export interface DataJSON{
