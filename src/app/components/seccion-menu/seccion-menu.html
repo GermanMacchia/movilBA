@@ -1,0 +1,24 @@
+@for (item of seccionesRoutes; track item.label) {
+<div class="w-2/5 h-10 mb-5">
+    @if (item.label) {
+    <div class="flex flex-col gap-5">
+        <div class="w-full h-2" [style]="{background: item['color']}"></div>
+        <div class="flex justify-between">
+            <div class="flex gap-3">
+                <span class="material-icons p-3" [style]="{background: item['color']}">
+                    {{ item.icon }}
+                </span>
+
+                <p>{{item.label}}</p>
+            </div>
+
+            <div>
+                <button [routerLink]="item.routerLink" class="h-full w-full rounded-md hover:brightness-[1.10]">
+                    <i class="material-icons-outlined">arrow_circle_right</i>
+                </button>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+}
