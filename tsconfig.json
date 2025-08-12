@@ -27,6 +27,9 @@
             "@components": [
                 "./src/app/components"
             ],
+            "@resolvers": [
+                "./src/app/core/resolvers"
+            ],
             "@views": [
                 "./src/app/views"
             ],

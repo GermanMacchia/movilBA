@@ -1,8 +1,8 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {provideMockStore} from '@ngrx/store/testing';
-import {mockStore} from '@utils/test-utils';
-import {OpcionMenu} from './opcion-menu';
-import data from '@utils/mockData.json';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import mockData from '@utils/mockData.json';
+import { mockStore } from '@utils/test-utils';
+import { OpcionMenu } from './opcion-menu';
 
 describe('OpcionMenu', () => {
     let component: OpcionMenu;
@@ -17,10 +17,7 @@ describe('OpcionMenu', () => {
 
         fixture = TestBed.createComponent(OpcionMenu);
 
-        const mockDataOpciones = data['ADMINISTRADOR'].opciones
-
-        fixture.componentRef.setInput('titulo', 'hola' )
-        fixture.componentRef.setInput('opcionesRoutes', mockDataOpciones )
+        fixture.componentRef.setInput('opcion', mockData.OPERADOR.opciones )
 
         component = fixture.componentInstance;
         fixture.detectChanges();

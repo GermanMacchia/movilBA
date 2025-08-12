@@ -1,8 +1,8 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {Home} from '@src/app/views/home/home';
-import {provideMockStore} from '@ngrx/store/testing';
-import {mockStore} from '@utils/test-utils';
-import {NgxPermissionsModule} from 'ngx-permissions';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import { mockStore } from '@utils/test-utils';
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { Home } from './home';
 
 describe('Home', () => {
     let component: Home;

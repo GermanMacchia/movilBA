@@ -1,12 +1,11 @@
 import { Routes } from '@angular/router';
+import { modulosResolver, opcionesResolver, seccionesResolver, seleccionesResolver } from '@resolvers';
 import { AppGuard } from '@src/app/core/guards/auth.guard';
 import { LoginGuard } from '@src/app/core/guards/login.guard';
 import { Home, Login, Modulos, Opciones, Secciones } from '@src/app/views';
 import { ngxPermissionsGuard } from 'ngx-permissions';
 import { RolesUsuarios } from './core/interfaces/enums';
-import { modulosResolver } from './core/resolvers/modulos.resolver';
-import { opcionesResolver } from './core/resolvers/opciones.resolver';
-import { seccionesResolver } from './core/resolvers/secciones.resolver';
+import { Selecciones } from './views/selecciones/selecciones';
 
 export const routes: Routes = [
     { path: 'login', canActivate: [LoginGuard], component: Login },
@@ -56,6 +55,13 @@ export const homeRoutes: Routes = [
                 component: Opciones,
                 resolve: {
                     opciones: opcionesResolver,
+                },
+            },
+            {
+                path: 'selecciones',
+                component: Selecciones,
+                resolve: {
+                    seleccion: seleccionesResolver,
                 },
             },
             { path: '**', redirectTo: 'modulos' },

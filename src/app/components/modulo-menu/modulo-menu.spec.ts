@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
+import { mockStore } from '@utils/test-utils';
 import { ModuloMenu } from './modulo-menu';
-import { provideMockStore} from '@ngrx/store/testing';
-import {mockStore} from '@utils/test-utils';
 
 describe('ModuloMenu', () => {
   let component: ModuloMenu;
@@ -11,7 +12,8 @@ describe('ModuloMenu', () => {
     await TestBed.configureTestingModule({
         imports: [ModuloMenu],
         providers:[
-            provideMockStore(mockStore)
+            provideMockStore(mockStore),
+            Router
         ]
     })
     .compileComponents();
