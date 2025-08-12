@@ -1,10 +1,11 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { RolesUsuarios } from '@enums';
 import { Store } from '@ngrx/store';
 import * as dataEffects from '@src/app/core/store';
 import * as loginEffects from '@src/app/core/store';
 import { NgxPermissionsService } from 'ngx-permissions';
-import { RolesUsuarios } from '../interfaces/enums';
+import { Auth } from '../interfaces/interfaces';
 
 export const ACCESS_VALUES = 'access_values';
 export const DATA = 'data';
@@ -37,6 +38,8 @@ export class AuthService {
     setData = (data: any) => {
         localStorage.setItem(DATA, JSON.stringify(data));
     };
+
+    getData = () : Auth => JSON.parse(localStorage.getItem(ACCESS_VALUES)!)
 
     setDataOnReload = () => {
         const data = localStorage.getItem(DATA);

@@ -1,7 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { selectModulos } from '@src/app/core/store/selectors';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -12,12 +10,7 @@ import { MenuItem } from 'primeng/api';
         class: 'flex flex-wrap justify-center w-full gap-10'
     }
 })
-export class ModuloMenu implements OnInit {
+export class ModuloMenu  {
     router = inject(Router)
-    store$ = inject(Store)
-    modulosRoutes: MenuItem[] = []
-
-    ngOnInit() {
-        this.store$.select(selectModulos).subscribe(data => this.modulosRoutes = data)
-    }
+    modulosRoutes  = input.required<MenuItem[]>()
 }

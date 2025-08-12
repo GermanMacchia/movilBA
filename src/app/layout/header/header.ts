@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import type { Usuario } from '@interfaces';
 import { Store } from '@ngrx/store';
-import { Usuario } from '@src/app/core/interfaces/interfaces';
 import { AppService } from '@src/app/core/services/app-service';
 import { selectUsuario } from '@src/app/core/store/selectors';
 import { filter, take } from 'rxjs';

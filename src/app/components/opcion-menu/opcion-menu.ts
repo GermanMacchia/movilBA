@@ -1,13 +1,14 @@
-import {Component, input, InputSignal} from '@angular/core';
-import {TieredMenuModule} from 'primeng/tieredmenu';
-import {MenuItem} from 'primeng/api';
+import { Component, input } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
     selector: 'app-opcion-menu',
-    imports: [TieredMenuModule],
+    imports: [],
     templateUrl: './opcion-menu.html',
+    host:{
+        class:'p-3'
+    }
 })
 export class OpcionMenu {
-    opcionesRoutes: InputSignal<MenuItem[]> = input.required()
-    titulo: InputSignal<string> = input.required()
+    opcion = input.required<MenuItem>()
 }

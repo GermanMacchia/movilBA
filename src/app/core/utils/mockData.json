@@ -17,25 +17,25 @@
                 "label": "RUREM (Remises)",
                 "routerLink": "/secciones",
                 "color": "#E9A5F1",
-                "icon":"directions_car"
+                "icon": "directions_car"
             },
             {
                 "label": "RUTRAMUR (Moto/Bici Delivery)",
                 "routerLink": "/secciones",
                 "color": "#B771E5",
-                "icon":"moped"
+                "icon": "moped"
             },
             {
                 "label": "Cursos de capacitación",
                 "routerLink": "/secciones",
                 "color": "#C68EFD",
-                "icon" : "video_library"
+                "icon": "video_library"
             },
             {
                 "label": "VTV",
                 "routerLink": "/secciones",
                 "color": "#4DA1A9",
-                "icon":"check_circle"
+                "icon": "check_circle"
             },
             {
                 "label": "Escolares",
@@ -47,19 +47,19 @@
                 "label": "Pesados",
                 "routerLink": "/secciones",
                 "color": "#465aba",
-                "icon":"fire_truck"
+                "icon": "fire_truck"
             },
             {
                 "label": "Verificaciones especiales",
                 "routerLink": "/secciones",
                 "color": "#A1E3F9",
-                "icon":"fact_check"
+                "icon": "fact_check"
             },
             {
                 "label": "",
                 "routerLink": "",
                 "color": "",
-                "icon":""
+                "icon": ""
             }
         ],
         "secciones": [
@@ -85,7 +85,7 @@
                 "label": "Permisos de transporte de colectivos",
                 "routerLink": "/opciones",
                 "color": "#B771E5",
-                "icon": "badge"
+                "icon": "edit_road"
             },
             {
                 "label": "Planificación de servicios",
@@ -98,6 +98,7 @@
             {
                 "label": "Rendiciones",
                 "routerLink": "/opciones",
+                "icon": "paid",
                 "items": [
                     {
                         "label": "Alta de rendición",
@@ -138,7 +139,7 @@
                         ]
                     },
                     {
-                        "label": "Consilta de empresas",
+                        "label": "Consulta de empresas",
                         "items": [
                             {
                                 "label": "Buscar por CUIT",
@@ -176,9 +177,10 @@
             {
                 "label": "Transferencias Vinculadas",
                 "routerLink": "/opciones",
+                "icon": "call_merge",
                 "items": [
                     {
-                        "label": "Subsidios abonado",
+                        "label": "Subsidios abonados",
                         "items": [
                             {
                                 "label": "Detalle de pagos",
@@ -233,6 +235,7 @@
             {
                 "label": "Documentaciones",
                 "routerLink": "/opciones",
+                "icon": "file_open",
                 "items": [
                     {
                         "label": "Carga de archivos",
@@ -290,6 +293,7 @@
             {
                 "label": "Calendario de Vencimientos",
                 "routerLink": "/opciones",
+                "icon": "calendar_month",
                 "items": [
                     {
                         "label": "Visitas",
@@ -330,6 +334,7 @@
             {
                 "label": "Informes y dashboards",
                 "routerLink": "/opciones",
+                "icon": "space_dashboard",
                 "items": [
                     {
                         "label": "Informes y dashboards",
@@ -370,25 +375,25 @@
                 "label": "RUREM (Remises)",
                 "routerLink": "/secciones",
                 "color": "#E9A5F1",
-                "icon":"directions_car"
+                "icon": "directions_car"
             },
             {
                 "label": "RUTRAMUR (Moto/Bici Delivery)",
                 "routerLink": "/secciones",
                 "color": "#B771E5",
-                "icon":"moped"
+                "icon": "moped"
             },
             {
                 "label": "Cursos de capacitación",
                 "routerLink": "/secciones",
                 "color": "#C68EFD",
-                "icon" : "video_library"
+                "icon": "video_library"
             },
             {
                 "label": "VTV",
                 "routerLink": "/secciones",
                 "color": "#4DA1A9",
-                "icon":"check_circle"
+                "icon": "check_circle"
             },
             {
                 "label": "Escolares",
@@ -400,19 +405,19 @@
                 "label": "Pesados",
                 "routerLink": "/secciones",
                 "color": "#465aba",
-                "icon":"fire_truck"
+                "icon": "fire_truck"
             },
             {
                 "label": "Verificaciones especiales",
                 "routerLink": "/secciones",
                 "color": "#A1E3F9",
-                "icon":"fact_check"
+                "icon": "fact_check"
             },
             {
                 "label": "",
                 "routerLink": "",
                 "color": "",
-                "icon":""
+                "icon": ""
             }
         ],
         "secciones": [
@@ -446,6 +451,7 @@
             {
                 "label": "Fiscalizaciones",
                 "routerLink": "/fiscalizaciones",
+                "icon": "edit_road",
                 "items": [
                     {
                         "label": "Programar fiscalización",
@@ -486,6 +492,7 @@
             {
                 "label": "Plug",
                 "routerLink": "/plug",
+                "icon": "edit_road",
                 "items": [
                     {
                         "label": "Configuración Plug",
@@ -522,6 +529,7 @@
             {
                 "label": "Documentaciones",
                 "routerLink": "/documentaciones",
+                "icon": "edit_road",
                 "items": [
                     {
                         "label": "Carga de documentos",
@@ -562,6 +570,7 @@
             {
                 "label": "Notificaciones",
                 "routerLink": "/notificaciones",
+                "icon": "edit_road",
                 "items": [
                     {
                         "label": "Configuración",
@@ -598,6 +607,7 @@
             {
                 "label": "Informes y dashboards",
                 "routerLink": "/informes",
+                "icon": "edit_road",
                 "items": [
                     {
                         "label": "Informes",
@@ -655,25 +665,25 @@
                 "label": "RUREM (Remises)",
                 "routerLink": "/secciones",
                 "color": "#E9A5F1",
-                "icon":"directions_car"
+                "icon": "directions_car"
             },
             {
                 "label": "RUTRAMUR (Moto/Bici Delivery)",
                 "routerLink": "/secciones",
                 "color": "#B771E5",
-                "icon":"moped"
+                "icon": "moped"
             },
             {
                 "label": "Cursos de capacitación",
                 "routerLink": "/secciones",
                 "color": "#C68EFD",
-                "icon" : "video_library"
+                "icon": "video_library"
             },
             {
                 "label": "VTV",
                 "routerLink": "/secciones",
                 "color": "#4DA1A9",
-                "icon":"check_circle"
+                "icon": "check_circle"
             },
             {
                 "label": "Escolares",
@@ -685,19 +695,19 @@
                 "label": "Pesados",
                 "routerLink": "/secciones",
                 "color": "#465aba",
-                "icon":"fire_truck"
+                "icon": "fire_truck"
             },
             {
                 "label": "Verificaciones especiales",
                 "routerLink": "/secciones",
                 "color": "#A1E3F9",
-                "icon":"fact_check"
+                "icon": "fact_check"
             },
             {
                 "label": "",
                 "routerLink": "",
                 "color": "",
-                "icon":""
+                "icon": ""
             }
         ],
         "secciones": [
@@ -731,6 +741,7 @@
             {
                 "label": "Documentaciones",
                 "routerLink": "/documentaciones",
+                "icon": "edit_road",
                 "items": [
                     {
                         "label": "Carga de documentos",
@@ -771,6 +782,7 @@
             {
                 "label": "Informes y dashboards",
                 "routerLink": "/informes",
+                "icon": "edit_road",
                 "items": [
                     {
                         "label": "Informes",

@@ -30,6 +30,9 @@
             "@views": [
                 "./src/app/views"
             ],
+            "@layout": [
+                "./src/app/layout"
+            ],
             "@enums": [
                 "./src/app/core/interfaces/enums"
             ],
@@ -37,7 +40,7 @@
                 "./src/app/core/interfaces/interfaces"
             ],
             "@actions": [
-                "./src/app/core/store/actions/index"
+                "./src/app/core/store/actions"
             ]
         }
     },
