@@ -1,7 +1,8 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {Modulos} from './modulos';
-import {provideMockStore} from '@ngrx/store/testing';
-import {mockStore} from '@utils/test-utils';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import mockData from '@utils/mockData.json';
+import { mockStore } from '@utils/test-utils';
+import { Modulos } from './modulos';
 
 describe('Modulos', () => {
     let component: Modulos;
@@ -16,6 +17,7 @@ describe('Modulos', () => {
 
         fixture = TestBed.createComponent(Modulos);
         component = fixture.componentInstance;
+        fixture.componentRef.setInput('modulos', mockData.OPERADOR.modulos);
         fixture.detectChanges();
     });
 

@@ -97,23 +97,20 @@
         "opciones": [
             {
                 "label": "Rendiciones",
-                "routerLink": "/opciones",
+                "routerLink": "/selecciones",
                 "icon": "paid",
                 "items": [
                     {
                         "label": "Alta de rendición",
                         "items": [
                             {
-                                "label": "Nueva rendición",
-                                "routerLink": "/rendiciones/alta/nueva"
+                                "label": "Nueva rendición"
                             },
                             {
-                                "label": "Desde plantilla",
-                                "routerLink": "/rendiciones/alta/plantilla"
+                                "label": "Desde plantilla"
                             },
                             {
-                                "label": "Importar desde Excel",
-                                "routerLink": "/rendiciones/alta/importar"
+                                "label": "Importar desde Excel"
                             }
                         ]
                     },
@@ -121,20 +118,16 @@
                         "label": "Estado de trámite",
                         "items": [
                             {
-                                "label": "En revisión",
-                                "routerLink": "/rendiciones/tramite/revision"
+                                "label": "En revisión"
                             },
                             {
-                                "label": "Aprobadas",
-                                "routerLink": "/rendiciones/tramite/aprobadas"
+                                "label": "Aprobadas"
                             },
                             {
-                                "label": "Rechazadas",
-                                "routerLink": "/rendiciones/tramite/rechazadas"
+                                "label": "Rechazadas"
                             },
                             {
-                                "label": "Observadas",
-                                "routerLink": "/rendiciones/tramite/observadas"
+                                "label": "Observadas"
                             }
                         ]
                     },
@@ -142,57 +135,37 @@
                         "label": "Consulta de empresas",
                         "items": [
                             {
-                                "label": "Buscar por CUIT",
-                                "routerLink": "/rendiciones/consulta/cuit"
+                                "label": "Buscar por CUIT"
                             },
                             {
-                                "label": "Historial de rendiciones",
-                                "routerLink": "/rendiciones/consulta/historial"
+                                "label": "Historial de rendiciones"
                             },
                             {
-                                "label": "Empresas pendientes",
-                                "routerLink": "/rendiciones/consulta/pendientes"
+                                "label": "Empresas pendientes"
                             }
                         ]
                     },
                     {
-                        "label": "Edición fechas",
-                        "items": [
-                            {
-                                "label": "Modificar vencimiento",
-                                "routerLink": "/rendiciones/fechas/vencimiento"
-                            },
-                            {
-                                "label": "Prorrogar entrega",
-                                "routerLink": "/rendiciones/fechas/prorroga"
-                            },
-                            {
-                                "label": "Revertir fecha",
-                                "routerLink": "/rendiciones/fechas/revertir"
-                            }
-                        ]
+                        "label": "Edición de fechas"
                     }
                 ]
             },
             {
                 "label": "Transferencias Vinculadas",
-                "routerLink": "/opciones",
+                "routerLink": "/selecciones",
                 "icon": "call_merge",
                 "items": [
                     {
                         "label": "Subsidios abonados",
                         "items": [
                             {
-                                "label": "Detalle de pagos",
-                                "routerLink": "/transferencias/subsidios/detalle"
+                                "label": "Detalle de pagos"
                             },
                             {
-                                "label": "Comprobantes",
-                                "routerLink": "/transferencias/subsidios/comprobantes"
+                                "label": "Comprobantes"
                             },
                             {
-                                "label": "Historial de pagos",
-                                "routerLink": "/transferencias/subsidios/historial"
+                                "label": "Historial de pagos"
                             }
                         ]
                     },
@@ -200,16 +173,13 @@
                         "label": "Alta de rendición",
                         "items": [
                             {
-                                "label": "Nuevo subsidio",
-                                "routerLink": "/transferencias/alta/nuevo"
+                                "label": "Nuevo subsidio"
                             },
                             {
-                                "label": "Subsidio recurrente",
-                                "routerLink": "/transferencias/alta/recurrente"
+                                "label": "Subsidio recurrente"
                             },
                             {
-                                "label": "Carga masiva",
-                                "routerLink": "/transferencias/alta/masiva"
+                                "label": "Carga masiva"
                             }
                         ]
                     },
@@ -217,16 +187,13 @@
                         "label": "Alta de rendición",
                         "items": [
                             {
-                                "label": "Alta individual",
-                                "routerLink": "/transferencias/alta/individual"
+                                "label": "Alta individual"
                             },
                             {
-                                "label": "Desde archivo",
-                                "routerLink": "/transferencias/alta/archivo"
+                                "label": "Desde archivo"
                             },
                             {
-                                "label": "Revisión automática",
-                                "routerLink": "/transferencias/alta/revision"
+                                "label": "Revisión automática"
                             }
                         ]
                     }
@@ -234,23 +201,20 @@
             },
             {
                 "label": "Documentaciones",
-                "routerLink": "/opciones",
+                "routerLink": "/selecciones",
                 "icon": "file_open",
                 "items": [
                     {
                         "label": "Carga de archivos",
                         "items": [
                             {
-                                "label": "Cargar PDF",
-                                "routerLink": "/documentaciones/carga/pdf"
+                                "label": "Cargar PDF"
                             },
                             {
-                                "label": "Adjuntar XML",
-                                "routerLink": "/documentaciones/carga/xml"
+                                "label": "Adjuntar XML"
                             },
                             {
-                                "label": "Cargar múltiples",
-                                "routerLink": "/documentaciones/carga/multiple"
+                                "label": "Cargar múltiples"
                             }
                         ]
                     },
@@ -258,16 +222,13 @@
                         "label": "Alta de rendición",
                         "items": [
                             {
-                                "label": "Nuevo documento",
-                                "routerLink": "/documentaciones/alta/nuevo"
+                                "label": "Nuevo documento"
                             },
                             {
-                                "label": "Plantilla existente",
-                                "routerLink": "/documentaciones/alta/plantilla"
+                                "label": "Plantilla existente"
                             },
                             {
-                                "label": "Editar campos",
-                                "routerLink": "/documentaciones/alta/editar"
+                                "label": "Editar campos"
                             }
                         ]
                     },
@@ -275,16 +236,13 @@
                         "label": "Alta de rendición",
                         "items": [
                             {
-                                "label": "Versión preliminar",
-                                "routerLink": "/documentaciones/alta/preliminar"
+                                "label": "Versión preliminar"
                             },
                             {
-                                "label": "Subir con firma",
-                                "routerLink": "/documentaciones/alta/firma"
+                                "label": "Subir con firma"
                             },
                             {
-                                "label": "Validar datos",
-                                "routerLink": "/documentaciones/alta/validar"
+                                "label": "Validar datos"
                             }
                         ]
                     }
@@ -292,23 +250,20 @@
             },
             {
                 "label": "Calendario de Vencimientos",
-                "routerLink": "/opciones",
+                "routerLink": "/selecciones",
                 "icon": "calendar_month",
                 "items": [
                     {
                         "label": "Visitas",
                         "items": [
                             {
-                                "label": "Agendar visita",
-                                "routerLink": "/visitas/agendar"
+                                "label": "Agendar visita"
                             },
                             {
-                                "label": "Ver próximas visitas",
-                                "routerLink": "/visitas/proximas"
+                                "label": "Ver próximas visitas"
                             },
                             {
-                                "label": "Historial de visitas",
-                                "routerLink": "/visitas/historial"
+                                "label": "Historial de visitas"
                             }
                         ]
                     },
@@ -316,16 +271,10 @@
                         "label": "Alertas por vencimientos",
                         "items": [
                             {
-                                "label": "Ver alertas activas",
-                                "routerLink": "/alertas/activas"
+                                "label": "Semanalmente"
                             },
                             {
-                                "label": "Configurar alertas",
-                                "routerLink": "/alertas/configurar"
-                            },
-                            {
-                                "label": "Notificaciones enviadas",
-                                "routerLink": "/alertas/historial"
+                                "label": "Mensualmente"
                             }
                         ]
                     }
@@ -333,7 +282,7 @@
             },
             {
                 "label": "Informes y dashboards",
-                "routerLink": "/opciones",
+                "routerLink": "/selecciones",
                 "icon": "space_dashboard",
                 "items": [
                     {
@@ -450,23 +399,20 @@
         "opciones": [
             {
                 "label": "Fiscalizaciones",
-                "routerLink": "/fiscalizaciones",
+                "routerLink": "/selecciones",
                 "icon": "edit_road",
                 "items": [
                     {
                         "label": "Programar fiscalización",
                         "items": [
                             {
-                                "label": "Crear nueva fiscalización",
-                                "routerLink": "/fiscalizaciones/nueva"
+                                "label": "Crear nueva fiscalización"
                             },
                             {
-                                "label": "Calendario fiscalizaciones",
-                                "routerLink": "/fiscalizaciones/calendario"
+                                "label": "Calendario fiscalizaciones"
                             },
                             {
-                                "label": "Historial de fiscalizaciones",
-                                "routerLink": "/fiscalizaciones/historial"
+                                "label": "Historial de fiscalizaciones"
                             }
                         ]
                     },
@@ -474,16 +420,13 @@
                         "label": "Reportes de fiscalización",
                         "items": [
                             {
-                                "label": "Generar reporte",
-                                "routerLink": "/fiscalizaciones/reportes/nuevo"
+                                "label": "Generar reporte"
                             },
                             {
-                                "label": "Ver reportes guardados",
-                                "routerLink": "/fiscalizaciones/reportes"
+                                "label": "Ver reportes guardados"
                             },
                             {
-                                "label": "Exportar reportes",
-                                "routerLink": "/fiscalizaciones/reportes/exportar"
+                                "label": "Exportar reportes"
                             }
                         ]
                     }
@@ -491,23 +434,20 @@
             },
             {
                 "label": "Plug",
-                "routerLink": "/plug",
+                "routerLink": "/selecciones",
                 "icon": "edit_road",
                 "items": [
                     {
                         "label": "Configuración Plug",
                         "items": [
                             {
-                                "label": "Ajustes generales",
-                                "routerLink": "/plug/configuracion/ajustes"
+                                "label": "Ajustes generales"
                             },
                             {
-                                "label": "Conectar dispositivos",
-                                "routerLink": "/plug/configuracion/dispositivos"
+                                "label": "Conectar dispositivos"
                             },
                             {
-                                "label": "Estado del sistema",
-                                "routerLink": "/plug/estado"
+                                "label": "Estado del sistema"
                             }
                         ]
                     },
@@ -515,12 +455,10 @@
                         "label": "Monitorización",
                         "items": [
                             {
-                                "label": "Ver actividad",
-                                "routerLink": "/plug/monitor/actividad"
+                                "label": "Ver actividad"
                             },
                             {
-                                "label": "Alertas Plug",
-                                "routerLink": "/plug/monitor/alertas"
+                                "label": "Alertas Plug"
                             }
                         ]
                     }
@@ -528,23 +466,20 @@
             },
             {
                 "label": "Documentaciones",
-                "routerLink": "/documentaciones",
+                "routerLink": "/selecciones",
                 "icon": "edit_road",
                 "items": [
                     {
                         "label": "Carga de documentos",
                         "items": [
                             {
-                                "label": "Seleccionar archivos",
-                                "routerLink": "/documentaciones/carga/seleccionar"
+                                "label": "Seleccionar archivos"
                             },
                             {
-                                "label": "Escanear documento",
-                                "routerLink": "/documentaciones/carga/escanear"
+                                "label": "Escanear documento"
                             },
                             {
-                                "label": "Subir comprimido",
-                                "routerLink": "/documentaciones/carga/zip"
+                                "label": "Subir comprimido"
                             }
                         ]
                     },
@@ -552,16 +487,13 @@
                         "label": "Gestión documental",
                         "items": [
                             {
-                                "label": "Revisar documentos",
-                                "routerLink": "/documentaciones/revisar"
+                                "label": "Revisar documentos"
                             },
                             {
-                                "label": "Agregar metadata",
-                                "routerLink": "/documentaciones/metadata"
+                                "label": "Agregar metadata"
                             },
                             {
-                                "label": "Control de versiones",
-                                "routerLink": "/documentaciones/versiones"
+                                "label": "Control de versiones"
                             }
                         ]
                     }
@@ -569,23 +501,20 @@
             },
             {
                 "label": "Notificaciones",
-                "routerLink": "/notificaciones",
+                "routerLink": "/selecciones",
                 "icon": "edit_road",
                 "items": [
                     {
                         "label": "Configuración",
                         "items": [
                             {
-                                "label": "Gestionar tipos",
-                                "routerLink": "/notificaciones/tipos"
+                                "label": "Gestionar tipos"
                             },
                             {
-                                "label": "Configurar destinatarios",
-                                "routerLink": "/notificaciones/destinatarios"
+                                "label": "Configurar destinatarios"
                             },
                             {
-                                "label": "Programar envíos",
-                                "routerLink": "/notificaciones/programar"
+                                "label": "Programar envíos"
                             }
                         ]
                     },
@@ -593,12 +522,10 @@
                         "label": "Historial",
                         "items": [
                             {
-                                "label": "Notificaciones enviadas",
-                                "routerLink": "/notificaciones/enviadas"
+                                "label": "Notificaciones enviadas"
                             },
                             {
-                                "label": "Errores de envío",
-                                "routerLink": "/notificaciones/errores"
+                                "label": "Errores de envío"
                             }
                         ]
                     }
@@ -606,23 +533,20 @@
             },
             {
                 "label": "Informes y dashboards",
-                "routerLink": "/informes",
+                "routerLink": "/selecciones",
                 "icon": "edit_road",
                 "items": [
                     {
                         "label": "Informes",
                         "items": [
                             {
-                                "label": "Generar nuevo informe",
-                                "routerLink": "/informes/nuevo"
+                                "label": "Generar nuevo informe"
                             },
                             {
-                                "label": "Ver informes",
-                                "routerLink": "/informes/lista"
+                                "label": "Ver informes"
                             },
                             {
-                                "label": "Exportar informes",
-                                "routerLink": "/informes/exportar"
+                                "label": "Exportar informes"
                             }
                         ]
                     },
@@ -630,16 +554,13 @@
                         "label": "Dashboards",
                         "items": [
                             {
-                                "label": "Crear dashboard",
-                                "routerLink": "/dashboards/crear"
+                                "label": "Crear dashboard"
                             },
                             {
-                                "label": "Ver dashboards",
-                                "routerLink": "/dashboards/lista"
+                                "label": "Ver dashboards"
                             },
                             {
-                                "label": "Configurar widgets",
-                                "routerLink": "/dashboards/widgets"
+                                "label": "Configurar widgets"
                             }
                         ]
                     }
@@ -740,23 +661,20 @@
         "opciones": [
             {
                 "label": "Documentaciones",
-                "routerLink": "/documentaciones",
+                "routerLink": "/selecciones",
                 "icon": "edit_road",
                 "items": [
                     {
                         "label": "Carga de documentos",
                         "items": [
                             {
-                                "label": "Seleccionar archivos",
-                                "routerLink": "/documentaciones/carga/seleccionar"
+                                "label": "Seleccionar archivos"
                             },
                             {
-                                "label": "Escanear documento",
-                                "routerLink": "/documentaciones/carga/escanear"
+                                "label": "Escanear documento"
                             },
                             {
-                                "label": "Subir comprimido",
-                                "routerLink": "/documentaciones/carga/zip"
+                                "label": "Subir comprimido"
                             }
                         ]
                     },
@@ -764,16 +682,13 @@
                         "label": "Gestión documental",
                         "items": [
                             {
-                                "label": "Revisar documentos",
-                                "routerLink": "/documentaciones/revisar"
+                                "label": "Revisar documentos"
                             },
                             {
-                                "label": "Agregar metadata",
-                                "routerLink": "/documentaciones/metadata"
+                                "label": "Agregar metadata"
                             },
                             {
-                                "label": "Control de versiones",
-                                "routerLink": "/documentaciones/versiones"
+                                "label": "Control de versiones"
                             }
                         ]
                     }
@@ -781,23 +696,20 @@
             },
             {
                 "label": "Informes y dashboards",
-                "routerLink": "/informes",
+                "routerLink": "/selecciones",
                 "icon": "edit_road",
                 "items": [
                     {
                         "label": "Informes",
                         "items": [
                             {
-                                "label": "Generar nuevo informe",
-                                "routerLink": "/informes/nuevo"
+                                "label": "Generar nuevo informe"
                             },
                             {
-                                "label": "Ver informes",
-                                "routerLink": "/informes/lista"
+                                "label": "Ver informes"
                             },
                             {
-                                "label": "Exportar informes",
-                                "routerLink": "/informes/exportar"
+                                "label": "Exportar informes"
                             }
                         ]
                     },
@@ -805,16 +717,13 @@
                         "label": "Dashboards",
                         "items": [
                             {
-                                "label": "Crear dashboard",
-                                "routerLink": "/dashboards/crear"
+                                "label": "Crear dashboard"
                             },
                             {
-                                "label": "Ver dashboards",
-                                "routerLink": "/dashboards/lista"
+                                "label": "Ver dashboards"
                             },
                             {
-                                "label": "Configurar widgets",
-                                "routerLink": "/dashboards/widgets"
+                                "label": "Configurar widgets"
                             }
                         ]
                     }

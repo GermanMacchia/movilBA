@@ -10,7 +10,7 @@
         @for (item of opcion().items; track $index) {
         <div class="flex items-center gap-3 justify-between w-full p-1 text-left">
             <p>{{item.label}}</p>
-            <i class="material-icons-outlined cursor-pointer">arrow_circle_right</i>
+            <i (click)="navigate(item.label!)" class="material-icons-outlined cursor-pointer">arrow_circle_right</i>
         </div>
         }
     </div>

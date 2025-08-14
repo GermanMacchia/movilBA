@@ -1,8 +1,8 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {provideMockStore} from '@ngrx/store/testing';
-import {mockStore} from '@utils/test-utils';
-import {Sidebar} from './sidebar';
-import {NgxPermissionsModule} from 'ngx-permissions';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import { mockStore } from '@utils/test-utils';
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { Sidebar } from './sidebar';
 
 describe('Sidebar', () => {
     let component: Sidebar;

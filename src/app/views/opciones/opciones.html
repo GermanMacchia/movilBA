@@ -1,5 +1,5 @@
 <p class="font-medium" style="font-size: 1.25rem">Seleccioná una opción</p>
-<div class="grid grid-cols-3 gap-3">
+<div class="grid grid-cols-2 gap-10">
     @for (opcion of opciones(); track opcion.label) {
     <app-opcion-menu [opcion]="opcion"></app-opcion-menu>
     }

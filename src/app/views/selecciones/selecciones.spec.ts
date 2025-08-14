@@ -1,24 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
 import mockData from '@utils/mockData.json';
 import { mockStore } from '@utils/test-utils';
-import { SeccionMenu } from './seccion-menu';
+import { Selecciones } from './selecciones';
 
-describe('SeccionMenu', () => {
-    let component: SeccionMenu;
-    let fixture: ComponentFixture<SeccionMenu>;
+describe('Selecciones', () => {
+    let component: Selecciones;
+    let fixture: ComponentFixture<Selecciones>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [SeccionMenu],
-            providers: [provideMockStore(mockStore)]
+            imports: [Selecciones],
+            providers: [provideMockStore(mockStore), ActivatedRoute]
         })
             .compileComponents();
 
-        fixture = TestBed.createComponent(SeccionMenu);
+        fixture = TestBed.createComponent(Selecciones);
         component = fixture.componentInstance;
-        fixture.componentRef.setInput('secciones', mockData.OPERADOR.secciones[0]);
-
+        fixture.componentRef.setInput('seleccion', mockData.OPERADOR.secciones[0]);
         fixture.detectChanges();
     });
 

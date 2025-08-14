@@ -1,0 +1,40 @@
+<p class="font-semibold text-xl">{{seleccion()}}</p>
+<div class="h-2" [style]="{background: '#8DE2D6' }"></div>
+@if(showInputs()){
+<div class="flex gap-3 items-center justify-center w-full">
+    <span class="material-symbols-outlined" [style]="{'font-size': '2rem'}">
+        search
+    </span>
+    <p class="text-lg">Búscar por</p>
+</div>
+}
+<div class="flex gap-5 w-full h-96">
+    @if(showInputs()){
+
+    <div class="flex-1 flex flex-col gap-5 justify-center">
+        <div class="flex flex-col gap-2 w-full">
+            <label for="tramite" class="text-left text-lg">Número de trámite</label>
+            <input name="tramite" pInputText autocomplete="off" class="w-full" />
+        </div>
+        <div class="flex flex-col gap-2 w-full">
+            <label for="empresa" class="text-left text-lg">Nombre de la empresa</label>
+            <input name="empresa" pInputText autocomplete="off" class="w-full" />
+        </div>
+    </div>
+    }@else {
+    <div class="flex-1 flex flex-col gap-9">
+        @for (item of ['Mensualmente', 'Semanalmente']; track $index) {
+        <div class=" flex items-center w-1/2 gap-3 justify-between p-1 text-left">
+            <p class="text-lg">{{ item }}</p>
+            <i class="material-icons-outlined cursor-pointer">arrow_circle_right</i>
+        </div>
+        }
+    </div>
+    }
+    <div class="flex flex-col gap-5 w-1/2">
+        <p-select [options]="fechas()" [(ngModel)]="fechaSeleccionada" (onChange)="fechaSeleccionada = $event.value"
+            (onClear)="fechaSeleccionada = undefined" [showClear]="true" optionLabel="nombre"
+            placeholder="Fecha de vencimiento" class="w-full" />
+        <p-datepicker (onSelect)="date = $event" [inline]="true" [showWeek]="true" />
+    </div>
+</div>

@@ -1,7 +1,8 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {provideMockStore} from '@ngrx/store/testing';
-import {mockStore} from '@utils/test-utils';
-import {Secciones} from './secciones';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
+import { mockStore } from '@utils/test-utils';
+import { Secciones } from './secciones';
 
 describe('Secciones', () => {
     let component: Secciones;
@@ -10,7 +11,7 @@ describe('Secciones', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [Secciones],
-            providers: [provideMockStore(mockStore)]
+            providers: [provideMockStore(mockStore), ActivatedRoute]
         })
             .compileComponents();
 

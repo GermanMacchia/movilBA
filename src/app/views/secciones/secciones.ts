@@ -13,9 +13,9 @@ import { MenuItem } from 'primeng/api';
 })
 export class Secciones implements OnInit {
     private activatedRoute = inject(ActivatedRoute)
-    secciones =  signal<MenuItem[]>([])
+    secciones = signal<MenuItem[]>([])
 
     ngOnInit(): void {
-        this.activatedRoute.data.subscribe( data => this.secciones.set(data['secciones']) )
+        this.activatedRoute.data.subscribe(data => this.secciones.set(data['secciones']))
     }
 }

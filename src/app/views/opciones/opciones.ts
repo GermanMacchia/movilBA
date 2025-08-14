@@ -9,14 +9,14 @@ import { MenuItem } from 'primeng/api';
     imports: [OpcionMenu],
     templateUrl: './opciones.html',
     host: {
-        class: 'flex flex-col h-full gap-12 content-center justify-center'
+        class: 'flex flex-col h-full gap-12 content-center justify-center m-[3rem]'
     }
 })
-export class Opciones implements OnInit{
+export class Opciones implements OnInit {
     private activatedRoute = inject(ActivatedRoute)
-    opciones =  signal<MenuItem[]>([])
+    opciones = signal<MenuItem[]>([])
 
     ngOnInit(): void {
-        this.activatedRoute.data.subscribe( data => this.opciones.set(data['opciones']) )
+        this.activatedRoute.data.subscribe(data => this.opciones.set(data['opciones']))
     }
 }

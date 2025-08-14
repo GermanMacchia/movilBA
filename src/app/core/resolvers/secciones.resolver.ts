@@ -14,10 +14,10 @@ export const seccionesResolver: ResolveFn<MenuItem[]> = (route, state) => {
 
     switch(rol){
         case RolesUsuarios.ADMINISTRADOR:
-            return of(mockData.ADMINISTRADOR.opciones)
+            return of(mockData.ADMINISTRADOR.secciones)
         case RolesUsuarios.AUDITOR:
-            return of(mockData.AUDITOR.opciones)
+            return of(mockData.AUDITOR.secciones)
         default:
-            return of(mockData.OPERADOR.opciones)
+            return of(mockData.OPERADOR.secciones)
     }
 };
