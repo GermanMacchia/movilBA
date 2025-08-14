@@ -12,8 +12,12 @@ export class OpcionMenu {
     opcion = input.required<MenuItem>()
     router = inject(Router)
 
-    navigate = (param:string) => this.router.navigate(['selecciones'], {state: {
-        opcion: this.opcion().label!,
-        seleccion: param
-    }})
+    navigate = (seleccionLabel: string) => this.router.navigate(['selecciones'], {
+        state: {
+            //va a header
+            opcion: this.opcion().label!,
+            label: seleccionLabel,
+            items: this.opcion().items?.find(ele => ele.label === seleccionLabel)?.items
+        }
+    })
 }

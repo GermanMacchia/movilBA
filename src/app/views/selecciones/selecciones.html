@@ -1,5 +1,6 @@
-@switch(seleccion()?.label){
-@default {
-<app-seleccion-menu [seleccion]="seleccion()!"></app-seleccion-menu>
+@if(vista() === tipos.CALENDARIO || vista() === tipos.VENCIMIENTOS) {
+<app-seleccion-date [showInputs]="vista() === tipos.CALENDARIO"></app-seleccion-date>
 }
+@else {
+<app-seleccion-menu></app-seleccion-menu>
 }

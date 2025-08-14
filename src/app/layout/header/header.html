@@ -9,6 +9,6 @@
     <div class="flex gap-3 mx-4">
         <p data-testid="usuario">Usuario: {{ usuario()?.nombre }} | </p>
         <p data-testid="rol">Rol: {{ usuario()?.rol }} | </p>
-        <p data-testid="ruta">{{ ruta() }}</p>
+        <p data-testid="ruta">{{ state() ? state() : ruta() }}</p>
     </div>
 </div>

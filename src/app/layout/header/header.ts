@@ -12,14 +12,15 @@ import { filter, take } from 'rxjs';
     templateUrl: './header.html',
 })
 export class Header implements OnInit {
-    route = inject(Router);
+    router = inject(Router);
     appService = inject(AppService);
     store$ = inject(Store);
     usuario = signal<Usuario | null>(null);
     ruta = signal<string>('');
+    state = signal<string>('')
 
     ngOnInit(): void {
-        this.ruta.set(this.route.url.toUpperCase().replace('/', ''));
+        this.ruta.set(this.router.url.toUpperCase().replace('/', ''));
 
         this.store$
             .select(selectUsuario)
@@ -30,17 +31,29 @@ export class Header implements OnInit {
     }
 
     subscribeRoute() {
-        this.route.events
+        this.router.events
             .pipe(
                 filter(
                     (event): event is NavigationEnd =>
                         event instanceof NavigationEnd
                 )
             )
-            .subscribe((event) =>
+            .subscribe((event) => {
+                this.checkForState()
                 event.url !== '/'
                     ? this.ruta.set(event.url?.toUpperCase().replace('/', ''))
                     : null
-            );
+            });
+    }
+
+    //opciones
+    private checkForState() {
+        const state = this.router.getCurrentNavigation()?.extras.state
+        if (!state) {
+            this.state.set('')
+            return
+        }
+
+        this.state.set(state['opcion'].toUpperCase())
     }
 }

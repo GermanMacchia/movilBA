@@ -1,1 +1,8 @@
-<p>seleccion-menu works!</p>,
+<p class="font-semibold text-xl">{{seleccion()}}</p>
+<div class="h-2" [style]="{background: '#8DE2D6' }"></div>
+@for (item of items(); track $index) {
+<div class="flex items-center gap-3 justify-between w-full p-1 text-left">
+    <p class="text-lg">{{item.label}}</p>
+    <i class="material-icons-outlined cursor-pointer">arrow_circle_right</i>
+</div>
+}

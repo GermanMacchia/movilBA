@@ -31,19 +31,19 @@ export class AuthService {
     setAccessValues = (auth: any) => {
         this.ngxPermissionsService.addPermission(auth.usuario.rol);
         this.isPermissionGranted.set(true);
-        localStorage.setItem(ACCESS_VALUES, JSON.stringify(auth));
+        sessionStorage.setItem(ACCESS_VALUES, JSON.stringify(auth));
         this.redirectByRol(auth.usuario.rol);
     };
 
     setData = (data: any) => {
-        localStorage.setItem(DATA, JSON.stringify(data));
+        sessionStorage.setItem(DATA, JSON.stringify(data));
     };
 
-    getData = () : Auth => JSON.parse(localStorage.getItem(ACCESS_VALUES)!)
+    getData = (): Auth => JSON.parse(sessionStorage.getItem(ACCESS_VALUES)!)
 
     setDataOnReload = () => {
-        const data = localStorage.getItem(DATA);
-        const auth = localStorage.getItem(ACCESS_VALUES);
+        const data = sessionStorage.getItem(DATA);
+        const auth = sessionStorage.getItem(ACCESS_VALUES);
 
         if (!data || !auth) return;
 
@@ -74,7 +74,7 @@ export class AuthService {
     flushPermission = () => {
         this.isPermissionGranted.set(false);
         this.ngxPermissionsService.flushPermissions();
-        localStorage.removeItem(ACCESS_VALUES);
-        localStorage.removeItem(DATA);
+        sessionStorage.removeItem(ACCESS_VALUES);
+        sessionStorage.removeItem(DATA);
     };
 }
