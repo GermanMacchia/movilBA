@@ -8,14 +8,14 @@ import { MenuItem } from 'primeng/api';
     imports: [ModuloMenu],
     templateUrl: './modulos.html',
     host: {
-        class: 'flex flex-col h-full gap-12 content-center justify-center'
+        class: 'flex flex-col gap-12'
     }
 })
 export class Modulos implements OnInit {
     private activatedRoute = inject(ActivatedRoute)
-    modulos =  signal<MenuItem[]>([])
+    modulos = signal<MenuItem[]>([])
 
     ngOnInit(): void {
-        this.activatedRoute.data.subscribe( data => this.modulos.set(data['modulos']) )
+        this.activatedRoute.data.subscribe(data => this.modulos.set(data['modulos']))
     }
 }

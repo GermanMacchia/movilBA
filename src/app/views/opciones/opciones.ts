@@ -9,7 +9,7 @@ import { MenuItem } from 'primeng/api';
     imports: [OpcionMenu],
     templateUrl: './opciones.html',
     host: {
-        class: 'flex flex-col h-full gap-12 content-center justify-center m-[3rem]'
+        class: 'flex flex-col gap-12 '
     }
 })
 export class Opciones implements OnInit {
