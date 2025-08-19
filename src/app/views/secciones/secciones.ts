@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/api';
     imports: [SeccionMenu],
     templateUrl: './secciones.html',
     host: {
-        class: 'flex flex-col h-full gap-12 content-center justify-center'
+        class: 'flex flex-col gap-12'
     }
 })
 export class Secciones implements OnInit {

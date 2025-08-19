@@ -9,7 +9,7 @@ import { tipoVista } from '@src/app/core/interfaces/enums';
     imports: [SeleccionMenu, SeleccionDate],
     templateUrl: './selecciones.html',
     host: {
-        class: 'flex flex-col justify-center mt-[4rem] mx-[4rem]',
+        class: 'flex flex-col',
     }
 })
 export class Selecciones {
