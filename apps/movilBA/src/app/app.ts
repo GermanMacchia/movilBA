@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcome } from './nx-welcome';
+import { DrawerComponent } from '@movilBA/ui';
 
 @Component({
-  imports: [NxWelcome, RouterModule],
+  imports: [RouterModule, DrawerComponent],
   selector: 'app-root',
   templateUrl: './app.html',
-  styleUrl: './app.scss',
+  styleUrl: '../styles.scss',
 })
 export class App {
   protected title = 'movilBA';
