@@ -1,0 +1,10 @@
+{
+  "name": "movilBA-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/movilBA-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["movilBA"],
+  "// targets": "to see all targets run: nx show project movilBA-e2e --web",
+  "targets": {}
+}
