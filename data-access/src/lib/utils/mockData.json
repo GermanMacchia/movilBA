@@ -1,0 +1,734 @@
+{
+    "ADMINISTRADOR": {
+        "modulos": [
+            {
+                "label": "RUTAP (Colectivos)",
+                "routerLink": "/secciones",
+                "color": "#5EABD6",
+                "icon": "bi bi-bus-front-fill"
+            },
+            {
+                "label": "RUTAX (Taxis)",
+                "routerLink": "/secciones",
+                "color": "#FFAB5B",
+                "icon": "bi bi-taxi-front-fill"
+            },
+            {
+                "label": "RUREM (Remises)",
+                "routerLink": "/secciones",
+                "color": "#E9A5F1",
+                "icon": "bi bi-car-front-fill"
+            },
+            {
+                "label": "RUTRAMUR (Moto/Bici Delivery)",
+                "routerLink": "/secciones",
+                "color": "#B771E5",
+                "icon": "bi bi-bicycle"
+            },
+            {
+                "label": "Cursos de capacitación",
+                "routerLink": "/secciones",
+                "color": "#C68EFD",
+                "icon": "bi bi-camera-video-fill"
+            },
+            {
+                "label": "VTV",
+                "routerLink": "/secciones",
+                "color": "#4DA1A9",
+                "icon": "bi bi-journal-check"
+            },
+            {
+                "label": "Escolares",
+                "routerLink": "/secciones",
+                "color": "#FFAB5B",
+                "icon": "bi bi-bus-front"
+            },
+            {
+                "label": "Pesados",
+                "routerLink": "/secciones",
+                "color": "#465aba",
+                "icon": "bi bi-cone-striped"
+            },
+            {
+                "label": "Verificaciones especiales",
+                "routerLink": "/secciones",
+                "color": "#A1E3F9",
+                "icon": "bi bi-ui-checks"
+            },
+            {
+                "label": "",
+                "routerLink": "",
+                "color": "",
+                "icon": ""
+            }
+        ],
+        "secciones": [
+            {
+                "label": "Planificación económica del Transporte",
+                "routerLink": "/opciones",
+                "color": "#5EABD6",
+                "icon": "paid"
+            },
+            {
+                "label": "Control de la movilidad",
+                "routerLink": "/opciones",
+                "color": "#FFAB5B",
+                "icon": "edit_road"
+            },
+            {
+                "label": "Control económico del uso de las compensaciones tarifarias",
+                "routerLink": "/opciones",
+                "color": "#E9A5F1",
+                "icon": "animation"
+            },
+            {
+                "label": "Permisos de transporte de colectivos",
+                "routerLink": "/opciones",
+                "color": "#B771E5",
+                "icon": "edit_road"
+            },
+            {
+                "label": "Planificación de servicios",
+                "routerLink": "/opciones",
+                "color": "#C68EFD",
+                "icon": "calendar_month"
+            }
+        ],
+        "opciones": [
+            {
+                "label": "Rendiciones",
+                "routerLink": "/selecciones",
+                "icon": "paid",
+                "items": [
+                    {
+                        "label": "Alta de rendición",
+                        "items": [
+                            {
+                                "label": "Nueva rendición"
+                            },
+                            {
+                                "label": "Desde plantilla"
+                            },
+                            {
+                                "label": "Importar desde Excel"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Estado de trámite",
+                        "items": [
+                            {
+                                "label": "En revisión"
+                            },
+                            {
+                                "label": "Aprobadas"
+                            },
+                            {
+                                "label": "Rechazadas"
+                            },
+                            {
+                                "label": "Observadas"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Consulta de empresas",
+                        "items": [
+                            {
+                                "label": "Buscar por CUIT"
+                            },
+                            {
+                                "label": "Historial de rendiciones"
+                            },
+                            {
+                                "label": "Empresas pendientes"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Edición de fechas"
+                    }
+                ]
+            },
+            {
+                "label": "Transferencias Vinculadas",
+                "routerLink": "/selecciones",
+                "icon": "call_merge",
+                "items": [
+                    {
+                        "label": "Subsidios abonados",
+                        "items": [
+                            {
+                                "label": "Detalle de pagos"
+                            },
+                            {
+                                "label": "Comprobantes"
+                            },
+                            {
+                                "label": "Historial de pagos"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Alta de rendición",
+                        "items": [
+                            {
+                                "label": "Nuevo subsidio"
+                            },
+                            {
+                                "label": "Subsidio recurrente"
+                            },
+                            {
+                                "label": "Carga masiva"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Alta de rendición",
+                        "items": [
+                            {
+                                "label": "Alta individual"
+                            },
+                            {
+                                "label": "Desde archivo"
+                            },
+                            {
+                                "label": "Revisión automática"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Documentaciones",
+                "routerLink": "/selecciones",
+                "icon": "file_open",
+                "items": [
+                    {
+                        "label": "Carga de archivos",
+                        "items": [
+                            {
+                                "label": "Cargar PDF"
+                            },
+                            {
+                                "label": "Adjuntar XML"
+                            },
+                            {
+                                "label": "Cargar múltiples"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Alta de rendición",
+                        "items": [
+                            {
+                                "label": "Nuevo documento"
+                            },
+                            {
+                                "label": "Plantilla existente"
+                            },
+                            {
+                                "label": "Editar campos"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Alta de rendición",
+                        "items": [
+                            {
+                                "label": "Versión preliminar"
+                            },
+                            {
+                                "label": "Subir con firma"
+                            },
+                            {
+                                "label": "Validar datos"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Calendario de Vencimientos",
+                "routerLink": "/selecciones",
+                "icon": "calendar_month",
+                "items": [
+                    {
+                        "label": "Visitas",
+                        "items": [
+                            {
+                                "label": "Agendar visita"
+                            },
+                            {
+                                "label": "Ver próximas visitas"
+                            },
+                            {
+                                "label": "Historial de visitas"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Alertas por vencimientos",
+                        "items": [
+                            {
+                                "label": "Semanalmente"
+                            },
+                            {
+                                "label": "Mensualmente"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Informes y dashboards",
+                "routerLink": "/selecciones",
+                "icon": "space_dashboard",
+                "items": [
+                    {
+                        "label": "Informes y dashboards",
+                        "items": [
+                            {
+                                "label": "Generar nuevo informe",
+                                "routerLink": "/informes/nuevo"
+                            },
+                            {
+                                "label": "Ver dashboards",
+                                "routerLink": "/dashboard/ver"
+                            },
+                            {
+                                "label": "Exportar datos",
+                                "routerLink": "/informes/exportar"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "AUDITOR": {
+        "modulos": [
+            {
+                "label": "RUTAP (Colectivos)",
+                "routerLink": "/secciones",
+                "color": "#5EABD6",
+                "icon": "directions_bus"
+            },
+            {
+                "label": "RUTAX (Taxis)",
+                "routerLink": "/secciones",
+                "color": "#FFAB5B",
+                "icon": "local_taxi"
+            },
+            {
+                "label": "RUREM (Remises)",
+                "routerLink": "/secciones",
+                "color": "#E9A5F1",
+                "icon": "directions_car"
+            },
+            {
+                "label": "RUTRAMUR (Moto/Bici Delivery)",
+                "routerLink": "/secciones",
+                "color": "#B771E5",
+                "icon": "moped"
+            },
+            {
+                "label": "Cursos de capacitación",
+                "routerLink": "/secciones",
+                "color": "#C68EFD",
+                "icon": "video_library"
+            },
+            {
+                "label": "VTV",
+                "routerLink": "/secciones",
+                "color": "#4DA1A9",
+                "icon": "check_circle"
+            },
+            {
+                "label": "Escolares",
+                "routerLink": "/secciones",
+                "color": "#FFAB5B",
+                "icon": "airport_shuttle"
+            },
+            {
+                "label": "Pesados",
+                "routerLink": "/secciones",
+                "color": "#465aba",
+                "icon": "fire_truck"
+            },
+            {
+                "label": "Verificaciones especiales",
+                "routerLink": "/secciones",
+                "color": "#A1E3F9",
+                "icon": "fact_check"
+            },
+            {
+                "label": "",
+                "routerLink": "",
+                "color": "",
+                "icon": ""
+            }
+        ],
+        "secciones": [
+            {
+                "label": "Planificación económica del Transporte",
+                "routerLink": "/opciones",
+                "color": "#5EABD6"
+            },
+            {
+                "label": "Control de la movilidad",
+                "routerLink": "/opciones",
+                "color": "#FFAB5B"
+            },
+            {
+                "label": "Control económico del uso de las compensaciones tarifarias",
+                "routerLink": "/opciones",
+                "color": "#E9A5F1"
+            },
+            {
+                "label": "Permisos de transporte de colectivos",
+                "routerLink": "/opciones",
+                "color": "#B771E5"
+            },
+            {
+                "label": "Planificación de servicios",
+                "routerLink": "/opciones",
+                "color": "#C68EFD"
+            }
+        ],
+        "opciones": [
+            {
+                "label": "Fiscalizaciones",
+                "routerLink": "/selecciones",
+                "icon": "edit_road",
+                "items": [
+                    {
+                        "label": "Programar fiscalización",
+                        "items": [
+                            {
+                                "label": "Crear nueva fiscalización"
+                            },
+                            {
+                                "label": "Calendario fiscalizaciones"
+                            },
+                            {
+                                "label": "Historial de fiscalizaciones"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Reportes de fiscalización",
+                        "items": [
+                            {
+                                "label": "Generar reporte"
+                            },
+                            {
+                                "label": "Ver reportes guardados"
+                            },
+                            {
+                                "label": "Exportar reportes"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Plug",
+                "routerLink": "/selecciones",
+                "icon": "edit_road",
+                "items": [
+                    {
+                        "label": "Configuración Plug",
+                        "items": [
+                            {
+                                "label": "Ajustes generales"
+                            },
+                            {
+                                "label": "Conectar dispositivos"
+                            },
+                            {
+                                "label": "Estado del sistema"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Monitorización",
+                        "items": [
+                            {
+                                "label": "Ver actividad"
+                            },
+                            {
+                                "label": "Alertas Plug"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Documentaciones",
+                "routerLink": "/selecciones",
+                "icon": "edit_road",
+                "items": [
+                    {
+                        "label": "Carga de documentos",
+                        "items": [
+                            {
+                                "label": "Seleccionar archivos"
+                            },
+                            {
+                                "label": "Escanear documento"
+                            },
+                            {
+                                "label": "Subir comprimido"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Gestión documental",
+                        "items": [
+                            {
+                                "label": "Revisar documentos"
+                            },
+                            {
+                                "label": "Agregar metadata"
+                            },
+                            {
+                                "label": "Control de versiones"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Notificaciones",
+                "routerLink": "/selecciones",
+                "icon": "edit_road",
+                "items": [
+                    {
+                        "label": "Configuración",
+                        "items": [
+                            {
+                                "label": "Gestionar tipos"
+                            },
+                            {
+                                "label": "Configurar destinatarios"
+                            },
+                            {
+                                "label": "Programar envíos"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Historial",
+                        "items": [
+                            {
+                                "label": "Notificaciones enviadas"
+                            },
+                            {
+                                "label": "Errores de envío"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Informes y dashboards",
+                "routerLink": "/selecciones",
+                "icon": "edit_road",
+                "items": [
+                    {
+                        "label": "Informes",
+                        "items": [
+                            {
+                                "label": "Generar nuevo informe"
+                            },
+                            {
+                                "label": "Ver informes"
+                            },
+                            {
+                                "label": "Exportar informes"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Dashboards",
+                        "items": [
+                            {
+                                "label": "Crear dashboard"
+                            },
+                            {
+                                "label": "Ver dashboards"
+                            },
+                            {
+                                "label": "Configurar widgets"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "OPERADOR": {
+        "modulos": [
+            {
+                "label": "RUTAP (Colectivos)",
+                "routerLink": "/secciones",
+                "color": "#5EABD6",
+                "icon": "directions_bus"
+            },
+            {
+                "label": "RUTAX (Taxis)",
+                "routerLink": "/secciones",
+                "color": "#FFAB5B",
+                "icon": "local_taxi"
+            },
+            {
+                "label": "RUREM (Remises)",
+                "routerLink": "/secciones",
+                "color": "#E9A5F1",
+                "icon": "directions_car"
+            },
+            {
+                "label": "RUTRAMUR (Moto/Bici Delivery)",
+                "routerLink": "/secciones",
+                "color": "#B771E5",
+                "icon": "moped"
+            },
+            {
+                "label": "Cursos de capacitación",
+                "routerLink": "/secciones",
+                "color": "#C68EFD",
+                "icon": "video_library"
+            },
+            {
+                "label": "VTV",
+                "routerLink": "/secciones",
+                "color": "#4DA1A9",
+                "icon": "check_circle"
+            },
+            {
+                "label": "Escolares",
+                "routerLink": "/secciones",
+                "color": "#FFAB5B",
+                "icon": "airport_shuttle"
+            },
+            {
+                "label": "Pesados",
+                "routerLink": "/secciones",
+                "color": "#465aba",
+                "icon": "fire_truck"
+            },
+            {
+                "label": "Verificaciones especiales",
+                "routerLink": "/secciones",
+                "color": "#A1E3F9",
+                "icon": "fact_check"
+            },
+            {
+                "label": "",
+                "routerLink": "",
+                "color": "",
+                "icon": ""
+            }
+        ],
+        "secciones": [
+            {
+                "label": "Planificación económica del Transporte",
+                "routerLink": "/opciones",
+                "color": "#5EABD6"
+            },
+            {
+                "label": "Control de la movilidad",
+                "routerLink": "/opciones",
+                "color": "#FFAB5B"
+            },
+            {
+                "label": "Control económico del uso de las compensaciones tarifarias",
+                "routerLink": "/opciones",
+                "color": "#E9A5F1"
+            },
+            {
+                "label": "Permisos de transporte de colectivos",
+                "routerLink": "/opciones",
+                "color": "#B771E5"
+            },
+            {
+                "label": "Planificación de servicios",
+                "routerLink": "/opciones",
+                "color": "#C68EFD"
+            }
+        ],
+        "opciones": [
+            {
+                "label": "Documentaciones",
+                "routerLink": "/selecciones",
+                "icon": "edit_road",
+                "items": [
+                    {
+                        "label": "Carga de documentos",
+                        "items": [
+                            {
+                                "label": "Seleccionar archivos"
+                            },
+                            {
+                                "label": "Escanear documento"
+                            },
+                            {
+                                "label": "Subir comprimido"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Gestión documental",
+                        "items": [
+                            {
+                                "label": "Revisar documentos"
+                            },
+                            {
+                                "label": "Agregar metadata"
+                            },
+                            {
+                                "label": "Control de versiones"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Informes y dashboards",
+                "routerLink": "/selecciones",
+                "icon": "edit_road",
+                "items": [
+                    {
+                        "label": "Informes",
+                        "items": [
+                            {
+                                "label": "Generar nuevo informe"
+                            },
+                            {
+                                "label": "Ver informes"
+                            },
+                            {
+                                "label": "Exportar informes"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Dashboards",
+                        "items": [
+                            {
+                                "label": "Crear dashboard"
+                            },
+                            {
+                                "label": "Ver dashboards"
+                            },
+                            {
+                                "label": "Configurar widgets"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

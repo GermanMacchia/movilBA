@@ -1,3 +1,47 @@
-@use "tailwindcss";
+@use 'tailwindcss';
 
-@plugin "daisyui";
+$bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
+@use 'bootstrap-icons/font/bootstrap-icons';
+
+@plugin "daisyui" {
+	themes: corporate --default, dark --prefersdark;
+}
+
+/* Estilos globales para controlar el viewport */
+html,
+body {
+	height: 100vh;
+	width: 100vw;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+/* Contenedor principal de la aplicación */
+#main-router {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+#inner-router {
+	padding: 2rem;
+	height: 100vh;
+	width: 100%;
+}
+
+.router-shell {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	overflow: hidden;
+}
+
+.router-shell router-outlet + * {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
