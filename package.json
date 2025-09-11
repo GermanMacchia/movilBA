@@ -4,6 +4,7 @@
 	"license": "MIT",
 	"scripts": {
 		"serve": "nx run movilBA:serve:development",
+		"build": "nx build movilBA",
 		"e2e": "nx e2e movilBA-e2e"
 	},
 	"private": true,
