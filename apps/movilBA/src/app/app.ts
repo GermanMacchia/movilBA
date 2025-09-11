@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { DrawerComponent } from '@movilBA/ui';
+import { Component } from '@angular/core'
+import { RouterModule } from '@angular/router'
 
 @Component({
-  imports: [RouterModule, DrawerComponent],
-  selector: 'app-root',
-  templateUrl: './app.html',
-  styleUrl: '../styles.scss',
+	imports: [RouterModule],
+	selector: 'app-root',
+	template: `
+		<div id="main-router">
+			<router-outlet></router-outlet>
+		</div>
+	`,
+	styleUrl: '../styles.scss',
 })
 export class App {
-  protected title = 'movilBA';
+	protected title = 'movilBA'
 }

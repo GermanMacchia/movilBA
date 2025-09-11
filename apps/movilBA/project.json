@@ -21,6 +21,7 @@
         "tsConfig": "apps/movilBA/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
+          "apps/movilBA/src/assets",
           {
             "glob": "**/*",
             "input": "apps/movilBA/public"
@@ -60,6 +61,9 @@
     "serve": {
       "continuous": true,
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "proxyConfig": "apps/movilBA/proxy.conf.json"
+      },
       "configurations": {
         "production": {
           "buildTarget": "movilBA:build:production"

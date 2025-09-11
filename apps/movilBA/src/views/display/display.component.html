@@ -1,0 +1,25 @@
+<div class="grid grid-cols-2 grid-rows-5 gap-5">
+    @for (item of routes(); track item.label) {
+    <div class="w-full h-[3rem] mb-5">
+        @if (item.label) {
+        <div class="flex flex-col gap-5">
+            <div class="w-full h-2" [style]="{background: item['color']}"></div>
+            <div class="flex justify-between">
+                <div class="flex gap-3">
+                    <div class="px-2 py-1" [style]="{background: item['color']}">
+                        <i [class]="item.icon" class="text-xl"></i>
+                    </div>
+                    <p>{{item.label}}</p>
+                </div>
+
+                <div>
+                    <button [routerLink]="item.routerLink" class="h-full w-full rounded-md hover:brightness-[1.10]">
+                        <i class="bi bi-arrow-right-circle"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    }
+</div>
