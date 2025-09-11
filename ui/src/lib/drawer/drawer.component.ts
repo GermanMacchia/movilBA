@@ -1,4 +1,11 @@
-import { Component, input, model, OnInit } from '@angular/core'
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	input,
+	model,
+	ViewChild,
+} from '@angular/core'
 import { TitleCasePipe } from '@angular/common'
 
 export const theme_value = 'theme_value'
@@ -9,7 +16,7 @@ export const theme_value = 'theme_value'
 	styleUrl: '../styles.scss',
 	templateUrl: './drawer.component.html',
 })
-export class DrawerComponent implements OnInit {
+export class DrawerComponent implements AfterViewInit {
 	logout = input.required<() => void>()
 	usuario = input<string>()
 	rol = input<string>()
@@ -21,7 +28,9 @@ export class DrawerComponent implements OnInit {
 	open = model<string>('drawer-open')
 	toggleDrawer = () => this.open.update(open => (open ? '' : 'drawer-open'))
 
-	ngOnInit(): void {
+	@ViewChild('themeCheck') themeCheck!: ElementRef<HTMLInputElement>
+
+	ngAfterViewInit(): void {
 		this.checkTheme()
 	}
 
@@ -39,10 +48,11 @@ export class DrawerComponent implements OnInit {
 	private checkTheme() {
 		const theme = localStorage.getItem(theme_value)
 
-		if (!theme && theme === this.themes().light) return
-
+		if (!theme || theme === this.themes().light) return
+		console.log(this.themeCheck.nativeElement)
 		document
 			.getElementsByTagName('html')[0]
 			.setAttribute('data-theme', this.themes().dark)
+		this.themeCheck.nativeElement.checked = true
 	}
 }

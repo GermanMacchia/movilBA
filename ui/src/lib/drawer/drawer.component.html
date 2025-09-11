@@ -82,7 +82,7 @@
 			@if(open()){
 			<div class="px-2">
 				<label class="toggle text-base-content">
-					<input type="checkbox" (change)="changeTheme()" />
+					<input type="checkbox" #themeCheck (change)="changeTheme()" />
 
 					<svg aria-label="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 						<g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
