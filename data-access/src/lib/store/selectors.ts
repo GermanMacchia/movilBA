@@ -7,6 +7,11 @@ export const selectSessionAuthenticated = createSelector(
 	state => state.session?.authenticated
 )
 
+export const selectSessionUsuario = createSelector(
+	createFeatureSelector<LoginState>('login'),
+	state => state.session?.user.name
+)
+
 export const selectLoginLoading = createSelector(
 	createFeatureSelector<LoginState>('login'),
 	state => state.loading
