@@ -32,7 +32,6 @@ async function bootstrap() {
 		})
 	)
 
-
 	await app.listen(config.get('app.port'))
 
 	logger.log('App started on ' + (await app.getUrl()))

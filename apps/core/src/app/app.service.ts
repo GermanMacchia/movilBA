@@ -8,7 +8,7 @@ import { InjectConnection } from '@nestjs/sequelize'
 @Injectable()
 export class AppService {
 	constructor(
-		@InjectConnection('core') private coreDb: Sequelize,
+		// @InjectConnection('core') private coreDb: Sequelize,
 		@InjectConnection('entidades') private entidadesDb: Sequelize,
 		private health: HealthCheckService,
 		private healthIndicator: HealthIndicatorService
@@ -16,7 +16,7 @@ export class AppService {
 
 	async getHealth(): Promise<any> {
 		const dbHealthIndicator = new DbHealthIndicator([
-			{name: 'Core', db: this.coreDb},
+			// {name: 'Core', db: this.coreDb},
 			{name: 'Entidades', db: this.entidadesDb}],
 			this.healthIndicator
 		)

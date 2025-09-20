@@ -31,12 +31,12 @@ import { ThrottlerBehindProxyGuard } from './utils/throttle.guard'
 					? config.get('throttle.list')
 					: [{ ttl: 0, limit: 0 }],
 		}),
-		SequelizeModule.forRootAsync({
-			name: 'core',
-			imports: [ConfigModule],
-			inject: [ConfigService],
-			useFactory: (config: ConfigService) => config.get('database_co'),
-		}),
+		// SequelizeModule.forRootAsync({
+		// 	name: 'core',
+		// 	imports: [ConfigModule],
+		// 	inject: [ConfigService],
+		// 	useFactory: (config: ConfigService) => config.get('database_co'),
+		// }),
 		SequelizeModule.forRootAsync({
 			name: 'entidades',
 			imports: [ConfigModule],
