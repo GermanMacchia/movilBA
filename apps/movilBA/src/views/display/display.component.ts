@@ -6,7 +6,6 @@ import { ActivatedRoute, RouterLink } from '@angular/router'
 	selector: 'app-display',
 	imports: [RouterLink],
 	templateUrl: './display.component.html',
-
 })
 export class DisplayComponent implements OnInit {
 	activatedRoute = inject(ActivatedRoute)

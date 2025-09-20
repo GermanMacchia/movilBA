@@ -14,17 +14,13 @@ export default [
 	{
 		files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
 		rules: {
-			'@nx/enforce-module-boundaries': [
+			'@nx/enforce-module-boundaries': 'off',
+			'@typescript-eslint/no-unused-vars': [
 				'error',
 				{
-					enforceBuildableLibDependency: true,
-					allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
-					depConstraints: [
-						{
-							sourceTag: '*',
-							onlyDependOnLibsWithTags: ['*'],
-						},
-					],
+					argsIgnorePattern: '^_',
+					varsIgnorePattern: '^_',
+					caughtErrorsIgnorePattern: '^_',
 				},
 			],
 		},

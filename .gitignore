@@ -17,7 +17,9 @@ node_modules
 .settings/
 *.sublime-workspace
 
+SERVIDOR.md
 
+apps/core/.env
 # IDE - VSCode
 .vscode
 .vscode/*

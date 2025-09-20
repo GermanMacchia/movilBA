@@ -1,7 +1,7 @@
 <lib-drawer [logout]="handleLogout" [paths]="[{ label: 'Inicio', routerLink: ''}]"
     (openChange)="sidebarOpen($event)" [themes]="{light: 'corporate', dark: 'dark'}"
     [items]="[{label: 'Inicio', routerLink: '', icon: 'bi bi-house'}]" appname="MóvilBA" rol="Administrador"
-    usuario="N.Germán Osses Macchia"></lib-drawer>
+    [usuario]="(usuario |async)!"></lib-drawer>
 <div class="router-shell mt-[3.5rem]" id='inner-router'>
     <router-outlet></router-outlet>
 </div>

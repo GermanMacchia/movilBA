@@ -54,12 +54,6 @@
                 "routerLink": "/secciones",
                 "color": "#A1E3F9",
                 "icon": "bi bi-ui-checks"
-            },
-            {
-                "label": "",
-                "routerLink": "",
-                "color": "",
-                "icon": ""
             }
         ],
         "secciones": [
