@@ -4,9 +4,11 @@
 	"license": "MIT",
 	"scripts": {
 		"serve:front": "nx run movilBA:serve:development",
-		"serve:back": "nx run core:serve:development",
-		"build": "nx build movilBA",
-		"e2e": "nx e2e movilBA-e2e"
+		"serve:core": "nx run core:serve:development",
+		"build:front": "npx nx build movilBA --configuration=production",
+		"build:core": "npx nx build core --configuration=production",
+		"e2e:front": "nx e2e movilBA-e2e",
+		"e2e:core": "nx e2e core-e2e"
 	},
 	"private": true,
 	"dependencies": {
@@ -44,6 +46,7 @@
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "~7.8.0",
 		"sequelize": "^6.37.7",
+		"sequelize-typescript": "^2.1.6",
 		"zone.js": "~0.15.0"
 	},
 	"devDependencies": {
@@ -97,7 +100,7 @@
 		"jsdom": "~22.1.0",
 		"jsonc-eslint-parser": "^2.1.0",
 		"ng-packagr": "~20.1.0",
-		"nx": "21.4.1",
+		"nx": "^21.4.1",
 		"postcss": "^8.5.6",
 		"prettier": "^2.6.2",
 		"tailwindcss": "^4.1.12",
