@@ -35,6 +35,13 @@
         "production": {
           "baseHref": "/modulos/",
           "deployUrl": "/modulos/",
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "apps/movilBA/src/assets",
+              "output": "/assets/"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
