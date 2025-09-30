@@ -10,10 +10,10 @@ export interface Auth {
 }
 
 export interface Session {
-    success:       boolean;
+    success: boolean;
     authenticated: boolean;
-    user:          User;
-    session:       SessionClass;
+    user: User;
+    session: SessionClass;
 }
 
 export interface SessionClass {
@@ -21,7 +21,7 @@ export interface SessionClass {
 }
 
 export interface User {
-    id:    string;
+    id: string;
     email: string;
-    name:  string;
+    name: string;
 }

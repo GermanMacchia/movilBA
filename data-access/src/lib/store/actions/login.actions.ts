@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { createAction, props } from '@ngrx/store';
-import { Session } from '../../interfaces/interfaces';
+import { Session } from '../../interfaces/user.interfaces';
 
 
 export const login = createAction(

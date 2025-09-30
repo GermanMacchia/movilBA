@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 
-import { LoginState } from './reducers/login.reducer'
+import { LoginState } from '../reducers/login.reducer'
 
 export const selectSessionAuthenticated = createSelector(
 	createFeatureSelector<LoginState>('login'),
@@ -17,7 +17,4 @@ export const selectLoginLoading = createSelector(
 	state => state.loading
 )
 
-export const selectDataLoading = createSelector(
-	createFeatureSelector<LoginState>('data'),
-	state => state.loading
-)
+

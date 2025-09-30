@@ -16,7 +16,7 @@ import { Store } from '@ngrx/store'
 export class MainComponent {
 	private store$ = inject(Store)
 	usuario = this.store$.select(selectSessionUsuario)
-	
+
 
 	sidebarOpen = (isOpen: string) => {
 		if (isOpen) {

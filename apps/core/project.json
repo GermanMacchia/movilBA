@@ -49,6 +49,7 @@
 			"defaultConfiguration": "development",
 			"dependsOn": ["build"],
 			"options": {
+				"watch": true,
 				"buildTarget": "core:build",
 				"runBuildTargetDependencies": false
 			},

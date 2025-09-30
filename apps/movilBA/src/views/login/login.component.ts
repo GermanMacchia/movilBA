@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common'
+import { AsyncPipe, Location } from '@angular/common'
 import { Component, inject, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import {
@@ -7,7 +7,7 @@ import {
 	selectLoginLoading,
 	selectSessionAuthenticated,
 } from '@movil-ba/data-access'
-import { LoginCardComponent, LoginData } from '@movilBA/ui'
+import { LoginCardComponent } from '@movilBA/ui'
 import { Store } from '@ngrx/store'
 
 @Component({
@@ -22,12 +22,11 @@ import { Store } from '@ngrx/store'
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url('assets/login-background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: opacity(.5); // desenfoque + oscurecimiento
-    z-index: -1; // se pone detrás del contenido
+    filter: opacity(.5); 
+    z-index: -1; 
 }`,
 	host: {
 		class: 'flex flex-col h-screen items-center justify-center',
@@ -35,25 +34,15 @@ import { Store } from '@ngrx/store'
 })
 export class LoginComponent implements OnInit {
 	loginService = inject(LoginService)
-
+	location = inject(Location)
+	bgUrl = ''
 	store$ = inject(Store)
 	router = inject(Router)
 	loading$ = this.store$.select<boolean>(selectLoginLoading)
 
-	data: LoginData = {
-		input: {
-			label: 'Email',
-			formControlName: 'email',
-			placeholder: 'Ingresar Email',
-		},
-		password: {
-			label: 'Clave',
-			formControlName: 'password',
-			placeholder: 'Ingresar Clave',
-		},
-	}
-
 	ngOnInit(): void {
+		//desde sass servidor redirige a ip/assets
+		this.bgUrl = this.location.prepareExternalUrl('assets/login-background.jpg');
 		this.store$.dispatch(getCrsf())
 		this.store$
 			.select(selectSessionAuthenticated)

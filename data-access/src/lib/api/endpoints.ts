@@ -7,4 +7,7 @@ export const ENDPOINTS = {
 		logout: (url:string) => `${url}/api/auth/client/logout`,
 		session: (url: string) => `${url}/api/auth/client/session`,
 	},
+	entidades: {
+		entidades: (url:string) => `${url}/api/entidades`
+	}
 }

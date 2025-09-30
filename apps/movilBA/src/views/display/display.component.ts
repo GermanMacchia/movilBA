@@ -12,6 +12,9 @@ export class DisplayComponent implements OnInit {
 	routes = signal<any>('')
 
 	ngOnInit(): void {
-		this.activatedRoute.data.subscribe(data => this.routes.set(data['modulos']))
+		this.activatedRoute.data.subscribe(data => {
+			console.log(data['modulos'])
+			this.routes.set(data['modulos'])
+		})
 	}
 }

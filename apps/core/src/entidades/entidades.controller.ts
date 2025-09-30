@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Delete } from '@nestjs/common';
 import { EntidadesService } from './entidades.service';
-
 
 @Controller('entidades')
 export class EntidadesController {
-  constructor(private readonly entidadesService: EntidadesService) {}
+  constructor(
+    private readonly entidadesService: EntidadesService
+  ) { }
 
   @Get()
   findAll() {

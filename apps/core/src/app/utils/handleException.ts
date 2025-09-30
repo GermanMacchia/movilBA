@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Logger } from '@nestjs/common'
+import { HttpException, HttpStatus, Logger } from '@nestjs/common';
 
 export const handleException = (
     logger: Logger,

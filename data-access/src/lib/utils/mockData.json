@@ -3,57 +3,66 @@
         "modulos": [
             {
                 "label": "RUTAP (Colectivos)",
-                "routerLink": "/secciones",
+                "routerLink": "/rutap",
                 "color": "#5EABD6",
-                "icon": "bi bi-bus-front-fill"
+                "icon": "bi bi-bus-front-fill",
+                "disabled": false
             },
             {
                 "label": "RUTAX (Taxis)",
                 "routerLink": "/secciones",
                 "color": "#FFAB5B",
-                "icon": "bi bi-taxi-front-fill"
+                "icon": "bi bi-taxi-front-fill",
+                "disabled": true
             },
             {
                 "label": "RUREM (Remises)",
                 "routerLink": "/secciones",
                 "color": "#E9A5F1",
-                "icon": "bi bi-car-front-fill"
+                "icon": "bi bi-car-front-fill",
+                "disabled": true
             },
             {
                 "label": "RUTRAMUR (Moto/Bici Delivery)",
                 "routerLink": "/secciones",
                 "color": "#B771E5",
-                "icon": "bi bi-bicycle"
+                "icon": "bi bi-bicycle",
+                "disabled": true
             },
             {
                 "label": "Cursos de capacitación",
                 "routerLink": "/secciones",
                 "color": "#C68EFD",
-                "icon": "bi bi-camera-video-fill"
+                "icon": "bi bi-camera-video-fill",
+                "disabled": true
             },
             {
                 "label": "VTV",
                 "routerLink": "/secciones",
                 "color": "#4DA1A9",
-                "icon": "bi bi-journal-check"
+                "icon": "bi bi-journal-check",
+                "disabled": true
             },
             {
                 "label": "Escolares",
                 "routerLink": "/secciones",
                 "color": "#FFAB5B",
-                "icon": "bi bi-bus-front"
+                "icon": "bi bi-bus-front",
+                "disabled": true
             },
             {
                 "label": "Pesados",
                 "routerLink": "/secciones",
                 "color": "#465aba",
-                "icon": "bi bi-cone-striped"
+                "icon": "bi bi-cone-striped",
+                "disabled": true
             },
             {
                 "label": "Verificaciones especiales",
                 "routerLink": "/secciones",
                 "color": "#A1E3F9",
-                "icon": "bi bi-ui-checks"
+                "icon": "bi bi-ui-checks",
+                "disabled": true
             }
         ],
         "secciones": [
@@ -61,31 +70,36 @@
                 "label": "Planificación económica del Transporte",
                 "routerLink": "/opciones",
                 "color": "#5EABD6",
-                "icon": "paid"
+                "icon": "paid",
+                "disabled": true
             },
             {
                 "label": "Control de la movilidad",
                 "routerLink": "/opciones",
                 "color": "#FFAB5B",
-                "icon": "edit_road"
+                "icon": "edit_road",
+                "disabled": true
             },
             {
                 "label": "Control económico del uso de las compensaciones tarifarias",
                 "routerLink": "/opciones",
                 "color": "#E9A5F1",
-                "icon": "animation"
+                "icon": "animation",
+                "disabled": true
             },
             {
                 "label": "Permisos de transporte de colectivos",
                 "routerLink": "/opciones",
                 "color": "#B771E5",
-                "icon": "edit_road"
+                "icon": "edit_road",
+                "disabled": true
             },
             {
                 "label": "Planificación de servicios",
                 "routerLink": "/opciones",
                 "color": "#C68EFD",
-                "icon": "calendar_month"
+                "icon": "calendar_month",
+                "disabled": true
             }
         ],
         "opciones": [
@@ -93,6 +107,7 @@
                 "label": "Rendiciones",
                 "routerLink": "/selecciones",
                 "icon": "paid",
+                "disabled": true,
                 "items": [
                     {
                         "label": "Alta de rendición",
@@ -148,6 +163,7 @@
                 "label": "Transferencias Vinculadas",
                 "routerLink": "/selecciones",
                 "icon": "call_merge",
+                "disabled": true,
                 "items": [
                     {
                         "label": "Subsidios abonados",
@@ -197,6 +213,7 @@
                 "label": "Documentaciones",
                 "routerLink": "/selecciones",
                 "icon": "file_open",
+                "disabled": true,
                 "items": [
                     {
                         "label": "Carga de archivos",
@@ -246,6 +263,7 @@
                 "label": "Calendario de Vencimientos",
                 "routerLink": "/selecciones",
                 "icon": "calendar_month",
+                "disabled": true,
                 "items": [
                     {
                         "label": "Visitas",
@@ -278,6 +296,7 @@
                 "label": "Informes y dashboards",
                 "routerLink": "/selecciones",
                 "icon": "space_dashboard",
+                "disabled": true,
                 "items": [
                     {
                         "label": "Informes y dashboards",
@@ -306,13 +325,15 @@
                 "label": "RUTAP (Colectivos)",
                 "routerLink": "/secciones",
                 "color": "#5EABD6",
-                "icon": "directions_bus"
+                "icon": "directions_bus",
+                "disabled": false
             },
             {
                 "label": "RUTAX (Taxis)",
                 "routerLink": "/secciones",
                 "color": "#FFAB5B",
-                "icon": "local_taxi"
+                "icon": "local_taxi",
+                "disabled": true
             },
             {
                 "label": "RUREM (Remises)",

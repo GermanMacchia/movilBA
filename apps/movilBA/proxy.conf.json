@@ -1,8 +1,14 @@
 {
-    "/api": {
-        "target": "http://10.78.42.168:3000",
-        "secure": false,
-        "changeOrigin": true,
-        "logLevel": "debug"
-    }
+	"/api": {
+		"target": "http://10.78.42.168:3000",
+		"secure": false,
+		"changeOrigin": true,
+		"logLevel": "debug"
+	},
+	"/core/api": {
+		"target": "http://localhost:8080",
+		"secure": false,
+		"changeOrigin": true,
+		"logLevel": "debug"
+	}
 }

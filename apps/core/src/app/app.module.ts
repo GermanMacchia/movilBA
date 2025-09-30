@@ -1,14 +1,19 @@
+import { CacheModule } from '@nestjs/cache-manager'
 import { Module } from '@nestjs/common'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { TerminusModule } from '@nestjs/terminus'
+import { ThrottlerModule } from '@nestjs/throttler'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { TerminusModule } from '@nestjs/terminus'
-import { CacheModule } from '@nestjs/cache-manager'
-import { ConfigModule, ConfigService } from '@nestjs/config'
-import { ThrottlerModule } from '@nestjs/throttler'
 import { config } from './config'
-import { SequelizeModule } from '@nestjs/sequelize'
-import { APP_GUARD } from '@nestjs/core'
-import { ThrottlerBehindProxyGuard } from './utils/throttle.guard'
+
+import { AuthModule } from '../auth/auth.module'
+import { EntidadesModule } from '../entidades/entidades.module'
+import { UsuariosModule } from '../usuarios/usuarios.module'
+import { CoreDBModule } from './dbs/coreDB.module'
+import { EntidadesDBModule } from './dbs/entidadesDB.module'
+import { ModulosModule } from '../modulos/modulos.module'
+import { PermisosModule } from '../permisos/permisos.module'
 
 @Module({
 	imports: [
@@ -31,24 +36,16 @@ import { ThrottlerBehindProxyGuard } from './utils/throttle.guard'
 					? config.get('throttle.list')
 					: [{ ttl: 0, limit: 0 }],
 		}),
-		// SequelizeModule.forRootAsync({
-		// 	name: 'core',
-		// 	imports: [ConfigModule],
-		// 	inject: [ConfigService],
-		// 	useFactory: (config: ConfigService) => config.get('database_co'),
-		// }),
-		SequelizeModule.forRootAsync({
-			name: 'entidades',
-			imports: [ConfigModule],
-			inject: [ConfigService],
-			useFactory: (config: ConfigService) => config.get('database_re'),
-		}),
 		TerminusModule,
+		EntidadesDBModule,
+		CoreDBModule,
+		AuthModule,
+		UsuariosModule,
+		EntidadesModule,
+		ModulosModule,
+		PermisosModule,
 	],
 	controllers: [AppController],
-	providers: [
-		AppService,
-		{ provide: APP_GUARD, useClass: ThrottlerBehindProxyGuard },
-	],
+	providers: [AppService],
 })
 export class AppModule {}

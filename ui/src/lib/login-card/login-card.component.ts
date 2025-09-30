@@ -1,8 +1,6 @@
 import { Component, input } from '@angular/core';
 import { ReactiveFormsModule, type FormGroup } from '@angular/forms';
-
-export type LoginInfo = { label: string, formControlName: string, placeholder: string }
-export type LoginData = { input: LoginInfo, password: LoginInfo }
+import {LoginData} from 'data-access/src/index'
 
 @Component({
   selector: 'lib-login-card',

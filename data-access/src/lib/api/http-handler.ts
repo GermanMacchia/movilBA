@@ -8,5 +8,5 @@ export abstract class HttpHandler {
 	protected http = inject(HttpClient)
 	protected config = inject(AppConfigService)
 
-	getApiUrl = () => this.config.getConfigByKey('apiUrl')
+	getApi = (name: string) => this.config.getConfigByKey(name)
 }

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Action, createReducer, on } from '@ngrx/store'
-import { Session } from '../../interfaces/interfaces'
+import { Session } from '../../interfaces/user.interfaces'
 import {
 	crsfError,
 	login,

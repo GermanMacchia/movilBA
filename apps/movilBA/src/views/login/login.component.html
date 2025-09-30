@@ -1,3 +1,3 @@
-<div id="background-image"></div>
-<lib-login-card [action]="loginService.login" [data]="data" [loading]="(loading$ | async)!"
+<div id="background-image" [style]="{'background-image': `url(${bgUrl})`}"></div>
+<lib-login-card [action]="loginService.login" [data]="loginService.data" [loading]="(loading$ | async)!"
     [formgroup]="loginService.formGroup"></lib-login-card>

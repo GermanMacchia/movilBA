@@ -18,6 +18,7 @@ node_modules
 *.sublime-workspace
 
 SERVIDOR.md
+NX-SCHEMAS.md
 
 apps/core/.env
 # IDE - VSCode

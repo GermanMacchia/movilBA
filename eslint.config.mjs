@@ -14,6 +14,9 @@ export default [
 	{
 		files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
 		rules: {
+			"rules": {
+				"@typescript-eslint/no-explicit-any": "off"
+			},
 			'@nx/enforce-module-boundaries': 'off',
 			'@typescript-eslint/no-unused-vars': [
 				'error',
