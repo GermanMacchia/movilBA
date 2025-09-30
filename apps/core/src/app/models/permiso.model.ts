@@ -23,6 +23,10 @@ export class Permiso extends Model<Permiso> {
 	modulo_id: number
 
 	//-- bitmask: read=0001, write=0010, create=0100, delete=1000
+	// 1111 Administrador
+	// 0111 Editor
+	// 0011 Operador
+	// 0001 Auditor
 	@Column(DataType.INTEGER({ length: 4 }))
 	permisos: number
 

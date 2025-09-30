@@ -1,15 +1,19 @@
 import { Route } from '@angular/router'
-import { displayResolver, entidadesResolver, LoginGuard } from '@movil-ba/data-access'
+import {
+	AppGuard,
+	displayResolver,
+	entidadesResolver,
+	LoginGuard,
+} from '@movil-ba/data-access'
 import { DisplayComponent } from '../views/display/display.component'
 import { LoginComponent } from '../views/login/login.component'
 import { MainComponent } from '../views/main/main.component'
 import { EntidadesComponent } from '../views/rutap/entidades/entidades.component'
 
-
 export const appRoutes: Route[] = [
 	{
 		path: '',
-		canActivate: [],
+		canActivate: [AppGuard],
 		component: MainComponent,
 		children: [
 			{
@@ -18,7 +22,8 @@ export const appRoutes: Route[] = [
 					modulos: displayResolver,
 				},
 				component: DisplayComponent,
-			}, {
+			},
+			{
 				path: 'rutap',
 				loadChildren: () => rutapRoutes,
 			},
@@ -34,6 +39,6 @@ const rutapRoutes: Route[] = [
 		resolve: {
 			modulos: entidadesResolver,
 		},
-		component: EntidadesComponent
-	}
+		component: EntidadesComponent,
+	},
 ]

@@ -2,19 +2,12 @@ import { createFeatureSelector, createSelector } from '@ngrx/store'
 
 import { LoginState } from '../reducers/login.reducer'
 
-export const selectSessionAuthenticated = createSelector(
+export const selectSession = createSelector(
 	createFeatureSelector<LoginState>('login'),
-	state => state.session?.authenticated
-)
-
-export const selectSessionUsuario = createSelector(
-	createFeatureSelector<LoginState>('login'),
-	state => state.session?.user.name
+	state => state.session
 )
 
 export const selectLoginLoading = createSelector(
 	createFeatureSelector<LoginState>('login'),
 	state => state.loading
 )
-
-

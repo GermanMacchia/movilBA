@@ -2,13 +2,13 @@ import { AsyncPipe, Location } from '@angular/common'
 import { Component, inject, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import {
-	getCrsf,
 	LoginService,
 	selectLoginLoading,
-	selectSessionAuthenticated,
+	selectSession,
 } from '@movil-ba/data-access'
 import { LoginCardComponent } from '@movilBA/ui'
 import { Store } from '@ngrx/store'
+import { filter, map } from 'rxjs'
 
 @Component({
 	selector: 'app-login',
@@ -42,12 +42,10 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit(): void {
 		//desde sass servidor redirige a ip/assets
-		this.bgUrl = this.location.prepareExternalUrl('assets/login-background.jpg');
-		this.store$.dispatch(getCrsf())
+		this.bgUrl = this.location.prepareExternalUrl('assets/login-background.jpg')
 		this.store$
-			.select(selectSessionAuthenticated)
-			.subscribe((isAuthenticated) =>
-				isAuthenticated ? this.router.navigate(['']) : null
-			)
+			.select(selectSession)
+			.pipe(filter(ele => !!ele))
+			.subscribe(() => this.router.navigate(['']))
 	}
 }

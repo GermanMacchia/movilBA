@@ -1,4 +1,3 @@
 {
-    "apiAuth": "",
-    "apiCore": "/core"
+	"apiUrl": "/core"
 }

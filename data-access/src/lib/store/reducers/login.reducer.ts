@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Action, createReducer, on } from '@ngrx/store'
-import { Session } from '../../interfaces/user.interfaces'
+import { Session } from '../../interfaces/session.interfaces'
 import {
-	crsfError,
 	login,
 	loginError,
 	loginSuccess,
@@ -35,21 +34,16 @@ const _LoginReducer = createReducer(
 		loading: true,
 	})),
 
-	on(crsfError, (state, { error }) => ({
-		...state,
-		loading: false,
-		error: error?.error,
-	})),
-
 	on(sessionError, (state, { error }) => ({
 		...state,
 		loading: false,
 		error: error?.error,
 	})),
 
-	on(loginSuccess, state => ({
+	on(loginSuccess, (state, { data }) => ({
 		...state,
 		loading: false,
+		session: data,
 	})),
 
 	on(loginError, (state, { error }) => ({
@@ -62,11 +56,6 @@ const _LoginReducer = createReducer(
 		...state,
 		loading: false,
 		error: error?.error,
-	})),
-
-	on(setSession, (state, { data }) => ({
-		...state,
-		session: data,
 	})),
 
 	on(logout, state => ({

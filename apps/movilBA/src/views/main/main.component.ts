@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common'
 import { Component, inject } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
-import { logout, selectSessionUsuario } from '@movil-ba/data-access'
+import { logout, selectSession } from '@movil-ba/data-access'
 import { DrawerComponent } from '@movilBA/ui'
 import { Store } from '@ngrx/store'
 
@@ -15,8 +15,7 @@ import { Store } from '@ngrx/store'
 })
 export class MainComponent {
 	private store$ = inject(Store)
-	usuario = this.store$.select(selectSessionUsuario)
-
+	usuario = this.store$.select(selectSession)
 
 	sidebarOpen = (isOpen: string) => {
 		if (isOpen) {
