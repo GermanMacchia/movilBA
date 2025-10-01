@@ -1,10 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
-import { ModulosService } from './modulos.service'
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common'
 import { ModuloDTO } from '../app/dtos/modulo.dto'
+import { Modulos } from '../app/interfaces'
+import { RequireModule } from '../app/utils/decorators'
+import { ModulosService } from './modulos.service'
 
 @Controller('modulos')
+@RequireModule(Modulos.PERMISOS)
 export class ModulosController {
-	constructor(private readonly modulosService: ModulosService) {}
+	constructor(private readonly modulosService: ModulosService) { }
 
 	@Post()
 	create(@Body() createModuloDto: ModuloDTO) {

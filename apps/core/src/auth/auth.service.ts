@@ -17,7 +17,7 @@ export class AuthService {
 		private cacheManager: Cache,
 		private usuarioRepository: UsuarioRepository,
 		private readonly config: ConfigService
-	) {}
+	) { }
 
 	async login(user: any) {
 		await this.usuarioRepository.updateUsuarioLogon(user.id)
@@ -25,8 +25,8 @@ export class AuthService {
 	}
 
 	generateToken(user: any) {
-		const { nombre, permisos, id } = user
-		const payload = { id, nombre, permisos }
+		const { nombre, id, cuil, permisos } = user
+		const payload = { id, cuil, nombre }
 		const expire = this.config.get<number>('app.jwt.expire')
 
 		return {
@@ -52,6 +52,7 @@ export class AuthService {
 		}
 	}
 
+
 	async validateUser(cuil: string, password: string) {
 		const user = await this.usuarioRepository.findByCuil(cuil)
 
@@ -62,16 +63,21 @@ export class AuthService {
 		if (!isMatch) return
 
 		delete user.password
-		return { ...user }
+		return user
 	}
 
-	async revokeToken(token: string, exp: number) {
-		const ttl = Math.floor(exp - Date.now() / 1000)
-		await this.cacheManager.set(`blacklist:${token}`, '1', ttl * 1000)
+	async logout(token: string) {
+		await this.addToBlackList(token);
+		return { message: 'OK', status: HttpStatus.ACCEPTED };
 	}
 
-	async isRevoked(token: string): Promise<boolean> {
-		return !!(await this.cacheManager.get(`blacklist:${token}`))
+	async addToBlackList(token: string): Promise<void> {
+		await this.cacheManager.set(token, true, this.config.get('app.jwt.expire'));
+	}
+
+	async isTokenBlackListed(token: string): Promise<boolean> {
+		const isBlackListed = await this.cacheManager.get(token);
+		return !!isBlackListed;
 	}
 
 	/**

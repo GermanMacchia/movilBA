@@ -1,11 +1,11 @@
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common'
+import { AuthGuard } from '@nestjs/passport'
 import { Public } from '../app/utils/decorators'
 import { AuthService } from './auth.service'
-import { AuthGuard } from '@nestjs/passport'
 
 @Controller('auth')
 export class AuthController {
-	constructor(private readonly authService: AuthService) {}
+	constructor(private readonly authService: AuthService) { }
 
 	@Public()
 	@UseGuards(AuthGuard('local'))
@@ -18,5 +18,11 @@ export class AuthController {
 	@Public()
 	refresh(@Request() req: any): object {
 		return this.authService.refresh(req.headers.authorization)
+	}
+
+
+	@Post('logout')
+	logout(@Request() request: Request) {
+		return this.authService.logout(request.headers['authorization']);
 	}
 }

@@ -2,20 +2,23 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import { HttpStatus, Inject, Logger } from '@nestjs/common'
 import { InjectConnection, InjectModel } from '@nestjs/sequelize'
 
+import to from 'await-to-js'
 import { Cache } from 'cache-manager'
 import { Sequelize } from 'sequelize-typescript'
-import { CORE_DB, DB_TIMESTAMPS } from '../app/dbs/coreDB.module'
+import { CORE_DB } from '../app/dbs/coreDB.module'
 import { UsuarioDTO } from '../app/dtos/usuario.dto'
+import { Modulo, Permiso } from '../app/models'
 import { Usuario } from '../app/models/usuario.model'
 import { handleException } from '../app/utils/handleException'
-import to from 'await-to-js'
-import { Modulo, Permiso } from '../app/models'
 
 export class UsuarioRepository {
 	private readonly logger: Logger
 	private permisosQuery = [
 		{
 			model: Permiso,
+			nest: true,
+			required: false,
+			duplicating: false,
 			attributes: ['permisos'],
 			include: [
 				{
@@ -40,7 +43,6 @@ export class UsuarioRepository {
 	async findAll(): Promise<Usuario[]> {
 		const [error, data] = await to(
 			this.usuarioModel.findAll({
-				raw: true,
 				nest: true,
 				attributes: ['id', 'cuil', 'email'],
 				include: this.permisosQuery,
@@ -65,19 +67,22 @@ export class UsuarioRepository {
 	 * Cacheado para optimizar permisos
 	 */
 	async findByCuil(cuil: string): Promise<Usuario> {
-		const cachedUser: Usuario = await this.cacheManager.get(cuil)
+		if (!cuil) return
 
-		if (cachedUser) return cachedUser
+		const cachedUser: string = await this.cacheManager.get(cuil)
+
+		if (cachedUser) return JSON.parse(cachedUser)
 
 		const [error, data] = await to(
 			this.usuarioModel.findOne({
 				where: { cuil },
 				nest: true,
-				raw: true,
-				attributes: ['id', 'nombre', 'password'],
+				attributes: ['id', 'nombre', 'password', 'email', 'cuil'],
 				include: this.permisosQuery,
 			})
 		)
+
+		const user = data.get({ plain: true })
 
 		if (error)
 			handleException(
@@ -87,16 +92,16 @@ export class UsuarioRepository {
 				{ name: 'error', message: 'internal Server Error' }
 			)
 
-		if (data) this.cacheManager.set(cuil, data)
+		if (user) this.cacheManager.set(cuil, JSON.stringify(user))
 
-		return data
+		return user
 	}
 
-	async updateUsuarioLogon(usuario_id: number) {
+	async updateUsuarioLogon(id: number) {
 		const [error, _data] = await to(
 			this.usuarioModel.update(
 				{ ultimo_login: new Date() },
-				{ where: { id: usuario_id } }
+				{ where: { id } }
 			)
 		)
 

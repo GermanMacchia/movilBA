@@ -8,6 +8,7 @@ import { AuthController } from './auth.controller'
 import { AuthService } from './auth.service'
 
 import { UsuariosModule } from '../usuarios/usuarios.module'
+import { jwtAuthGuard } from './guards/jwt.guard'
 import { PermisosGuard } from './guards/permisos.guard'
 import { ThrottlerBehindProxyGuard } from './guards/throttle.guard'
 import { JwtStrategy } from './strategies/jwt.strategy'
@@ -15,6 +16,7 @@ import { LocalStrategy } from './strategies/local.strategy'
 
 @Module({
 	controllers: [AuthController],
+	//orden de los guards es relevante
 	providers: [
 		AuthService,
 		ConfigService,
@@ -23,6 +25,10 @@ import { LocalStrategy } from './strategies/local.strategy'
 		{
 			provide: APP_GUARD,
 			useClass: ThrottlerBehindProxyGuard,
+		},
+		{
+			provide: APP_GUARD,
+			useClass: jwtAuthGuard,
 		},
 		{
 			provide: APP_GUARD,
@@ -45,4 +51,4 @@ import { LocalStrategy } from './strategies/local.strategy'
 	],
 	exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }

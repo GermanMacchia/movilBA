@@ -30,9 +30,9 @@ export class Permiso extends Model<Permiso> {
 	@Column(DataType.INTEGER({ length: 4 }))
 	permisos: number
 
-	@BelongsTo(() => Usuario, 'id')
+	@BelongsTo(() => Usuario, 'usuario_id')
 	usuario: Usuario
 
-	@BelongsTo(() => Modulo, 'id')
+	@BelongsTo(() => Modulo, 'modulo_id')
 	modulo: Modulo
 }

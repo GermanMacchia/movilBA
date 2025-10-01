@@ -1,11 +1,17 @@
-import { SetMetadata, UseGuards, applyDecorators } from '@nestjs/common'
-import { PermisosGuard } from '../../auth/guards/permisos.guard'
+import { SetMetadata } from '@nestjs/common'
 
-export const ALLOWED_ROLES = 'AllowedRoles'
+
 export const PUBLIC_KEY = 'Public'
 export const CACHED_KEY = 'Cached'
+export const REQUIRED_MODULE = 'RequiredModule'
+export const REQUIRED_MASK = 'RequiredMask'
 
-// export const AllowedRoles = (...roles: string[]) => SetMetadata(ALLOWED_ROLES, roles);
+export const RequireModule = (modulo: string) =>
+    SetMetadata(REQUIRED_MODULE, { modulo })
+
+
+export const RequireMask = (mask: number[]) =>
+    SetMetadata(REQUIRED_MASK, { mask })
 
 export const Public = () => SetMetadata(PUBLIC_KEY, true)
 

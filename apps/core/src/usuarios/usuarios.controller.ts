@@ -8,14 +8,18 @@ import {
 	Post,
 } from '@nestjs/common'
 
-import { UsuariosService } from './usuarios.service'
 import { UsuarioDTO } from '../app/dtos/usuario.dto'
+import { Modulos, Permissions } from '../app/interfaces'
+import { RequireMask, RequireModule } from '../app/utils/decorators'
+import { UsuariosService } from './usuarios.service'
 
 @Controller('usuarios')
 export class UsuariosController {
-	constructor(private readonly usuariosService: UsuariosService) {}
+	constructor(private readonly usuariosService: UsuariosService) { }
 
 	@Get()
+	@RequireModule(Modulos.PERMISOS)
+	@RequireMask([Permissions.READ])
 	getAll() {
 		return this.usuariosService.users()
 	}

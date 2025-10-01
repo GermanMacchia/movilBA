@@ -37,7 +37,7 @@ export class Usuario extends Model<Usuario> {
 	})
 	ultimo_login: Date
 
-	@HasMany(() => Permiso, 'usuario_id')
+	@HasMany(() => Permiso)
 	permisos: Permiso[]
 
 	@BeforeCreate

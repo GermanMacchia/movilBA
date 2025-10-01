@@ -17,7 +17,7 @@ export class Modulo extends Model<Modulo> {
 	@Column({ type: DataType.STRING, unique: true })
 	nombre: string
 
-	@HasMany(() => Permiso, 'modulo_id')
+	@HasMany(() => Permiso)
 	permisos: Permiso[]
 
 	@BeforeCreate

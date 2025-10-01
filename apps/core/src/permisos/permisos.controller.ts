@@ -1,19 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
-import { PermisosService } from './permisos.service'
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common'
 import { PermisoDTO } from '../app/dtos/permiso.dto'
+import { Modulos, Permissions } from '../app/interfaces'
+import { RequireMask, RequireModule } from '../app/utils/decorators'
+import { PermisosService } from './permisos.service'
 
-@Controller('permisos')
+@Controller(Modulos.PERMISOS)
+@RequireModule(Modulos.PERMISOS)
 export class PermisosController {
-	constructor(private readonly permisosService: PermisosService) {}
-
-	@Post()
-	create(@Body() createPermisoDto: PermisoDTO) {
-		return this.permisosService.create(createPermisoDto)
-	}
+	constructor(private readonly permisosService: PermisosService) { }
 
 	@Get()
+	@RequireMask([Permissions.READ])
 	findAll() {
 		return this.permisosService.findAll()
+	}
+
+	@Post()
+	@RequireMask([Permissions.CREATE])
+	create(@Body() createPermisoDto: PermisoDTO) {
+		return this.permisosService.create(createPermisoDto)
 	}
 
 	@Get(':id')
