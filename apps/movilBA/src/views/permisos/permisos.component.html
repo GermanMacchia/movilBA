@@ -1,0 +1,10 @@
+<lib-simple-list
+	[dataKeys]="[
+		{ key: 'cuil', type: types.STRING },
+		{ key: 'nombre', type: types.STRING },
+		{ key: 'email', type: types.EMAIL },
+		{ key: 'ultimo_login', type: types.DATE },
+		{ key: 'deletedAt', type: types.BOOLEAN, trueCase: null }
+	]"
+	[headers]="['Cuil', 'Nombre', 'Email', 'Ultimo Login', 'Activo']"
+	[data]="(data$ | async)!"></lib-simple-list>

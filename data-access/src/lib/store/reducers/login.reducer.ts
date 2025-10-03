@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Action, createReducer, on } from '@ngrx/store'
 import { Session } from '../../interfaces/session.interfaces'
 import {
@@ -7,8 +6,7 @@ import {
 	loginSuccess,
 	logout,
 	logoutError,
-	sessionError,
-	setSession,
+	sessionError
 } from '../index'
 
 //STATE
@@ -19,15 +17,15 @@ export interface LoginState {
 }
 
 //INITIAL
-export const LoginInitialState: LoginState = {
+export const loginInitialState: LoginState = {
 	loading: false,
 	error: null,
 	session: null,
 }
 
 //REDUCER
-const _LoginReducer = createReducer(
-	LoginInitialState,
+const _loginReducer = createReducer(
+	loginInitialState,
 
 	on(login, state => ({
 		...state,
@@ -64,6 +62,6 @@ const _LoginReducer = createReducer(
 	}))
 )
 
-export function LoginReducer(state: LoginState | undefined, action: Action<string>) {
-	return _LoginReducer(state, action)
+export function loginReducer(state: LoginState | undefined, action: Action<string>) {
+	return _loginReducer(state, action)
 }

@@ -26,9 +26,10 @@ export class PermisosGuard implements CanActivate {
 
 		const req = ctx.switchToHttp().getRequest()
 		const token = req.headers['authorization'] as string | undefined
+		const isBlackListed = await this.authService.isTokenBlackListed(token)
 
 		//chequear si se hizo logout
-		if (token && await this.authService.isTokenBlackListed(token))
+		if (token && isBlackListed)
 			throw new ForbiddenException()
 
 		//chequear permisos de usuario

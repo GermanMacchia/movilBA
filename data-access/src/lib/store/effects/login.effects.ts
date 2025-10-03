@@ -1,12 +1,11 @@
 import { inject, Injectable } from '@angular/core'
 
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { catchError, map, mergeMap, of } from 'rxjs'
+import { catchError, map, mergeMap, of, tap } from 'rxjs'
 
-import * as loginActions from '../actions/login.actions'
 import { AuthApiService } from '../../api/auth-api-service'
 import { AuthService } from '../../services'
-import { Store } from '@ngrx/store'
+import * as loginActions from '../actions/login.actions'
 
 @Injectable()
 export class LoginEffects {
@@ -31,12 +30,8 @@ export class LoginEffects {
 	logout$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(loginActions.logout),
-			mergeMap(() => this.apiService.logout()),
-			map(() => {
-				this.authService.logout()
-				return loginActions.logoutSuccess()
-			}),
-			catchError(error => of(loginActions.logoutError(error)))
-		)
+			tap(() => this.authService.logout())
+		),
+		{ dispatch: false }
 	)
 }

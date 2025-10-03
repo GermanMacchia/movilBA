@@ -1,9 +1,9 @@
-// auth.service.ts
+import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager'
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { JwtService } from '@nestjs/jwt'
 import * as bcrypt from 'bcrypt'
-import { Cache } from 'cache-manager'
+
 import { jwtDecode } from 'jwt-decode'
 import { AuthInfo } from '../app/interfaces'
 import { Usuario } from '../app/models/usuario.model'
@@ -13,7 +13,7 @@ import { UsuarioRepository } from '../usuarios/usuarios.repository'
 export class AuthService {
 	constructor(
 		private jwtService: JwtService,
-		@Inject('CACHE_MANAGER')
+		@Inject(CACHE_MANAGER)
 		private cacheManager: Cache,
 		private usuarioRepository: UsuarioRepository,
 		private readonly config: ConfigService
@@ -43,9 +43,10 @@ export class AuthService {
 
 	async refresh(token: string) {
 		try {
-			token = token.startsWith('Bearer ') ? token.slice(7) : token
+			const slicedToken = token.startsWith('Bearer ') ? token.slice(7) : token
 			const secret = this.config.get<string>('app.jwt.secret')
-			const decoded = this.jwtService.verify(token, { secret })
+			const decoded = this.jwtService.verify(slicedToken, { secret })
+			await this.addToBlackList(token)
 			return this.generateToken(decoded)
 		} catch (error) {
 			throw new HttpException(error.message, HttpStatus.UNAUTHORIZED)
@@ -68,16 +69,16 @@ export class AuthService {
 
 	async logout(token: string) {
 		await this.addToBlackList(token);
-		return { message: 'OK', status: HttpStatus.ACCEPTED };
+		return { message: 'ok', status: HttpStatus.ACCEPTED };
 	}
 
-	async addToBlackList(token: string): Promise<void> {
-		await this.cacheManager.set(token, true, this.config.get('app.jwt.expire'));
+	async addToBlackList(token: string) {
+		await this.cacheManager.set(token, true, this.config.get('app.jwt.expire') * 1000);
 	}
 
 	async isTokenBlackListed(token: string): Promise<boolean> {
 		const isBlackListed = await this.cacheManager.get(token);
-		return !!isBlackListed;
+		return !!isBlackListed
 	}
 
 	/**

@@ -1,17 +1,20 @@
 import { ActionReducerMap } from '@ngrx/store';
 import {
-    LoginReducer,
+    loginReducer,
     LoginState,
-    RutapReducer,
+    rutapReducer,
     RutapState
 } from 'data-access/src/index';
+import { permisosReducer, PermisosState } from 'data-access/src/lib/store';
 
 export interface AppState {
     login: LoginState
     rutap: RutapState
+    permisos: PermisosState
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
-    login: LoginReducer,
-    rutap: RutapReducer
+    login: loginReducer,
+    rutap: rutapReducer,
+    permisos: permisosReducer
 }

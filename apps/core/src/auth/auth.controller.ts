@@ -20,7 +20,6 @@ export class AuthController {
 		return this.authService.refresh(req.headers.authorization)
 	}
 
-
 	@Post('logout')
 	logout(@Request() request: Request) {
 		return this.authService.logout(request.headers['authorization']);

@@ -1,7 +1,13 @@
-export enum RolesUsuarios {
-    ADMINISTRADOR = 'ADMINISTRADOR',
-    AUDITOR = 'AUDITOR',
-    OPERADOR = 'OPERADOR',
+export enum ACCIONES {
+    delete = 'DELETE',
+    create = 'CREATE',
+    read = 'READ',
+    write = 'WRITE'
+}
+
+export enum MODULOS {
+    rutap = 'RUTAP',
+    permisos = 'PERMISOS',
 }
 
 export enum tipoVista {

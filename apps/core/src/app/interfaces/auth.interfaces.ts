@@ -18,6 +18,7 @@ export interface AuthInfo {
     family_name: string;
 }
 
+//implementacion en Guard
 export enum Permissions {
     READ = 0b0001,
     WRITE = 0b0010,

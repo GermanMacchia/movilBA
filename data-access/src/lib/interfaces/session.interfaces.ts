@@ -8,8 +8,14 @@ export interface Session {
 
 export interface Permisos {
 	permisos: number
-	modulo: Usuario
+	modulo: Modulo
 }
+
+
+export interface Modulo {
+	nombre: string
+}
+
 
 export interface Usuario {
 	id: number

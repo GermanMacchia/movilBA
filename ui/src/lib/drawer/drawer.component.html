@@ -1,9 +1,15 @@
+<!--HEADER-->
 <div class="drawer-content bg-base-200">
-	<div class="flex block items-center justify-between" [class]="!open()? 'h-[4rem]' : ''">
+	<div
+		class="flex block items-center justify-between"
+		[class]="!open() ? 'h-[4rem]' : ''">
 		@if(!open()){
 		<div class="flex items-center justify-between w-full">
 			<div class="flex items-center gap-6">
-				<button type="button" class="btn btn-circle bg-transparent border-none m-1" (click)="toggleDrawer()"
+				<button
+					type="button"
+					class="btn btn-circle bg-transparent border-none m-1"
+					(click)="toggleDrawer()"
 					aria-label="Toggle sidebar">
 					<i class="bi bi-layout-sidebar-inset"></i>
 				</button>
@@ -11,11 +17,13 @@
 				<div class="flex flex-col">
 					<div class="flex items-center gap-2">
 						<i class="bi bi-person-bounding-box"></i>
-						<p class="text-sm max-w-[10rem]">{{usuario()}}</p>
+						<p class="text-sm max-w-[10rem]">
+							{{ usuario() | titlecase }}
+						</p>
 					</div>
-					<div class="flex items-center gap-2 ">
+					<div class="flex items-center gap-2">
 						<i class="bi bi-shield-lock text-gray-500"></i>
-						<p class="text-sm text-gray-500">{{rol()}}</p>
+						<p class="text-sm text-gray-500">{{ rol() | titlecase }}</p>
 					</div>
 				</div>
 				<div class="divider divider-horizontal"></div>
@@ -23,14 +31,21 @@
 				<div class="breadcrumbs text-sm">
 					<ul>
 						@for (item of paths(); track $index) {
-						<li class="cursor-pointer hover:underline-offset-4">
-							<p>{{item.label | titlecase }}</p>
+						<li
+							class="cursor-pointer hover:underline-offset-4"
+							(click)="router.navigate([item.url])">
+							<p>{{ item.label | titlecase }}</p>
 						</li>
 						}
 					</ul>
 				</div>
 			</div>
-			<button type="button" class="btn rounded-lg mx-2" (click)="logout()()" aria-label="Logout">
+			<button
+				[disabled]="paths().length <= 1"
+				type="button"
+				class="btn rounded-lg mx-2"
+				(click)="back()"
+				aria-label="Logout">
 				<i class="bi bi-arrow-left-square text-xl"></i>
 				Volver
 			</button>
@@ -38,21 +53,35 @@
 		}
 	</div>
 </div>
+<!--SIDE-->
 <div class="drawer" [class]="open()">
 	<input id="my-drawer" type="checkbox" class="drawer-toggle" />
-	<div class="drawer-side bg-base-200 min-w-[14rem] h-screen"
-		style="display: flex; justify-content: space-between; flex-direction: column;">
+	<div
+		class="drawer-side bg-base-200 min-w-[14rem] h-screen"
+		style="
+			display: flex;
+			justify-content: space-between;
+			flex-direction: column;
+		">
 		<div>
 			<div class="flex items-center">
-				<button type="button" class="btn btn-circle m-1" (click)="toggleDrawer()" aria-label="Toggle sidebar">
+				<button
+					type="button"
+					class="btn btn-circle m-1"
+					(click)="toggleDrawer()"
+					aria-label="Toggle sidebar">
 					<i class="bi bi-layout-sidebar"></i>
 				</button>
 				<div class="flex items-center p-3 gap-5">
-					<div class="rounded-md bg-[#8de2d6]" style="padding: .4rem .75rem;">
-						<p class="text-2xl">{{appname()?.charAt(0)?.toUpperCase()}}</p>
+					<div
+						class="rounded-md bg-[#8de2d6]"
+						style="padding: 0.4rem 0.75rem">
+						<p class="text-2xl">
+							{{ appname()?.charAt(0)?.toUpperCase() }}
+						</p>
 					</div>
 					<div class="flex flex-col items-start">
-						<p class="text-md">{{appname()}}</p>
+						<p class="text-md">{{ appname() }}</p>
 						<p class="text-xs text-gray-500">Workspace</p>
 					</div>
 				</div>
@@ -60,21 +89,49 @@
 			<!--DATOS USUARIO-->
 			<div class="flex items-center gap-2 m-4">
 				<i class="bi bi-person-bounding-box"></i>
-				<p class="text-sm max-w-[10rem]">{{usuario()}}</p>
+				<p class="text-sm max-w-[10rem]">{{ usuario() | titlecase }}</p>
 			</div>
 			<div class="flex items-center gap-2 m-4">
 				<i class="bi bi-shield-lock text-gray-500"></i>
-				<p class="text-sm text-gray-500">{{rol()}}</p>
+				<p class="text-sm text-gray-500">{{ rol() | titlecase }}</p>
 			</div>
 			@for (item of items(); track $index) {
-			<button class="btn btn-wide justify-start gap-[5rem]">
+			<!--Only-->
+			@if(item.only){
+			<button
+				*ngxPermissionsOnly="item.only"
+				[routerLink]="item.routerLink"
+				class="btn btn-wide justify-start gap-[5rem]">
 				<i [class]="item.icon"></i>
-				<p>{{item.label}}</p>
+				<p>{{ item.label }}</p>
 			</button>
 			}
+			<!--Except-->
+			@if(item.except){
+			<button
+				*ngxPermissionsExcept="item.except"
+				[routerLink]="item.routerLink"
+				class="btn btn-wide justify-start gap-[5rem]">
+				<i [class]="item.icon"></i>
+				<p>{{ item.label }}</p>
+			</button>
+			}
+			<!--Default-->
+			@if(!item.except && !item.only){
+			<button
+				class="btn btn-wide justify-start gap-[5rem]"
+				[routerLink]="item.routerLink">
+				<i [class]="item.icon"></i>
+				<p>{{ item.label }}</p>
+			</button>
+			} }
 		</div>
 		<div class="flex gap-2 items-center justify-between mb-1 w-full">
-			<button type="button" class="btn rounded-lg m-1" (click)="logout()()" aria-label="Logout">
+			<button
+				type="button"
+				class="btn rounded-lg m-1"
+				(click)="logout()()"
+				aria-label="Logout">
 				<i class="bi bi-box-arrow-right text-xl"></i>
 				Salir
 			</button>
@@ -83,9 +140,15 @@
 			<div class="px-2">
 				<label class="toggle text-base-content">
 					<input type="checkbox" #themeCheck (change)="changeTheme()" />
-
-					<svg aria-label="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-						<g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
+					<svg
+						aria-label="sun"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24">
+						<g
+							stroke-linejoin="round"
+							stroke-linecap="round"
+							stroke-width="2"
+							fill="none"
 							stroke="currentColor">
 							<circle cx="12" cy="12" r="4"></circle>
 							<path d="M12 2v2"></path>
@@ -99,13 +162,19 @@
 						</g>
 					</svg>
 
-					<svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-						<g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
+					<svg
+						aria-label="moon"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24">
+						<g
+							stroke-linejoin="round"
+							stroke-linecap="round"
+							stroke-width="2"
+							fill="none"
 							stroke="currentColor">
 							<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
 						</g>
 					</svg>
-
 				</label>
 			</div>
 			}

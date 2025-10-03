@@ -7,6 +7,7 @@ import {
 	Model,
 	Table,
 } from 'sequelize-typescript'
+import { Log } from './log.model'
 import { Permiso } from './permiso.model'
 
 @Table({ tableName: 'usuarios' })
@@ -39,6 +40,9 @@ export class Usuario extends Model<Usuario> {
 
 	@HasMany(() => Permiso)
 	permisos: Permiso[]
+
+	@HasMany(() => Log)
+	log: Log[]
 
 	@BeforeCreate
 	@BeforeUpdate

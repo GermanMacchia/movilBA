@@ -7,9 +7,11 @@ import {
 	selectSession,
 } from '@movil-ba/data-access'
 import { LoginCardComponent } from '@movilBA/ui'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 import { Store } from '@ngrx/store'
-import { filter, map } from 'rxjs'
+import { filter } from 'rxjs'
 
+@UntilDestroy()
 @Component({
 	selector: 'app-login',
 	imports: [LoginCardComponent, AsyncPipe],
@@ -45,7 +47,10 @@ export class LoginComponent implements OnInit {
 		this.bgUrl = this.location.prepareExternalUrl('assets/login-background.jpg')
 		this.store$
 			.select(selectSession)
-			.pipe(filter(ele => !!ele))
+			.pipe(
+				filter(ele => !!ele),
+				untilDestroyed(this)
+			)
 			.subscribe(() => this.router.navigate(['']))
 	}
 }

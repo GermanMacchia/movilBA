@@ -5,7 +5,7 @@ import { RequireMask, RequireModule } from '../app/utils/decorators';
 import { EntidadesService } from './entidades.service';
 
 @Controller('entidades')
-@RequireModule(Modulos.RUTAX)
+@RequireModule(Modulos.RUTAP)
 export class EntidadesController {
   constructor(
     private readonly entidadesService: EntidadesService

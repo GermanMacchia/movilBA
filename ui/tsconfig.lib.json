@@ -31,5 +31,5 @@
 		"**/*.cy.tsx",
 		"**/*.cy.jsx"
 	],
-	"include": ["src/**/*.ts"]
+	"include": ["src/**/*.ts", "src/lib/info-modal/info-modal.service.ts"]
 }

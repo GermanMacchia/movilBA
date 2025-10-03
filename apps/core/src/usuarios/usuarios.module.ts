@@ -14,4 +14,4 @@ import { UsuariosService } from './usuarios.service'
 	imports: [SequelizeModule.forFeature([Usuario, Permiso, Modulo], CORE_DB)],
 	exports: [UsuarioRepository],
 })
-export class UsuariosModule {}
+export class UsuariosModule { }

@@ -1,4 +1,7 @@
-import { SetMetadata } from '@nestjs/common'
+import { applyDecorators, SetMetadata, UseInterceptors } from '@nestjs/common'
+import { LogsRepository } from '../../logs/logs.repository'
+import { LogInterceptor } from '../interceptors/log.interceptor'
+import { Log, LogType } from '../models/log.model'
 
 
 export const PUBLIC_KEY = 'Public'
@@ -15,14 +18,10 @@ export const RequireMask = (mask: number[]) =>
 
 export const Public = () => SetMetadata(PUBLIC_KEY, true)
 
-// export function Auth(...roles: string[]) {
-// 	return applyDecorators(AllowedRoles(...roles), UseGuards(PermisosGuard));
-// }
-
-// export function IncludeLog(descripcion: string, tipo_log: LogType) {
-// 	return applyDecorators(
-// 		UseInterceptors(
-// 			new LogInterceptor(new LogsRepository(Log), descripcion, tipo_log),
-// 		),
-// 	);
-// }
+export function RegisterLog(descripcion: string, tipo_log: LogType) {
+    return applyDecorators(
+        UseInterceptors(
+            new LogInterceptor(new LogsRepository(Log), descripcion, tipo_log),
+        ),
+    );
+}

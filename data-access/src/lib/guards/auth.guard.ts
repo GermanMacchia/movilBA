@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {Injectable, inject} from '@angular/core';
-import {Router, UrlTree} from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import { Router, UrlTree } from '@angular/router';
 
-import {Observable} from 'rxjs';
-import { AuthService } from '../services/auth-service';
+import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
     providedIn: 'root',

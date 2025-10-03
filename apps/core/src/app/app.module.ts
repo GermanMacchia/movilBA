@@ -9,11 +9,12 @@ import { config } from './config'
 
 import { AuthModule } from '../auth/auth.module'
 import { EntidadesModule } from '../entidades/entidades.module'
+import { LogsModule } from '../logs/logs.module'
+import { ModulosModule } from '../modulos/modulos.module'
+import { PermisosModule } from '../permisos/permisos.module'
 import { UsuariosModule } from '../usuarios/usuarios.module'
 import { CoreDBModule } from './dbs/coreDB.module'
 import { EntidadesDBModule } from './dbs/entidadesDB.module'
-import { ModulosModule } from '../modulos/modulos.module'
-import { PermisosModule } from '../permisos/permisos.module'
 
 @Module({
 	imports: [
@@ -40,6 +41,7 @@ import { PermisosModule } from '../permisos/permisos.module'
 		EntidadesDBModule,
 		CoreDBModule,
 		AuthModule,
+		LogsModule,
 		UsuariosModule,
 		EntidadesModule,
 		ModulosModule,
@@ -48,4 +50,4 @@ import { PermisosModule } from '../permisos/permisos.module'
 	controllers: [AppController],
 	providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

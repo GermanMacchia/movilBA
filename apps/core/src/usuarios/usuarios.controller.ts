@@ -10,21 +10,24 @@ import {
 
 import { UsuarioDTO } from '../app/dtos/usuario.dto'
 import { Modulos, Permissions } from '../app/interfaces'
-import { RequireMask, RequireModule } from '../app/utils/decorators'
+import { LogType } from '../app/models/log.model'
+import { RegisterLog, RequireMask, RequireModule } from '../app/utils/decorators'
 import { UsuariosService } from './usuarios.service'
 
 @Controller('usuarios')
+@RequireModule(Modulos.PERMISOS)
 export class UsuariosController {
 	constructor(private readonly usuariosService: UsuariosService) { }
 
 	@Get()
-	@RequireModule(Modulos.PERMISOS)
 	@RequireMask([Permissions.READ])
 	getAll() {
 		return this.usuariosService.users()
 	}
 
 	@Post()
+	@RequireMask([Permissions.WRITE])
+	@RegisterLog('Usuario Creado', LogType.CREATE)
 	crear(@Body() usuario: UsuarioDTO) {
 		return this.usuariosService.create(usuario)
 	}
