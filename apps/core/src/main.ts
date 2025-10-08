@@ -6,6 +6,7 @@ import helmet from 'helmet'
 import { Logger, ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app/app.module'
+import passport from 'passport'
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule)
@@ -21,6 +22,8 @@ async function bootstrap() {
 		})
 	)
 	app.enableCors(config.get('app.cors'))
+
+	app.use(passport.initialize())
 
 	app.setGlobalPrefix(config.get('app.rootPath'))
 

@@ -23,5 +23,5 @@
 		"src/**/*.test.jsx",
 		"src/**/*.spec.jsx"
 	],
-	"include": ["src/**/*.ts"]
+	"include": ["src/**/*.ts", "../ui/src/lib/info-modal/info-modal.service.ts"]
 }

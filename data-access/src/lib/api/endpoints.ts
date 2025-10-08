@@ -1,10 +1,15 @@
 export const ENDPOINTS = {
 	auth: {
-		health: (url:string) => `${url}/api/health`,
-		// persmissions: (url:string) => `${url}/api/navigation` ,
-		cfrToken: (url: string) => `${url}/api/auth/client/csrf`,
-		login: (url: string) => `${url}/api/auth/client/login`,
-		logout: (url:string) => `${url}/api/auth/client/logout`,
-		session: (url: string) => `${url}/api/auth/client/session`,
+		health: (url: string) => `${url}/api/health`,
+		login: (url: string) => `${url}/api/auth/login`,
+		refresh: (url: string) => `${url}/api/auth/refresh`,
+		logout: (url: string) => `${url}/api/auth/logout`,
+	},
+	permisos: {
+		usuarios: (url: string) => `${url}/api/usuarios`,
+		modulos: (url: string) => `${url}/api/modulos`
+	},
+	rutap: {
+		entidades: (url: string) => `${url}/api/entidades`,
 	},
 }

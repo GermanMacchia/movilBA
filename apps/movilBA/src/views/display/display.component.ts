@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, inject, OnInit, signal } from '@angular/core'
 import { ActivatedRoute, RouterLink } from '@angular/router'
 
@@ -12,6 +11,8 @@ export class DisplayComponent implements OnInit {
 	routes = signal<any>('')
 
 	ngOnInit(): void {
-		this.activatedRoute.data.subscribe(data => this.routes.set(data['modulos']))
+		this.activatedRoute.data.subscribe(data => {
+			this.routes.set(data['modulos'])
+		})
 	}
 }

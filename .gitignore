@@ -7,7 +7,10 @@ out-tsc
 
 # dependencies
 node_modules
-
+.cursor
+.vscode
+.nx
+.verdaccio
 # IDEs and editors
 /.idea
 .project
@@ -16,8 +19,8 @@ node_modules
 *.launch
 .settings/
 *.sublime-workspace
-
 SERVIDOR.md
+NX-SCHEMAS.md
 
 apps/core/.env
 # IDE - VSCode

@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth-service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
     providedIn: 'root',

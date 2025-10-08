@@ -3,7 +3,7 @@ import { HttpBackend, HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 
 const DEFAULT_CONFIG = {
-	apiUrl: '',
+	apiUrl: '/core',
 	isQa: false,
 }
 
@@ -13,7 +13,6 @@ export class AppConfigService {
 	private httpBackend = inject(HttpBackend)
 
 	public loadConfig() {
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		return new Promise<void>((res, _rej) => {
 			const http = new HttpClient(this.httpBackend)
 
@@ -42,6 +41,6 @@ export class AppConfigService {
 }
 
 export function initializeApp() {
-	const appConfigService = inject(AppConfigService);
-	return appConfigService.loadConfig();
+	const appConfigService = inject(AppConfigService)
+	return appConfigService.loadConfig()
 }

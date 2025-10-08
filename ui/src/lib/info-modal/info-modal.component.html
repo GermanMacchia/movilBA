@@ -1,0 +1,19 @@
+<dialog #dialog class="modal modal-bottom sm:modal-middle">
+	<div class="modal-box" [class]="service.modalInfo().severityClass">
+		<div class="flex w-full items-center justify-between">
+			<h3 class="text-lg font-bold">{{ service.modalInfo().title }}</h3>
+			<i style="font-size: 2.5rem" [class]="service.modalInfo().icon"></i>
+		</div>
+		<p class="py-4 whitespace-pre-line">{{ service.modalInfo().body }}</p>
+		<div class="modal-action flex gap-3">
+			<button class="btn bg-[#A7E399]" (click)="service.handleAccept()">
+				Aceptar
+			</button>
+			@if(service.modalInfo().showCancel){
+			<button class="btn bg-[#FF6363]" (click)="service.handleCancel()">
+				Cancelar
+			</button>
+			}
+		</div>
+	</div>
+</dialog>

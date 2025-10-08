@@ -10,11 +10,11 @@ import { provideRouter } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { AuthInterceptor, initializeApp, initializePermissions, LoginEffects } from 'data-access/src/index';
+import { AuthInterceptor, initializeApp, LoginEffects, RutapEffects } from 'data-access/src/index';
+import { PermisosEffects } from 'data-access/src/lib/store';
 import {
   NgxPermissionsModule,
-  NgxPermissionsService,
-  USE_PERMISSIONS_STORE,
+  NgxPermissionsService
 } from 'ngx-permissions';
 import { appReducers } from './app.reducers';
 import { appRoutes } from './app.routes';
@@ -23,12 +23,7 @@ import { appRoutes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [
     NgxPermissionsService,
-    {
-      provide: USE_PERMISSIONS_STORE,
-      useValue: true,
-    },
     provideBrowserGlobalErrorListeners(),
-    provideAppInitializer(initializePermissions),
     provideAppInitializer(initializeApp),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
@@ -40,7 +35,7 @@ export const appConfig: ApplicationConfig = {
       multi: true
     },
     provideStore(appReducers),
-    provideEffects([LoginEffects]),
+    provideEffects([LoginEffects, RutapEffects, PermisosEffects]),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: false,

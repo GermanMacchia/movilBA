@@ -16,7 +16,12 @@
 		"baseUrl": ".",
 		"paths": {
 			"@movil-ba/data-access": ["data-access/src/index.ts"],
-			"@movilBA/ui": ["ui/src/index.ts"]
+			"@movilBA/ui": ["ui/src/index.ts"],
+			"@movilBA/core/src/*": ["apps/core/src/*"],
+			"@movilBA/core/models/*": ["apps/core/src/app/models/*"],
+			"@movilBA/core/interfaces/*": ["apps/core/src/app/interfaces/*"],
+			"@movilBA/core/utils/*": ["apps/core/src/app/utils/*"],
+			"@movilBA/core/dtos/*": ["apps/core/src/app/dtos/*"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

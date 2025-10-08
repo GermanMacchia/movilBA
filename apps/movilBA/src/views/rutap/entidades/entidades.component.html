@@ -1,0 +1,10 @@
+<lib-simple-list
+	[dataKeys]="[
+		{ key: 'cuit', type: types.STRING },
+		{ key: 'nombre', type: types.STRING },
+		{ key: 'tipo_entidad', type: types.STRING },
+		{ key: 'razon_social', type: types.STRING },
+		{ key: 'estado_operacional', type: types.STRING }
+	]"
+	[headers]="['Cuit', 'Nombre', 'Tipo', 'Razón Social', 'Estado Operacional']"
+	[data]="(data$ | async)!"></lib-simple-list>

@@ -6,9 +6,11 @@ import {
 	HttpRequest,
 } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
+import { catchError, Observable, of, retry } from 'rxjs'
 
-import { AuthService } from '../services/auth-service'
+import { ENDPOINTS } from '../api/endpoints'
+import { Session } from '../interfaces'
+import { AuthService } from '../services/auth.service'
 import { securityHeaders } from './security-headers'
 
 @Injectable()
@@ -16,32 +18,36 @@ export class AuthInterceptor implements HttpInterceptor {
 	private authService = inject(AuthService)
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		// eslint-disable-next-line prefer-const
 		let authReq = this.setSecurityHeaders(req)
+		const session = sessionStorage.getItem('session')
 
-		if (authReq.url.includes('login') || authReq.url.includes('csrf'))
+		if (authReq.url.includes('login') || !session)
 			return next.handle(authReq)
-		/*
-                const { access_token, exp } = this.authService.getAuthorization()
-                const now = new Date().getTime() / 1000
 
-                //refrescar el token
-                if (
-                    access_token &&
-                    (exp - now) / 60 < 10 &&
-                    req.url !== endpoints.auth.refresh(this.apiService.getApiUrl())
-                )
-                    this.authService.refresh(access_token)
+		const { access_token, exp } = JSON.parse(session) as Session
 
-                if (access_token)
-                    authReq = req.clone({
-                        headers: req.headers.set(
-                            'Authorization',
-                            `Bearer ${access_token}`,
-                        ),
-                    })
-        */
-		return next.handle(authReq)
+		const now = new Date().getTime() / 1000
+
+		if (
+			access_token &&
+			(exp - now) / 60 < 5 &&
+			!req.url.includes(ENDPOINTS.auth.logout('')) &&
+			!req.url.includes(ENDPOINTS.auth.refresh(''))
+		)
+			this.authService.refresh()
+
+		if (access_token)
+			authReq = req.clone({
+				headers: req.headers.set(
+					'Authorization',
+					`Bearer ${access_token}`,
+				),
+			})
+
+		return next.handle(authReq).pipe(retry(2), catchError(error => {
+			this.authService.resetpermissions()
+			return of(error)
+		}))
 	}
 
 	private setSecurityHeaders(req: HttpRequest<any>): HttpRequest<any> {

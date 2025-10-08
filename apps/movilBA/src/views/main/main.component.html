@@ -1,7 +1,25 @@
-<lib-drawer [logout]="handleLogout" [paths]="[{ label: 'Inicio', routerLink: ''}]"
-    (openChange)="sidebarOpen($event)" [themes]="{light: 'corporate', dark: 'dark'}"
-    [items]="[{label: 'Inicio', routerLink: '', icon: 'bi bi-house'}]" appname="MóvilBA" rol="Administrador"
-    [usuario]="(usuario |async)!"></lib-drawer>
-<div class="router-shell mt-[3.5rem]" id='inner-router'>
-    <router-outlet></router-outlet>
+<lib-drawer
+	[logout]="handleLogout"
+	[paths]="paths()"
+	(openChange)="sidebarOpen($event)"
+	[themes]="{ light: 'corporate', dark: 'dark' }"
+	[items]="[
+		{
+			label: 'Inicio',
+			routerLink: '',
+			icon: 'bi bi-house'
+		},
+		{
+			label: 'Permisos',
+			only: 'PERMISOS.READ',
+			routerLink: 'permisos',
+			icon: 'bi bi-person-badge'
+		}
+	]"
+	appname="MóvilBA"
+	[rol]="authService.ranked()"
+	[usuario]="(usuario | async)?.usuario?.nombre"></lib-drawer>
+<div class="router-shell mt-[3.5rem]" id="inner-router">
+	<router-outlet></router-outlet>
 </div>
+<lib-info-modal></lib-info-modal>

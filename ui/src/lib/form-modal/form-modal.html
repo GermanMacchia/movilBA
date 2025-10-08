@@ -1,0 +1,77 @@
+<dialog #dialog class="modal modal-middle">
+	<div class="modal-box">
+		<div class="flex w-full items-center justify-between">
+			<h3 class="text-lg font-bold">{{ service.modalInfo().title }}</h3>
+			@if(service.modalInfo().icon){
+			<i style="font-size: 2.5rem" [class]="service.modalInfo().icon"></i>
+			}
+		</div>
+		@if(service.modalInfo().info){
+		<p class="py-2 whitespace-pre-line">{{ service.modalInfo().info }}</p>
+		}
+		<!--Formulario-->
+		@if(service.formgroup){
+		<div class="flex flex-col gap-3 py-4">
+			@for (item of service.modalInfo().data; track $index) {
+			<form autocomplete="off" [formGroup]="service.formgroup">
+				@switch (item.type) {
+				<!--String-->
+				@case (types.STRING) {
+				<label class="input">
+					{{item.key | titlecase}}
+					<input type="text" [formControlName]="item.key" />
+				</label>
+				}
+				<!--Password-->
+				@case (types.PASSWORD) {
+				<label class="input mb-[2rem]">
+					{{item.key | titlecase}}
+					<input
+						autocomplete="off"
+						[formControlName]="item.key"
+						type="password"
+						class="input validator"
+						minlength="8"
+						pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" />
+					<p class="validator-hint absolute left-0 top-[2.25rem]">
+						Debe al menos 8 carácteres,<br />
+						Incluyendo 1 mayúscula, 1 minúscula<br />y 1 número
+					</p>
+				</label>
+				}
+				<!--Date-->
+				@case (types.DATE) { }
+				<!--Email-->
+				@case (types.EMAIL) {
+				<label class="input">
+					{{item.key | titlecase}}
+					<input [formControlName]="item.key" type="email" />
+				</label>
+				}
+				<!--Boolean-->
+				@case (types.BOOLEAN) {
+				<label>
+					{{item.key | titlecase}}
+					<input
+						[formControlName]="item.key"
+						type="checkbox"
+						checked="checked"
+						class="checkbox border-white bg-red-400 checked:border-white checked:bg-green-400 checked:text-white" />
+				</label>
+				} }
+			</form>
+			}
+		</div>
+		}
+		<div class="modal-action flex gap-3">
+			<button class="btn bg-[#A7E399]" (click)="service.handleAccept()">
+				Aceptar
+			</button>
+			@if(service.modalInfo()){
+			<button class="btn bg-[#FF6363]" (click)="service.handleCancel()">
+				Cancelar
+			</button>
+			}
+		</div>
+	</div>
+</dialog>
