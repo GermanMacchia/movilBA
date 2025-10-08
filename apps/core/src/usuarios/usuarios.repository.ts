@@ -44,7 +44,7 @@ export class UsuarioRepository {
 		const [error, data] = await to(
 			this.usuarioModel.findAll({
 				nest: true,
-				attributes: ['cuil', 'nombre', 'email', 'ultimo_login', 'deletedAt'],
+				attributes: ['id', 'cuil', 'nombre', 'email', 'ultimo_login', 'deletedAt'],
 				paranoid: false,
 				include: this.permisosQuery,
 			})

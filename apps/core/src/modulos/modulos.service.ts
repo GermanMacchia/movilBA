@@ -4,14 +4,14 @@ import { ModulosRespository } from './modulos.repository'
 
 @Injectable()
 export class ModulosService {
-	constructor(private modulosRepository: ModulosRespository) {}
+	constructor(private modulosRepository: ModulosRespository) { }
 
 	create(createPermisoDto: ModuloDTO) {
 		return this.modulosRepository.create(createPermisoDto)
 	}
 
 	findAll() {
-		return `This action returns all permisos`
+		return this.modulosRepository.findAll()
 	}
 
 	findOne(id: number) {

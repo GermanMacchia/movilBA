@@ -6,7 +6,8 @@ export const ENDPOINTS = {
 		logout: (url: string) => `${url}/api/auth/logout`,
 	},
 	permisos: {
-		usuarios: (url: string) => `${url}/api/usuarios`
+		usuarios: (url: string) => `${url}/api/usuarios`,
+		modulos: (url: string) => `${url}/api/modulos`
 	},
 	rutap: {
 		entidades: (url: string) => `${url}/api/entidades`,

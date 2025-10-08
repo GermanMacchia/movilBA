@@ -1,26 +1,9 @@
-<label class="input">
-	<svg
-		class="h-[1em] opacity-50"
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 24 24">
-		<g
-			stroke-linejoin="round"
-			stroke-linecap="round"
-			stroke-width="2.5"
-			fill="none"
-			stroke="currentColor">
-			<circle cx="11" cy="11" r="8"></circle>
-			<path d="m21 21-4.3-4.3"></path>
-		</g>
-	</svg>
-	<input type="search" required placeholder="Search" />
-</label>
 <div class="overflow-auto h-[75vh] mt-6">
-	<table class="table table-xs table-pin-rows table-pin-cols">
+	<table class="table table-md table-pin-rows table-pin-cols">
 		<thead>
 			<tr>
 				@for (title of headers(); track $index) {
-				<th>{{ title }}</th>
+				<th class="text-center">{{ title }}</th>
 				}
 			</tr>
 		</thead>
@@ -28,11 +11,11 @@
 			@for (ele of data(); track $index) {
 			<tr>
 				@for (data of dataKeys(); track $index) {
-				<td>
+				<td class="text-center">
 					@switch (data.type) {
 					<!--String-->
 					@case (types.STRING) {
-					<p>{{ getValue(ele, data.key) }}</p>
+					<p>{{ getValue(ele, data.key) | titlecase }}</p>
 					}
 					<!--Date-->
 					@case (types.DATE) {
@@ -41,7 +24,7 @@
 					<!--Email-->
 					@case (types.EMAIL) {
 					<p
-						class="cursor-pointer hover:underline-offset-4"
+						class="cursor-pointer"
 						(click)="sendEmail(getValue(ele, data.key))">
 						{{ getValue(ele, data.key) }}
 					</p>
@@ -50,22 +33,22 @@
 					@case (types.BOOLEAN) {
 					<!--true case-->
 					@if(getValue(ele, data.key) === data?.trueCase){
-					<i class="bi bi-check"></i>
+					<i class="bi bi-check-lg"></i>
 					}@else {
-					<i class="bi bi-x"></i>
+					<i class="bi bi-x-lg"></i>
 					} }}
 				</td>
 				}
-				<td>
+				<td class="flex gap-4 justify-center">
 					@for (item of actions(); track $index) {
 					<div class="tooltip">
 						<div class="tooltip-content">
-							<div
-								class="animate-bounce text-orange-400 -rotate-10 text-2xl font-black">
-								{{ item.info }}
-							</div>
+							{{ item.info }}
 						</div>
-						<button class="btn" (click)="item.action()">
+						<button
+							style="height: inherit"
+							class="btn p-0 bg-transparent border-none"
+							(click)="item.action(ele)">
 							<i [class]="item.icon"></i>
 						</button>
 					</div>

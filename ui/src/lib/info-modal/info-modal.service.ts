@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 const EMPTY_INFO = {
-  hasCancel: false,
+  showCancel: false,
   title: '',
   body: '',
   icon: '',
@@ -24,7 +24,6 @@ export class InfoModalService {
   onCancel: () => void = () => { }
   onAccept: () => void = () => { }
 
-
   openModal(
     title: string,
     body: string,
@@ -33,7 +32,7 @@ export class InfoModalService {
     onCancel?: () => void) {
 
     this.modalInfo.set({
-      hasCancel: onCancel ? true : false,
+      showCancel: onCancel ? true : false,
       title,
       body,
       icon:
@@ -56,18 +55,19 @@ export class InfoModalService {
 
   handleAccept = () => {
     this.onAccept()
-    this.reset()
+
   }
 
   handleCancel = () => {
     this.onCancel()
-    this.reset()
   }
 
-  private reset() {
+  reset() {
     this.modalVisible.next(false)
-    this.modalInfo.set(EMPTY_INFO)
+
     this.onCancel = () => { }
     this.onAccept = () => { }
+
+    this.modalInfo.set(EMPTY_INFO)
   }
 }

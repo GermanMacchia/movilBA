@@ -1,23 +1,14 @@
+import { Permiso } from "./permisos.interfaces"
+
 export interface Session {
 	access_token: string
 	iat: number
 	exp: number
-	usuario: Usuario
-	permisos: Permisos[]
+	usuario: UsuarioData
+	permisos: Permiso[]
 }
 
-export interface Permisos {
-	permisos: number
-	modulo: Modulo
-}
-
-
-export interface Modulo {
-	nombre: string
-}
-
-
-export interface Usuario {
+export interface UsuarioData {
 	id: number
 	nombre: string
 }

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store'
 import { NgxPermissionsService } from 'ngx-permissions'
 import { catchError, finalize, of } from 'rxjs'
 import { AuthApiService } from '../api/auth-api-service'
-import { Permisos } from '../interfaces'
+import { Permiso } from '../interfaces'
 import { loginSuccess } from '../store'
 
 export const SESSION = 'session'
@@ -70,7 +70,7 @@ export class AuthService {
 
 	//-- bitmask: read=0001, write=0010, create=0100, delete=1000
 	// 1111 Administrado, 0111 Editor, 0011 Operador, 0001 Auditor
-	translatePermissions = (permisos: Permisos[]) => {
+	translatePermissions = (permisos: Permiso[]) => {
 		const permissions = []
 		let ranked = 'Auditor'
 		const pArray = ['DELETE', 'CREATE', 'WRITE', 'READ']

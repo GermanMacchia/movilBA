@@ -1,18 +1,20 @@
 import { Action, createReducer, on } from '@ngrx/store'
-import { permisosError, permisosLoading, setUsuarios } from '../actions/permisos.actions'
+import { permisosError, permisosLoading, setModulos, setUsuarios } from '../actions/permisos.actions'
 
 //STATE
 export interface PermisosState {
 	loading: boolean
 	error: any
 	usuarios: any
+	modulos: any
 }
 
 //INITIAL
 export const permisosInitialState: PermisosState = {
 	loading: false,
 	error: null,
-	usuarios: null
+	usuarios: null,
+	modulos: null
 }
 
 //REDUCER
@@ -27,6 +29,11 @@ const _permisosReducer = createReducer(
 	on(setUsuarios, (state, { data }) => ({
 		...state,
 		usuarios: data
+	})),
+
+	on(setModulos, (state, { data }) => ({
+		...state,
+		modulos: data
 	})),
 
 	on(permisosError, (state, { data }) => ({

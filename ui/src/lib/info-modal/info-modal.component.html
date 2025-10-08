@@ -5,17 +5,15 @@
 			<i style="font-size: 2.5rem" [class]="service.modalInfo().icon"></i>
 		</div>
 		<p class="py-4 whitespace-pre-line">{{ service.modalInfo().body }}</p>
-		<div class="modal-action">
-			<form method="dialog">
-				<button class="btn bg-green-300" (click)="service.handleAccept()">
-					Aceptar
-				</button>
-				@if(service.modalInfo().hasCancel){
-				<button class="btn bg-red-300" (click)="service.handleCancel()">
-					Cerrar
-				</button>
-				}
-			</form>
+		<div class="modal-action flex gap-3">
+			<button class="btn bg-[#A7E399]" (click)="service.handleAccept()">
+				Aceptar
+			</button>
+			@if(service.modalInfo().showCancel){
+			<button class="btn bg-[#FF6363]" (click)="service.handleCancel()">
+				Cancelar
+			</button>
+			}
 		</div>
 	</div>
 </dialog>

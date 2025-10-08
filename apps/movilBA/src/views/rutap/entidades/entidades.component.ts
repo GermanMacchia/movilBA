@@ -1,8 +1,9 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { selectEntidades } from '@movil-ba/data-access';
-import { SimpleListComponent, SimpleListType } from '@movilBA/ui';
+import { SimpleListComponent } from '@movilBA/ui';
 import { Store } from '@ngrx/store';
+import { DataTypes } from 'ui/src/lib/common/enums';
 
 @Component({
 	selector: 'app-entidades',
@@ -11,6 +12,6 @@ import { Store } from '@ngrx/store';
 })
 export class EntidadesComponent {
 	store$ = inject(Store)
-	types = SimpleListType
+	types = DataTypes
 	data$: any = this.store$.select(selectEntidades)
 }

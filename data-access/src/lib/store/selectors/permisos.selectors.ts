@@ -11,3 +11,8 @@ export const selectUsuarios = createSelector(
     createFeatureSelector<PermisosState>('permisos'),
     state => state.usuarios
 )
+
+export const selectModulos = createSelector(
+    createFeatureSelector<PermisosState>('permisos'),
+    state => state.modulos
+)

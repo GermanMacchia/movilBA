@@ -1,23 +1,32 @@
+import { inject } from '@angular/core'
 import { ResolveFn } from '@angular/router'
 import { Store } from '@ngrx/store'
-import { inject } from '@angular/core'
-import { of } from 'rxjs'
-import { catchError, filter, switchMap, take } from 'rxjs/operators'
-import { fetchUsuarios, selectUsuarios } from '../../store'
+import { combineLatest, of } from 'rxjs'
+import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators'
+import { fetchModulos, fetchUsuarios, selectModulos, selectUsuarios } from '../../store'
 
 export const permisosResolver: ResolveFn<any> = (_route, _state) => {
   const store$ = inject(Store)
 
-  return store$.select(selectUsuarios).pipe(
+  return combineLatest([
+    store$.select(selectUsuarios),
+    store$.select(selectModulos)
+  ]).pipe(
     take(1),
-    switchMap(data => {
-      if (data) return of(data)
-      store$.dispatch(fetchUsuarios())
-      return store$.select(selectUsuarios).pipe(
-        filter(updatedData => !!updatedData),
-        take(1)
-      )
+    tap(([usuarios, modulos]) => {
+      if (!usuarios) store$.dispatch(fetchUsuarios())
+      if (!modulos) store$.dispatch(fetchModulos())
     }),
-    catchError(error => of(error))
+    switchMap(() =>
+      combineLatest([
+        store$.select(selectUsuarios),
+        store$.select(selectModulos)
+      ]).pipe(
+        filter(([usuarios, modulos]) => !!usuarios && !!modulos),
+        take(1),
+        map(([usuarios, modulos]) => ({ usuarios, modulos }))
+      )
+    ),
+    catchError(() => of({ usuarios: null, modulos: null }))
   )
 }
