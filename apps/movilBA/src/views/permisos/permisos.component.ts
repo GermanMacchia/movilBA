@@ -38,12 +38,13 @@ export class PermisosComponent {
   data$: any = this.store$.select(selectUsuarios)
 
   selectedUserPermissions = signal<Permiso[]>([])
+  selectedUser = signal<Usuario | null>(null)
 
   openModalForm = () =>
     this.formModalService.openModal('Crear Usuario', formDefaultData, this.sendForm, this.cancel)
 
   openPermissions = (usuario: Usuario) => {
-    console.log(usuario)
+    this.selectedUser.set(usuario)
     this.selectedUserPermissions.set(usuario.permisos)
     this.permisos.nativeElement.showModal()
   }
