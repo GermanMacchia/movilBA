@@ -1,0 +1,100 @@
+<!--PERMISOS MODAL-->
+<dialog #permisos class="modal">
+	<div class="modal-box flex flex-col gap-3">
+		<button
+			(click)="permisos.close()"
+			class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+			<i class="bi bi-x" style="font-size: 1.25rem"></i>
+		</button>
+		<!--Body-->
+		<h3 class="text-lg font-bold">
+			Permisos de {{ selectedUser()?.nombre | titlecase }} [{{
+				selectedUser()?.cuil
+			}}]
+		</h3>
+		<table>
+			<tr>
+				<th rowspan="2">Módulo</th>
+				<th colspan="4">Permisos</th>
+				<th style="border: none; width: 2rem"></th>
+			</tr>
+			<tr>
+				<td>Borrar</td>
+				<td>Crear</td>
+				<td>Editar</td>
+				<td>Leer</td>
+				<td style="border: none"></td>
+			</tr>
+			@for (item of selectedUser()?.permisos; track $index) {
+				<tr>
+					<td>{{ item.modulo.nombre | titlecase }}</td>
+					@for (permiso of split(item.permisos.toString()); track $index) {
+						<td>
+							@if (+permiso) {
+								<i class="bi bi-check"></i>
+							} @else {
+								<i class="bi bi-x"></i>
+							}
+						</td>
+					}
+					<td style="border: none">
+						@if (editMode()) {
+							<div class="w-[2rem] text-center">
+								<i class="bi bi-trash side-btn cursor-pointer"></i>
+							</div>
+						}
+					</td>
+				</tr>
+			}
+			@if (editMode()) {
+				<tr>
+					<td class="min-w-[6rem]">
+						<select
+							class="select select-xs w-full justify-center"
+							(change)="selectChange($event)">
+							<option disabled selected>Módulo</option>
+							@for (item of modulos(); track $index) {
+								<option class="text-center" [value]="item.id">
+									{{ item.nombre | titlecase }}
+								</option>
+							}
+						</select>
+					</td>
+					@for (
+						item of ['Borrar', 'Crear', 'Editar', 'Ver'];
+						let idx = $index;
+						track $index
+					) {
+						<td>
+							<input
+								type="checkbox"
+								(change)="inputChange(idx, $event)"
+								class="checkbox checkbox-xs" />
+						</td>
+					}
+					<div class="w-[2rem] text-center">
+						<i
+							class="bi bi-plus side-btn-plus cursor-pointer"
+							(click)="crearPermiso()"></i>
+					</div>
+				</tr>
+			}
+		</table>
+
+		<div class="modal-action flex gap-3" *ngxPermissionsOnly="'PERMISOS.CREATE'">
+			@if (editMode()) {
+				<i
+					class="bi bi-x-square hover:shadow-md p-1 hover:cursor-pointer"
+					(click)="editMode.set(false)">
+					cancelar</i
+				>
+			} @else {
+				<i
+					class="bi bi-pencil-square hover:shadow-md p-1 hover:cursor-pointer"
+					(click)="editMode.set(true)">
+					editar</i
+				>
+			}
+		</div>
+	</div>
+</dialog>

@@ -3,6 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { catchError, map, of, switchMap } from 'rxjs'
 import { PermisosApiService } from '../../api/permisos-api-service'
 import {
+	createPermission,
+	createUsuario,
 	fetchModulos,
 	fetchUsuarios,
 	permisosError,
@@ -33,14 +35,23 @@ export class PermisosEffects {
 		),
 	)
 
-	// createUsuario$ = createEffect(() =>
-	// 	this.actions$.pipe(
-	// 		ofType(createUsuario),
-	// 		switchMap(({ data }) => this.permisosApiService.createUsuario()),
-	// 		map((modulos) => setModulos({ data: modulos })),
-	// 		catchError(error => of(permisosError({ data: error })))
-	// 	)
-	// )
+	createPermission$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(createPermission),
+			switchMap(data => this.permisosApiService.createPermiso(data)),
+			map(() => fetchUsuarios()),
+			catchError(error => of(permisosError({ data: error }))),
+		),
+	)
+
+	createUsuario$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(createUsuario),
+			switchMap(data => this.permisosApiService.createUsuario(data)),
+			map(() => fetchUsuarios()),
+			catchError(error => of(permisosError({ data: error }))),
+		),
+	)
 
 	// createModulo$ = createEffect(() =>
 	// 	this.actions$.pipe(

@@ -14,6 +14,21 @@ export const setModulos = createAction(
 	props<{ data: any }>(),
 )
 
+export const createUsuario = createAction(
+	'[Permisos] create Usuario',
+	props<{ data: any }>(),
+)
+
+export const createModulo = createAction(
+	'[Permisos] create Modulo',
+	props<{ data: any }>(),
+)
+
+export const createPermission = createAction(
+	'[Permisos] create Permission',
+	props<{ usuario_id: number; modulo_id: number; permisos: string }>(),
+)
+
 export const permisosLoading = createAction('[Permisos] data Loading')
 export const permisosError = createAction(
 	'[Permisos] set Error',

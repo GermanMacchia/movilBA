@@ -1,0 +1,29 @@
+.select {
+	padding-inline-start: 0;
+	padding-inline-end: 0;
+	border: none;
+	font-weight: 500;
+	font-size: 1rem;
+	&:focus,
+	&:focus-within {
+		outline: none;
+		outline-offset: none;
+	}
+}
+.side-btn {
+	color: gray;
+	&-plus:hover {
+		color: green;
+	}
+	&:hover {
+		color: red;
+	}
+}
+table {
+	width: 100%;
+	th,
+	td {
+		text-align: center;
+		border: 1px solid black;
+	}
+}

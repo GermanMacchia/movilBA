@@ -1,6 +1,6 @@
-import { AsyncPipe, TitleCasePipe } from '@angular/common'
-import { Component, ElementRef, inject, signal, ViewChild } from '@angular/core'
-import { Permiso, Usuario } from '@movil-ba/data-access'
+import { AsyncPipe } from '@angular/common'
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core'
+import { Usuario } from '@movil-ba/data-access'
 import {
 	ActionHeaderComponent,
 	FormModal,
@@ -8,9 +8,11 @@ import {
 	SimpleListComponent,
 } from '@movilBA/ui'
 import { Store } from '@ngrx/store'
-import { selectUsuarios } from 'data-access/src/lib/store'
+import { createUsuario, selectUsuarios } from 'data-access/src/lib/store'
+import { NgxPermissionsService } from 'ngx-permissions'
 import { DataTypes } from 'ui/src/lib/common/enums'
 import type { FormData } from 'ui/src/lib/common/interfaces'
+import { PermisosModalComponent } from '../../components/permisos-modal/permisos-modal.component'
 
 const formDefaultData: FormData[] = [
 	{ key: 'cuil', type: DataTypes.STRING, value: '' },
@@ -26,7 +28,7 @@ const formDefaultData: FormData[] = [
 		AsyncPipe,
 		ActionHeaderComponent,
 		FormModal,
-		TitleCasePipe,
+		PermisosModalComponent,
 	],
 	templateUrl: './permisos.component.html',
 	styles: `
@@ -41,16 +43,24 @@ const formDefaultData: FormData[] = [
 		}
 	`,
 })
-export class PermisosComponent {
-	@ViewChild('permisos')
-	permisos!: ElementRef<HTMLDialogElement>
+export class PermisosComponent implements OnInit {
 	formModalService = inject(FormModalService)
+	permissionsService = inject(NgxPermissionsService)
 	store$ = inject(Store)
 	types = DataTypes
 	data$: any = this.store$.select(selectUsuarios)
+	canEdit = signal<boolean>(false)
 
-	selectedUserPermissions = signal<Permiso[]>([])
+	@ViewChild(PermisosModalComponent)
+	permisosModal!: PermisosModalComponent
+
 	selectedUser = signal<Usuario | null>(null)
+
+	async ngOnInit() {
+		const canEdit = await this.permissionsService.hasPermission('PERMISOS.CREATE')
+
+		this.canEdit.set(canEdit)
+	}
 
 	openModalForm = () =>
 		this.formModalService.openModal(
@@ -62,13 +72,13 @@ export class PermisosComponent {
 
 	openPermissions = (usuario: Usuario) => {
 		this.selectedUser.set(usuario)
-		this.selectedUserPermissions.set(usuario.permisos)
-		this.permisos.nativeElement.showModal()
+		this.permisosModal.openModal()
 	}
 
-	sendForm = () => {}
-
-	split = (permisos: string) => permisos.split('')
+	sendForm = () =>
+		this.store$.dispatch(
+			createUsuario({ ...this.formModalService.formgroup?.value }),
+		)
 
 	cancel = () => {}
 }

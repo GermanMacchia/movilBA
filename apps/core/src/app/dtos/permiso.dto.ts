@@ -1,4 +1,4 @@
-import { IsDefined, IsNumber, Max, MaxLength } from 'class-validator'
+import { IsDefined, IsNumber, IsString } from 'class-validator'
 
 export class PermisoDTO {
 	@IsNumber()
@@ -9,8 +9,7 @@ export class PermisoDTO {
 	@IsDefined()
 	usuario_id: number
 
-	@IsNumber()
+	@IsString()
 	@IsDefined()
-	@Max(1111)
-	permisos: number
+	permisos: string
 }

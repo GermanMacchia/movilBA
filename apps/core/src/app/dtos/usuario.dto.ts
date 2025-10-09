@@ -1,4 +1,4 @@
-import { IsBoolean, IsDefined, IsEmail, IsOptional, IsString } from 'class-validator'
+import { IsDefined, IsEmail, IsString } from 'class-validator'
 
 export class UsuarioDTO {
 	@IsString()
@@ -17,8 +17,4 @@ export class UsuarioDTO {
 	@IsDefined()
 	@IsEmail()
 	email: string
-
-	@IsOptional()
-	@IsBoolean()
-	activo: boolean
 }

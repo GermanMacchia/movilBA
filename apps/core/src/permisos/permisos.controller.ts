@@ -20,6 +20,7 @@ export class PermisosController {
 	@RequireMask([Permissions.CREATE])
 	@RegisterLog('Permiso Creado', LogType.CREATE)
 	create(@Body() createPermisoDto: PermisoDTO) {
+		console.log(createPermisoDto)
 		return this.permisosService.create(createPermisoDto)
 	}
 

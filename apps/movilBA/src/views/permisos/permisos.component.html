@@ -1,9 +1,9 @@
 <lib-action-header
 	[actions]="[
 		{
-			icon: 'bi bi-person-add',
+			icon: 'bi bi-person-plus',
 			action: openModalForm,
-			label: 'Agregar',
+			label: 'Crear Usuario',
 			only: 'PERMISOS.CREATE',
 		},
 	]"></lib-action-header>
@@ -26,55 +26,16 @@
 			icon: 'bi bi-pencil-square',
 			info: 'Editar',
 			action: cancel,
+			disabled: !canEdit(),
 		},
 		{
 			icon: 'bi bi-person-dash',
 			info: 'Restringir',
 			action: cancel,
+			disabled: !canEdit(),
 		},
 	]"
 	[data]="(data$ | async)!">
 </lib-simple-list>
 <lib-form-modal></lib-form-modal>
-<!--PERMISOS MODAL-->
-<dialog #permisos id="my_modal_3" class="modal">
-	<div class="modal-box flex flex-col gap-3">
-		<button
-			(click)="permisos.close()"
-			class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-			✕
-		</button>
-		<!--Body-->
-		<h3 class="text-lg font-bold">
-			Permisos de {{ selectedUser()?.nombre | titlecase }} [{{
-				selectedUser()?.cuil
-			}}]
-		</h3>
-		<table>
-			<tr>
-				<th rowspan="2">Módulo</th>
-				<th colspan="4">Permisos</th>
-			</tr>
-			<tr>
-				<td>Borrar</td>
-				<td>Crear</td>
-				<td>Editar</td>
-				<td>Leer</td>
-			</tr>
-			@for (item of selectedUserPermissions(); track $index) {
-				<tr>
-					<td>{{ item.modulo.nombre | titlecase }}</td>
-					@for (permiso of split(item.permisos.toString()); track $index) {
-						<td>
-							@if (permiso) {
-								<i class="bi bi-check"></i>
-							} @else {
-								<i class="bi bi-x"></i>
-							}
-						</td>
-					}
-				</tr>
-			}
-		</table>
-	</div>
-</dialog>
+<app-permisos-modal [selectedUser]="selectedUser()!"></app-permisos-modal>

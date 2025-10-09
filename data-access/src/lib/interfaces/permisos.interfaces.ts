@@ -9,7 +9,7 @@ export interface Usuario {
 }
 
 export interface Permiso {
-	permisos: number
+	permisos: string
 	modulo: Modulo
 }
 

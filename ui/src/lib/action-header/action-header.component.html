@@ -5,7 +5,7 @@
 	</label>
 </div>
 @if (actions()?.length) {
-	<ul class="menu menu-horizontal rounded-box">
+	<ul class="menu menu-horizontal rounded-box flex gap-3">
 		@for (item of actions(); track $index) {
 			<li [class]="item.info ? 'tooltip' : ''" *ngxPermissionsOnly="item.only">
 				@if (item.info) {

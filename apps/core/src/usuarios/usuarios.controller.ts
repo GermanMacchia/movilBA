@@ -26,7 +26,7 @@ export class UsuariosController {
 	}
 
 	@Post()
-	@RequireMask([Permissions.WRITE])
+	@RequireMask([Permissions.CREATE])
 	@RegisterLog('Usuario Creado', LogType.CREATE)
 	crear(@Body() usuario: UsuarioDTO) {
 		return this.usuariosService.create(usuario)

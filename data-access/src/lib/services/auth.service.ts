@@ -86,12 +86,13 @@ export class AuthService {
 			const module = permisos[x].modulo.nombre.toUpperCase()
 			for (let y = 0; y < pArray.length; y++) {
 				const hasPermission = permisos[x].permisos.toString().charAt(y)
-				if (!hasPermission) continue
+				if (!+hasPermission) continue
 
 				permissions.push(`${module}.${pArray[y]}`)
 				if (y < rArray.indexOf(ranked)) ranked = rArray[y]
 			}
 		}
+
 		this.ranked.set(ranked)
 		return permissions
 	}

@@ -1,8 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { PermisoDTO } from '../app/dtos/permiso.dto'
-import { InjectConnection, InjectModel } from '@nestjs/sequelize'
-import { Permiso } from '../app/models/permiso.model'
+import { InjectModel } from '@nestjs/sequelize'
 import { CORE_DB } from '../app/dbs/coreDB.module'
+import { Permiso } from '../app/models/permiso.model'
 
 @Injectable()
 export class PermisosRepository {
@@ -13,7 +12,7 @@ export class PermisosRepository {
 		private permisoModel: typeof Permiso,
 	) {}
 
-	create(createPermisoDto: PermisoDTO) {
+	create(createPermisoDto: any) {
 		return this.permisoModel.create(createPermisoDto)
 	}
 

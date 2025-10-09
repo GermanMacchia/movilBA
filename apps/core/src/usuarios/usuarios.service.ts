@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config'
 
 import * as bcrypt from 'bcrypt'
 
-import { UsuarioRepository } from './usuarios.repository'
 import { UsuarioDTO } from '../app/dtos/usuario.dto'
+import { UsuarioRepository } from './usuarios.repository'
 
 @Injectable()
 export class UsuariosService {
@@ -30,7 +30,6 @@ export class UsuariosService {
 			nombre: usuario.nombre,
 			cuil: usuario.cuil,
 			email: usuario.email,
-			activo: usuario.activo,
 			password: hash,
 		})
 	}

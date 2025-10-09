@@ -18,7 +18,15 @@ export class SimpleListComponent {
 	 * [{key: 'usuarios.admin.nombre', type: DataTypes.STRING}]
 	 */
 	dataKeys = input.required<{ key: string; type: DataTypes; trueCase?: any }[]>()
-	actions = input<{ icon: string; info: string; action: (ele: any) => void }[]>()
+	actions =
+		input<
+			{
+				icon: string
+				info: string
+				action: (ele: any) => void
+				disabled?: boolean
+			}[]
+		>()
 	data = input.required<any[]>()
 	headers = input.required<string[]>()
 	types = DataTypes

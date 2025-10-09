@@ -48,6 +48,7 @@
 									{{ item.info }}
 								</div>
 								<button
+									[disabled]="item.disabled"
 									style="height: inherit"
 									class="btn p-0 bg-transparent border-none"
 									(click)="item.action(ele)">

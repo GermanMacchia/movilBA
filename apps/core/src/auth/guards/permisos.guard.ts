@@ -66,7 +66,9 @@ export class PermisosGuard implements CanActivate {
 
 		if (!req.mask || !req.mask.length) return true
 
-		const userMaskedPermissions = this.toMask(entry.permisos)
+		const parsed = parseInt(entry.permisos, 2)
+
+		const userMaskedPermissions = this.toMask(parsed)
 
 		//si algunas de las restricciones no se cumple
 		let allowed = true

@@ -27,8 +27,19 @@ export class Permiso extends Model<Permiso> {
 	// 0111 Editor
 	// 0011 Operador
 	// 0001 Auditor
-	@Column(DataType.INTEGER({ length: 4 }))
-	permisos: number
+	@Column({
+		type: DataType.CHAR(4),
+		allowNull: false,
+		defaultValue: '0000',
+		validate: {
+			is4Bits(value: string) {
+				if (!/^[01]{4}$/.test(value)) {
+					throw new Error('Los permisos deben ser un string de 4 bits')
+				}
+			},
+		},
+	})
+	permisos: string
 
 	@BelongsTo(() => Usuario, 'usuario_id')
 	usuario: Usuario

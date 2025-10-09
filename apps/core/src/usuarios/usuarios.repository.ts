@@ -83,8 +83,6 @@ export class UsuarioRepository {
 			}),
 		)
 
-		const user = data.get({ plain: true })
-
 		if (error)
 			handleException(
 				this.logger,
@@ -92,6 +90,8 @@ export class UsuarioRepository {
 				HttpStatus.INTERNAL_SERVER_ERROR,
 				{ name: 'error', message: 'internal Server Error' },
 			)
+
+		const user = data?.get({ plain: true })
 
 		if (user) this.cacheManager.set(cuil, JSON.stringify(user))
 
