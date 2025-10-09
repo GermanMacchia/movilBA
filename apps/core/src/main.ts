@@ -19,7 +19,7 @@ async function bootstrap() {
 	app.use(
 		helmet({
 			xXssProtection: false,
-		})
+		}),
 	)
 	app.enableCors(config.get('app.cors'))
 
@@ -32,7 +32,7 @@ async function bootstrap() {
 			whitelist: true,
 			forbidNonWhitelisted: true,
 			transform: true,
-		})
+		}),
 	)
 
 	await app.listen(config.get('app.port'))

@@ -13,7 +13,7 @@ export class AppService {
 		@InjectConnection(CORE_DB) private coreDb: Sequelize,
 		@InjectConnection(ENTIDADES_DB) private entidadesDb: Sequelize,
 		private health: HealthCheckService,
-		private healthIndicator: HealthIndicatorService
+		private healthIndicator: HealthIndicatorService,
 	) {}
 
 	async getHealth(): Promise<any> {
@@ -22,7 +22,7 @@ export class AppService {
 				{ name: 'Core', db: this.coreDb },
 				{ name: 'Entidades', db: this.entidadesDb },
 			],
-			this.healthIndicator
+			this.healthIndicator,
 		)
 		return await this.health.check([
 			() => dbHealthIndicator.checkHealth('databases'),

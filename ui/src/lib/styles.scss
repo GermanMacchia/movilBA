@@ -5,5 +5,7 @@
 // Import the Sass files as usual
 
 @plugin "daisyui" {
-    themes: corporate --default, dark --prefersdark;
+	themes:
+		corporate --default,
+		dark --prefersdark;
 }

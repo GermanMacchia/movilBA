@@ -4,7 +4,9 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
 @use 'bootstrap-icons/font/bootstrap-icons';
 
 @plugin "daisyui" {
-	themes: corporate --default, dark --prefersdark;
+	themes:
+		corporate --default,
+		dark --prefersdark;
 }
 
 /* Estilos globales para controlar el viewport */
@@ -34,7 +36,7 @@ body {
 	width: 100%;
 }
 
-.router-shell router-outlet+* {
+.router-shell router-outlet + * {
 	flex-grow: 1;
 	display: flex;
 

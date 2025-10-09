@@ -1,6 +1,16 @@
-import { CanActivate, ExecutionContext, ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common'
+import {
+	CanActivate,
+	ExecutionContext,
+	ForbiddenException,
+	Injectable,
+	UnauthorizedException,
+} from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
-import { PUBLIC_KEY, REQUIRED_MASK, REQUIRED_MODULE } from '../../app/utils/decorators'
+import {
+	PUBLIC_KEY,
+	REQUIRED_MASK,
+	REQUIRED_MODULE,
+} from '../../app/utils/decorators'
 import { UsuarioRepository } from '../../usuarios/usuarios.repository'
 import { AuthService } from '../auth.service'
 
@@ -12,8 +22,8 @@ export class PermisosGuard implements CanActivate {
 	constructor(
 		private reflector: Reflector,
 		private authService: AuthService,
-		private usuarioRepository: UsuarioRepository
-	) { }
+		private usuarioRepository: UsuarioRepository,
+	) {}
 
 	async canActivate(ctx: ExecutionContext): Promise<boolean> {
 		//busca en tanto en controllador como en el handler
@@ -29,8 +39,7 @@ export class PermisosGuard implements CanActivate {
 		const isBlackListed = await this.authService.isTokenBlackListed(token)
 
 		//chequear si se hizo logout
-		if (token && isBlackListed)
-			throw new ForbiddenException()
+		if (token && isBlackListed) throw new ForbiddenException()
 
 		//chequear permisos de usuario
 		const cuil = req.user.cuil
@@ -59,11 +68,10 @@ export class PermisosGuard implements CanActivate {
 
 		const userMaskedPermissions = this.toMask(entry.permisos)
 
-		//si algunas de las restricciones no se cumple 
+		//si algunas de las restricciones no se cumple
 		let allowed = true
 		for (let idx = 0; idx < reqMask.mask.length; idx++) {
-			if (this.toMask(reqMask.mask[idx]) !== userMaskedPermissions)
-				allowed = false
+			if (this.toMask(reqMask.mask[idx]) !== userMaskedPermissions) allowed = false
 		}
 
 		if (!allowed) throw new ForbiddenException()

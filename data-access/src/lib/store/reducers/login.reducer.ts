@@ -6,7 +6,7 @@ import {
 	loginSuccess,
 	logout,
 	logoutError,
-	sessionError
+	sessionError,
 } from '../index'
 
 //STATE
@@ -59,7 +59,7 @@ const _loginReducer = createReducer(
 	on(logout, state => ({
 		...state,
 		session: null,
-	}))
+	})),
 )
 
 export function loginReducer(state: LoginState | undefined, action: Action<string>) {

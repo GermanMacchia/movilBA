@@ -3,58 +3,60 @@
 		<thead>
 			<tr>
 				@for (title of headers(); track $index) {
-				<th class="text-center">{{ title }}</th>
+					<th class="text-center">{{ title }}</th>
 				}
 			</tr>
 		</thead>
 		<tbody>
 			@for (ele of data(); track $index) {
-			<tr>
-				@for (data of dataKeys(); track $index) {
-				<td class="text-center">
-					@switch (data.type) {
-					<!--String-->
-					@case (types.STRING) {
-					<p>{{ getValue(ele, data.key) | titlecase }}</p>
+				<tr>
+					@for (data of dataKeys(); track $index) {
+						<td class="text-center">
+							@switch (data.type) {
+								<!--String-->
+								@case (types.STRING) {
+									<p>{{ getValue(ele, data.key) | titlecase }}</p>
+								}
+								<!--Date-->
+								@case (types.DATE) {
+									<p>{{ getValue(ele, data.key) | date }}</p>
+								}
+								<!--Email-->
+								@case (types.EMAIL) {
+									<p
+										class="cursor-pointer"
+										(click)="sendEmail(getValue(ele, data.key))">
+										{{ getValue(ele, data.key) }}
+									</p>
+								}
+								<!--Boolean-->
+								@case (types.BOOLEAN) {
+									<!--true case-->
+									@if (getValue(ele, data.key) === data?.trueCase) {
+										<i class="bi bi-check-lg"></i>
+									} @else {
+										<i class="bi bi-x-lg"></i>
+									}
+								}
+							}
+						</td>
 					}
-					<!--Date-->
-					@case (types.DATE) {
-					<p>{{ getValue(ele, data.key) | date }}</p>
-					}
-					<!--Email-->
-					@case (types.EMAIL) {
-					<p
-						class="cursor-pointer"
-						(click)="sendEmail(getValue(ele, data.key))">
-						{{ getValue(ele, data.key) }}
-					</p>
-					}
-					<!--Boolean-->
-					@case (types.BOOLEAN) {
-					<!--true case-->
-					@if(getValue(ele, data.key) === data?.trueCase){
-					<i class="bi bi-check-lg"></i>
-					}@else {
-					<i class="bi bi-x-lg"></i>
-					} }}
-				</td>
-				}
-				<td class="flex gap-4 justify-center">
-					@for (item of actions(); track $index) {
-					<div class="tooltip">
-						<div class="tooltip-content">
-							{{ item.info }}
-						</div>
-						<button
-							style="height: inherit"
-							class="btn p-0 bg-transparent border-none"
-							(click)="item.action(ele)">
-							<i [class]="item.icon"></i>
-						</button>
-					</div>
-					}
-				</td>
-			</tr>
+					<td class="flex gap-4 justify-center">
+						@for (item of actions(); track $index) {
+							<div class="tooltip">
+								<div class="tooltip-content">
+									{{ item.info }}
+								</div>
+								<button
+									style="height: inherit"
+									class="btn p-0 bg-transparent border-none"
+									(click)="item.action(ele)">
+									<i [class]="item.icon"></i>
+								</button>
+							</div>
+						}
+					</td>
+				</tr>
 			}
 		</tbody>
 	</table>

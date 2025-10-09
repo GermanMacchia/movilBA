@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 @Component({
-  selector: 'app-entidad',
-  imports: [],
-  templateUrl: './entidad.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+	selector: 'app-entidad',
+	imports: [],
+	templateUrl: './entidad.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EntidadComponent { }
+export class EntidadComponent {}

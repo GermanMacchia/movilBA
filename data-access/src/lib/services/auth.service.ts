@@ -26,25 +26,31 @@ export class AuthService {
 		this.isPermissionGranted.set(true)
 		sessionStorage.setItem(SESSION, JSON.stringify(session))
 		const permissions = this.translatePermissions(session.permisos)
-		this.ngxPermissionsService.addPermission(permissions);
+		this.ngxPermissionsService.addPermission(permissions)
 	}
 
-	refresh = () => this.authApiService.refresh()
-		.pipe(catchError(error => {
-			this.infoModalService.openModal(
-				'Sesión Finalizada',
-				`La sesión actual ha caducado y no pudo ser renovada. 
+	refresh = () =>
+		this.authApiService
+			.refresh()
+			.pipe(
+				catchError(error => {
+					this.infoModalService.openModal(
+						'Sesión Finalizada',
+						`La sesión actual ha caducado y no pudo ser renovada. 
 				Por favor ingrese sus credenciales nuevamente.`,
-				'warn',
-				() => this.resetpermissions()
+						'warn',
+						() => this.resetpermissions(),
+					)
+					return of(error)
+				}),
 			)
-			return of(error)
-		})).subscribe()
+			.subscribe()
 
 	logout = () =>
-		this.authApiService.logout().pipe(
-			finalize(() => this.resetpermissions())
-		).subscribe()
+		this.authApiService
+			.logout()
+			.pipe(finalize(() => this.resetpermissions()))
+			.subscribe()
 
 	resetpermissions() {
 		sessionStorage.clear()
@@ -59,7 +65,7 @@ export class AuthService {
 		if (!session) return
 
 		this.setSession(JSON.parse(session))
-		this.store$.dispatch(loginSuccess({ data: JSON.parse(session) }));
+		this.store$.dispatch(loginSuccess({ data: JSON.parse(session) }))
 	}
 
 	flushPermission = () => {
@@ -77,14 +83,13 @@ export class AuthService {
 		const rArray = ['Administrador', 'Editor', 'Operador', 'Auditor']
 
 		for (let x = 0; x < permisos.length; x++) {
-			const module = permisos[x].modulo.nombre.toUpperCase();
+			const module = permisos[x].modulo.nombre.toUpperCase()
 			for (let y = 0; y < pArray.length; y++) {
-				const hasPermission = permisos[x].permisos.toString().charAt(y);
+				const hasPermission = permisos[x].permisos.toString().charAt(y)
 				if (!hasPermission) continue
 
 				permissions.push(`${module}.${pArray[y]}`)
-				if (y < rArray.indexOf(ranked))
-					ranked = rArray[y]
+				if (y < rArray.indexOf(ranked)) ranked = rArray[y]
 			}
 		}
 		this.ranked.set(ranked)

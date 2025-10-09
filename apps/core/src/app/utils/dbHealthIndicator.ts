@@ -1,13 +1,13 @@
-import { Logger } from '@nestjs/common';
-import { HealthIndicatorResult, HealthIndicatorService } from '@nestjs/terminus';
-import { Sequelize } from 'sequelize';
+import { Logger } from '@nestjs/common'
+import { HealthIndicatorResult, HealthIndicatorService } from '@nestjs/terminus'
+import { Sequelize } from 'sequelize'
 
 export class DbHealthIndicator {
 	private readonly logger: Logger
 
 	constructor(
 		private dbConections: { name: string; db: Sequelize }[],
-		private readonly healthIndicatorService: HealthIndicatorService
+		private readonly healthIndicatorService: HealthIndicatorService,
 	) {
 		this.logger = new Logger('DB Health Indicator')
 	}

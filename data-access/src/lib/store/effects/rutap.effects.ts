@@ -1,9 +1,9 @@
-import { inject, Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { Store } from "@ngrx/store";
-import { catchError, map, of, switchMap } from "rxjs";
-import { RutapApiService } from "../../api/rutap-api-service";
-import { fetchEntidades, rutapError, setEntidades } from "../actions/rutap.actions";
+import { inject, Injectable } from '@angular/core'
+import { Actions, createEffect, ofType } from '@ngrx/effects'
+import { Store } from '@ngrx/store'
+import { catchError, map, of, switchMap, tap } from 'rxjs'
+import { RutapApiService } from '../../api/rutap-api-service'
+import { fetchEntidades, rutapError, setEntidades } from '../actions/rutap.actions'
 
 @Injectable()
 export class RutapEffects {
@@ -14,9 +14,10 @@ export class RutapEffects {
 	fetchEntidades$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(fetchEntidades),
+			tap(() => console.log('aca')),
 			switchMap(() => this.rutapApiService.entidades()),
-			map((entidades) => setEntidades({ data: entidades })),
-			catchError(error => of(rutapError({ data: error })))
+			map(entidades => setEntidades({ data: entidades })),
+			catchError(error => of(rutapError({ data: error }))),
 		),
 	)
 }

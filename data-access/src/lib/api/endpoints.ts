@@ -7,7 +7,7 @@ export const ENDPOINTS = {
 	},
 	permisos: {
 		usuarios: (url: string) => `${url}/api/usuarios`,
-		modulos: (url: string) => `${url}/api/modulos`
+		modulos: (url: string) => `${url}/api/modulos`,
 	},
 	rutap: {
 		entidades: (url: string) => `${url}/api/entidades`,

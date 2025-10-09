@@ -4,8 +4,8 @@
 			icon: 'bi bi-person-add',
 			action: openModalForm,
 			label: 'Agregar',
-			only: 'PERMISOS.CREATE'
-		}
+			only: 'PERMISOS.CREATE',
+		},
 	]"></lib-action-header>
 <lib-simple-list
 	[dataKeys]="[
@@ -13,25 +13,25 @@
 		{ key: 'nombre', type: types.STRING },
 		{ key: 'email', type: types.EMAIL },
 		{ key: 'ultimo_login', type: types.DATE },
-		{ key: 'deletedAt', type: types.BOOLEAN, trueCase: null }
+		{ key: 'deletedAt', type: types.BOOLEAN, trueCase: null },
 	]"
 	[headers]="['Cuil', 'Nombre', 'Email', 'Ultimo Login', 'Activo']"
 	[actions]="[
 		{
 			icon: 'bi bi-card-checklist',
 			info: 'Ver permisos',
-			action: openPermissions
+			action: openPermissions,
 		},
 		{
 			icon: 'bi bi-pencil-square',
 			info: 'Editar',
-			action: cancel
+			action: cancel,
 		},
 		{
 			icon: 'bi bi-person-dash',
 			info: 'Restringir',
-			action: cancel
-		}
+			action: cancel,
+		},
 	]"
 	[data]="(data$ | async)!">
 </lib-simple-list>
@@ -62,18 +62,18 @@
 				<td>Leer</td>
 			</tr>
 			@for (item of selectedUserPermissions(); track $index) {
-			<tr>
-				<td>{{ item.modulo.nombre | titlecase }}</td>
-				@for (permiso of split(item.permisos.toString()); track $index) {
-				<td>
-					@if(permiso){
-					<i class="bi bi-check"></i>
-					}@else {
-					<i class="bi bi-x"></i>
+				<tr>
+					<td>{{ item.modulo.nombre | titlecase }}</td>
+					@for (permiso of split(item.permisos.toString()); track $index) {
+						<td>
+							@if (permiso) {
+								<i class="bi bi-check"></i>
+							} @else {
+								<i class="bi bi-x"></i>
+							}
+						</td>
 					}
-				</td>
-				}
-			</tr>
+				</tr>
 			}
 		</table>
 	</div>

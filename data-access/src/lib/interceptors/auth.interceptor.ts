@@ -21,8 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
 		let authReq = this.setSecurityHeaders(req)
 		const session = sessionStorage.getItem('session')
 
-		if (authReq.url.includes('login') || !session)
-			return next.handle(authReq)
+		if (authReq.url.includes('login') || !session) return next.handle(authReq)
 
 		const { access_token, exp } = JSON.parse(session) as Session
 
@@ -38,16 +37,16 @@ export class AuthInterceptor implements HttpInterceptor {
 
 		if (access_token)
 			authReq = req.clone({
-				headers: req.headers.set(
-					'Authorization',
-					`Bearer ${access_token}`,
-				),
+				headers: req.headers.set('Authorization', `Bearer ${access_token}`),
 			})
 
-		return next.handle(authReq).pipe(retry(2), catchError(error => {
-			this.authService.resetpermissions()
-			return of(error)
-		}))
+		return next.handle(authReq).pipe(
+			retry(2),
+			catchError(error => {
+				this.authService.resetpermissions()
+				return of(error)
+			}),
+		)
 	}
 
 	private setSecurityHeaders(req: HttpRequest<any>): HttpRequest<any> {
@@ -55,27 +54,24 @@ export class AuthInterceptor implements HttpInterceptor {
 			headers: req.headers
 				.set(
 					securityHeaders.xContentType.header,
-					securityHeaders.xContentType.content
+					securityHeaders.xContentType.content,
 				)
 				.set(
 					securityHeaders.strinctTransport.header,
-					securityHeaders.strinctTransport.content
+					securityHeaders.strinctTransport.content,
 				)
-				.set(
-					securityHeaders.xFrameOpt.header,
-					securityHeaders.xFrameOpt.content
-				)
+				.set(securityHeaders.xFrameOpt.header, securityHeaders.xFrameOpt.content)
 				.set(
 					securityHeaders.referrerPolicy.header,
-					securityHeaders.referrerPolicy.content
+					securityHeaders.referrerPolicy.content,
 				)
 				.set(
 					securityHeaders.xPermCrossDomPol.header,
-					securityHeaders.xPermCrossDomPol.content
+					securityHeaders.xPermCrossDomPol.content,
 				)
 				.set(
 					securityHeaders.contentSecurity.header,
-					securityHeaders.contentSecurity.content
+					securityHeaders.contentSecurity.content,
 				),
 		})
 	}

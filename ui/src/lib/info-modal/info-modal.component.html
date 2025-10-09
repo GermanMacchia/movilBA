@@ -9,10 +9,10 @@
 			<button class="btn bg-[#A7E399]" (click)="service.handleAccept()">
 				Aceptar
 			</button>
-			@if(service.modalInfo().showCancel){
-			<button class="btn bg-[#FF6363]" (click)="service.handleCancel()">
-				Cancelar
-			</button>
+			@if (service.modalInfo().showCancel) {
+				<button class="btn bg-[#FF6363]" (click)="service.handleCancel()">
+					Cancelar
+				</button>
 			}
 		</div>
 	</div>

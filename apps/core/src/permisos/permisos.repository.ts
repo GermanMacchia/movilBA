@@ -10,7 +10,7 @@ export class PermisosRepository {
 
 	constructor(
 		@InjectModel(Permiso, CORE_DB)
-		private permisoModel: typeof Permiso
+		private permisoModel: typeof Permiso,
 	) {}
 
 	create(createPermisoDto: PermisoDTO) {

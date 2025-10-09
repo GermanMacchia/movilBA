@@ -4,20 +4,20 @@ import { LoginState } from './reducers/login.reducer'
 
 export const selectSessionAuthenticated = createSelector(
 	createFeatureSelector<LoginState>('login'),
-	state => state.session?.authenticated
+	state => state.session?.authenticated,
 )
 
 export const selectSessionUsuario = createSelector(
 	createFeatureSelector<LoginState>('login'),
-	state => state.session?.user.name
+	state => state.session?.user.name,
 )
 
 export const selectLoginLoading = createSelector(
 	createFeatureSelector<LoginState>('login'),
-	state => state.loading
+	state => state.loading,
 )
 
 export const selectDataLoading = createSelector(
 	createFeatureSelector<LoginState>('data'),
-	state => state.loading
+	state => state.loading,
 )

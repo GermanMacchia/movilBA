@@ -1,4 +1,4 @@
-import { TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common'
 import {
 	AfterViewInit,
 	Component,
@@ -6,11 +6,10 @@ import {
 	inject,
 	input,
 	model,
-	ViewChild
-} from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { NgxPermissionsModule } from "ngx-permissions";
-
+	ViewChild,
+} from '@angular/core'
+import { Router, RouterLink } from '@angular/router'
+import { NgxPermissionsModule } from 'ngx-permissions'
 
 export const theme_value = 'theme_value'
 
@@ -26,7 +25,15 @@ export class DrawerComponent implements AfterViewInit {
 	logout = input.required<() => void>()
 	usuario = input<string>()
 	rol = input<string>()
-	items = input<{ label: string; routerLink: string; icon: string, only?: string, except?: string }[]>()
+	items = input<
+		{
+			label: string
+			routerLink: string
+			icon: string
+			only?: string
+			except?: string
+		}[]
+	>()
 	themes = input.required<{ dark: string; light: string }>()
 	appname = input<string>()
 	paths = input<{ label: string; url: string }[]>([])

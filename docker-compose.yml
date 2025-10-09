@@ -2,9 +2,9 @@ services:
   mariadb:
     image: mariadb:11.3
     environment:
-        MYSQL_ROOT_PASSWORD: devpass
-        MYSQL_DATABASE: movilba
-        MYSQL_USER: core
-        MYSQL_PASSWORD: localpass
+      MYSQL_ROOT_PASSWORD: devpass
+      MYSQL_DATABASE: movilba
+      MYSQL_USER: core
+      MYSQL_PASSWORD: localpass
     ports:
-      - "3306:3306"
+      - '3306:3306'

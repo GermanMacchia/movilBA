@@ -17,7 +17,7 @@ import { UsuariosService } from './usuarios.service'
 @Controller('usuarios')
 @RequireModule(Modulos.PERMISOS)
 export class UsuariosController {
-	constructor(private readonly usuariosService: UsuariosService) { }
+	constructor(private readonly usuariosService: UsuariosService) {}
 
 	@Get()
 	@RequireMask([Permissions.READ])

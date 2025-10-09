@@ -10,7 +10,7 @@ import { UsuarioDTO } from '../app/dtos/usuario.dto'
 export class UsuariosService {
 	constructor(
 		private readonly db: UsuarioRepository,
-		private readonly configService: ConfigService
+		private readonly configService: ConfigService,
 	) {}
 
 	users() {

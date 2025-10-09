@@ -4,28 +4,27 @@
 		<input type="text" (input)="searchInput.set($event)" placeholder="Buscar" />
 	</label>
 </div>
-@if(actions()?.length){
-<ul class="menu menu-horizontal rounded-box">
-	@for (item of actions(); track $index) {
-
-	<li [class]="item.info ? 'tooltip' : ''" *ngxPermissionsOnly="item.only">
-		@if(item.info){
-		<div class="tooltip-content">
-			{{ item.info }}
-		</div>
+@if (actions()?.length) {
+	<ul class="menu menu-horizontal rounded-box">
+		@for (item of actions(); track $index) {
+			<li [class]="item.info ? 'tooltip' : ''" *ngxPermissionsOnly="item.only">
+				@if (item.info) {
+					<div class="tooltip-content">
+						{{ item.info }}
+					</div>
+				}
+				<button
+					style="height: inherit"
+					class="btn p-2 bg-neutral-200 border-none"
+					(click)="item.action()">
+					<i [class]="item.icon"></i>
+					@if (item.label) {
+						<p class="m-0 text-xs">
+							{{ item.label }}
+						</p>
+					}
+				</button>
+			</li>
 		}
-		<button
-			style="height: inherit"
-			class="btn p-2 bg-neutral-200 border-none"
-			(click)="item.action()">
-			<i [class]="item.icon"></i>
-			@if(item.label){
-			<p class="m-0 text-xs">
-				{{ item.label }}
-			</p>
-			}
-		</button>
-	</li>
-	}
-</ul>
+	</ul>
 }
