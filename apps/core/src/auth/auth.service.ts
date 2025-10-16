@@ -16,8 +16,8 @@ export class AuthService {
 		@Inject(CACHE_MANAGER)
 		private cacheManager: Cache,
 		private usuarioRepository: UsuarioRepository,
-		private readonly config: ConfigService
-	) { }
+		private readonly config: ConfigService,
+	) {}
 
 	async login(user: any) {
 		await this.usuarioRepository.updateUsuarioLogon(user.id)
@@ -53,7 +53,6 @@ export class AuthService {
 		}
 	}
 
-
 	async validateUser(cuil: string, password: string) {
 		const user = await this.usuarioRepository.findByCuil(cuil)
 
@@ -68,16 +67,20 @@ export class AuthService {
 	}
 
 	async logout(token: string) {
-		await this.addToBlackList(token);
-		return { message: 'ok', status: HttpStatus.ACCEPTED };
+		await this.addToBlackList(token)
+		return { message: 'ok', status: HttpStatus.ACCEPTED }
 	}
 
 	async addToBlackList(token: string) {
-		await this.cacheManager.set(token, true, this.config.get('app.jwt.expire') * 1000);
+		await this.cacheManager.set(
+			token,
+			true,
+			this.config.get('app.jwt.expire') * 1000,
+		)
 	}
 
 	async isTokenBlackListed(token: string): Promise<boolean> {
-		const isBlackListed = await this.cacheManager.get(token);
+		const isBlackListed = await this.cacheManager.get(token)
 		return !!isBlackListed
 	}
 

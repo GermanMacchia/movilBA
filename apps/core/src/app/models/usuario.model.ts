@@ -48,11 +48,7 @@ export class Usuario extends Model<Usuario> {
 	@BeforeUpdate
 	static lowercaseStrings(instance: Usuario) {
 		Object.keys(instance.dataValues).forEach(key => {
-			if (
-				typeof instance[key] === 'string' &&
-				instance[key] &&
-				key !== 'password'
-			) {
+			if (typeof instance[key] === 'string' && instance[key] && key !== 'password') {
 				instance[key] = instance[key].toLowerCase()
 			}
 		})

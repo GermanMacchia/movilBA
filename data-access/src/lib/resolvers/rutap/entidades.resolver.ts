@@ -12,11 +12,12 @@ export const entidadesResolver: ResolveFn<any> = (_route, _state) => {
 		tap(data => {
 			if (!data) store$.dispatch(fetchEntidades())
 		}),
-		switchMap(() => store$.select(selectEntidades).pipe(
-			filter(updatedData => !!updatedData),
-			take(1)
-		)
-		)),
-		catchError(() => of({ entidades: null }))
-
+		switchMap(() =>
+			store$.select(selectEntidades).pipe(
+				filter(updatedData => !!updatedData),
+				take(1),
+			),
+		), // <-- El paréntesis estaba aquí antes
+		catchError(() => of({ entidades: null })),
+	)
 }

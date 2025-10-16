@@ -35,7 +35,7 @@ export class UsuarioRepository {
 		@Inject(CACHE_MANAGER)
 		private readonly cacheManager: Cache,
 		@InjectConnection(CORE_DB)
-		private readonly sequelize: Sequelize
+		private readonly sequelize: Sequelize,
 	) {
 		this.logger = new Logger('Usuario repository')
 	}
@@ -47,7 +47,7 @@ export class UsuarioRepository {
 				attributes: ['id', 'cuil', 'nombre', 'email', 'ultimo_login', 'deletedAt'],
 				paranoid: false,
 				include: this.permisosQuery,
-			})
+			}),
 		)
 
 		if (error)
@@ -55,7 +55,7 @@ export class UsuarioRepository {
 				this.logger,
 				'findAll error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' }
+				{ name: 'error', message: 'internal Server Error' },
 			)
 
 		return data
@@ -80,18 +80,18 @@ export class UsuarioRepository {
 				nest: true,
 				attributes: ['id', 'nombre', 'password', 'email', 'cuil'],
 				include: this.permisosQuery,
-			})
+			}),
 		)
-
-		const user = data.get({ plain: true })
 
 		if (error)
 			handleException(
 				this.logger,
 				'findByCuil error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' }
+				{ name: 'error', message: 'internal Server Error' },
 			)
+
+		const user = data?.get({ plain: true })
 
 		if (user) this.cacheManager.set(cuil, JSON.stringify(user))
 
@@ -100,10 +100,7 @@ export class UsuarioRepository {
 
 	async updateUsuarioLogon(id: number) {
 		const [error, _data] = await to(
-			this.usuarioModel.update(
-				{ ultimo_login: new Date() },
-				{ where: { id } }
-			)
+			this.usuarioModel.update({ ultimo_login: new Date() }, { where: { id } }),
 		)
 
 		if (error)
@@ -111,7 +108,7 @@ export class UsuarioRepository {
 				this.logger,
 				'updateUsuarioLogon error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' }
+				{ name: 'error', message: 'internal Server Error' },
 			)
 	}
 
@@ -123,7 +120,7 @@ export class UsuarioRepository {
 				this.logger,
 				'createUsuario error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' }
+				{ name: 'error', message: 'internal Server Error' },
 			)
 
 		return { message: 'created', status: HttpStatus.CREATED }
@@ -131,7 +128,7 @@ export class UsuarioRepository {
 
 	async deleteUsuario(usuario_id: number) {
 		const [error, data] = await to(
-			this.usuarioModel.destroy({ where: { id: usuario_id } })
+			this.usuarioModel.destroy({ where: { id: usuario_id } }),
 		)
 
 		if (error)
@@ -139,7 +136,7 @@ export class UsuarioRepository {
 				this.logger,
 				'deleteUsuario error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' }
+				{ name: 'error', message: 'internal Server Error' },
 			)
 
 		return data
@@ -163,7 +160,7 @@ export class UsuarioRepository {
 				this.logger,
 				'restoreUsuario error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' }
+				{ name: 'error', message: 'internal Server Error' },
 			)
 		}
 	}

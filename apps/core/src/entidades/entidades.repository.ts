@@ -8,37 +8,36 @@ import { handleException } from '../app/utils/handleException'
 
 @Injectable()
 export class EntidadesRepository {
-    private readonly logger = new Logger('destino repository')
+	private readonly logger = new Logger('destino repository')
 
-    constructor(
-        @InjectConnection(ENTIDADES_DB)
-        private readonly sequelize: Sequelize
-    ) { }
+	constructor(
+		@InjectConnection(ENTIDADES_DB)
+		private readonly sequelize: Sequelize,
+	) {}
 
-    async findEntidades() {
-        const [error, data] = await to(
-            this.sequelize.query(
-                'SELECT * FROM v_mba_empresas_operadoras',
-                { type: QueryTypes.SELECT, }
-            )
-        )
+	async findEntidades() {
+		const [error, data] = await to(
+			this.sequelize.query('SELECT * FROM v_mba_empresas_operadoras', {
+				type: QueryTypes.SELECT,
+			}),
+		)
 
-        if (error)
-            handleException(
-                this.logger,
-                'findEntidades error',
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                { name: 'error', message: 'internal Server Error' }
-            )
+		if (error)
+			handleException(
+				this.logger,
+				'findEntidades error',
+				HttpStatus.INTERNAL_SERVER_ERROR,
+				{ name: 'error', message: 'internal Server Error' },
+			)
 
-        return data
-    }
+		return data
+	}
 
-    findOne(id: number) {
-        return `This action returns a #${id} entidade`
-    }
+	findOne(id: number) {
+		return `This action returns a #${id} entidade`
+	}
 
-    remove(id: number) {
-        return `This action removes a #${id} entidade`
-    }
+	remove(id: number) {
+		return `This action removes a #${id} entidade`
+	}
 }

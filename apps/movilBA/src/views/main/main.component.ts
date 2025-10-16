@@ -6,7 +6,7 @@ import { DrawerComponent, InfoModalComponent } from '@movilBA/ui'
 import { Store } from '@ngrx/store'
 import { filter } from 'rxjs'
 
-type BreadCrumb = { label: string, url: string }
+type BreadCrumb = { label: string; url: string }
 
 @Component({
 	selector: 'app-main',
@@ -17,7 +17,6 @@ type BreadCrumb = { label: string, url: string }
 	},
 })
 export class MainComponent implements OnInit {
-
 	private store$ = inject(Store)
 	private activatedRoute = inject(ActivatedRoute)
 	private router = inject(Router)
@@ -51,9 +50,8 @@ export class MainComponent implements OnInit {
 	private buildBreadCrumb(
 		activatedRoute: ActivatedRoute,
 		url: string = '',
-		breadcumbs: BreadCrumb[] = [{ label: 'Inicio', url: '' }]
+		breadcumbs: BreadCrumb[] = [{ label: 'Inicio', url: '' }],
 	): void {
-
 		for (let idx = 0; idx < activatedRoute.children.length; idx++) {
 			const snapshot = activatedRoute.children[idx].snapshot
 			const routeUrl = snapshot.url.map(segment => segment.path).join('/')

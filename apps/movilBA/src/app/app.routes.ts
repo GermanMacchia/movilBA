@@ -33,7 +33,7 @@ export const appRoutes: Route[] = [
 				canActivate: [ngxPermissionsGuard],
 				data: {
 					permissions: {
-						only: `${MODULOS.rutap}.${ACCIONES.read}`
+						only: `${MODULOS.rutap}.${ACCIONES.read}`,
 					},
 				},
 				loadChildren: () => rutapRoutes,
@@ -43,7 +43,7 @@ export const appRoutes: Route[] = [
 				canActivate: [ngxPermissionsGuard],
 				data: {
 					permissions: {
-						only: `${MODULOS.permisos}.${ACCIONES.read}`
+						only: `${MODULOS.permisos}.${ACCIONES.read}`,
 					},
 				},
 				loadChildren: () => permisosRoutes,

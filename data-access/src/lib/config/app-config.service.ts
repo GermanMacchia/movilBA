@@ -18,8 +18,9 @@ export class AppConfigService {
 
 			http.get('./assets/config.json').subscribe({
 				next: (config: object) => {
-					const urlVariable: { apiUrl: string; isQa: boolean } =
-						JSON.parse(JSON.stringify(config))
+					const urlVariable: { apiUrl: string; isQa: boolean } = JSON.parse(
+						JSON.stringify(config),
+					)
 					this.config = { ...urlVariable }
 					res()
 				},

@@ -17,7 +17,7 @@ import { UsuariosService } from './usuarios.service'
 @Controller('usuarios')
 @RequireModule(Modulos.PERMISOS)
 export class UsuariosController {
-	constructor(private readonly usuariosService: UsuariosService) { }
+	constructor(private readonly usuariosService: UsuariosService) {}
 
 	@Get()
 	@RequireMask([Permissions.READ])
@@ -26,7 +26,7 @@ export class UsuariosController {
 	}
 
 	@Post()
-	@RequireMask([Permissions.WRITE])
+	@RequireMask([Permissions.CREATE])
 	@RegisterLog('Usuario Creado', LogType.CREATE)
 	crear(@Body() usuario: UsuarioDTO) {
 		return this.usuariosService.create(usuario)

@@ -11,4 +11,4 @@ import { PermisosService } from './permisos.service'
 	imports: [SequelizeModule.forFeature([Permiso], CORE_DB)],
 	providers: [PermisosService, PermisosRepository],
 })
-export class PermisosModule { }
+export class PermisosModule {}

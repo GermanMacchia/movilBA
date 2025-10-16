@@ -8,7 +8,7 @@ import { PermisosService } from './permisos.service'
 @Controller(Modulos.PERMISOS)
 @RequireModule(Modulos.PERMISOS)
 export class PermisosController {
-	constructor(private readonly permisosService: PermisosService) { }
+	constructor(private readonly permisosService: PermisosService) {}
 
 	@Get()
 	@RequireMask([Permissions.READ])
@@ -20,6 +20,7 @@ export class PermisosController {
 	@RequireMask([Permissions.CREATE])
 	@RegisterLog('Permiso Creado', LogType.CREATE)
 	create(@Body() createPermisoDto: PermisoDTO) {
+		console.log(createPermisoDto)
 		return this.permisosService.create(createPermisoDto)
 	}
 
@@ -27,7 +28,6 @@ export class PermisosController {
 	findOne(@Param('id') id: string) {
 		return this.permisosService.findOne(+id)
 	}
-
 
 	@Delete(':id')
 	remove(@Param('id') id: string) {

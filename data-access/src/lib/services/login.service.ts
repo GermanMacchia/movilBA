@@ -1,16 +1,12 @@
-
-import { Injectable } from '@angular/core';
-import { Validators } from '@angular/forms';
-import { login } from '../store';
-import { FormHandler } from './form-handler';
-
-export type LoginInfo = { label: string, formControlName: string, placeholder: string }
-export type LoginData = { input: LoginInfo, password: LoginInfo }
+import { Injectable } from '@angular/core'
+import { Validators } from '@angular/forms'
+import type { LoginData } from '../interfaces/interfaces'
+import { login } from '../store'
+import { FormHandler } from './form-handler'
 
 @Injectable()
 export class LoginService extends FormHandler {
-
-  data: LoginData = {
+	data: LoginData = {
 		input: {
 			label: 'Cuil',
 			formControlName: 'cuil',
@@ -23,16 +19,16 @@ export class LoginService extends FormHandler {
 		},
 	}
 
-  constructor() {
-    super()
-    this.form = this.fb.group({
-      cuil: ['', Validators.required],
-      password: ['', Validators.required]
-    })
-  }
+	constructor() {
+		super()
+		this.form = this.fb.group({
+			cuil: ['', Validators.required],
+			password: ['', Validators.required],
+		})
+	}
 
-  login = () => {
-    if (!this.isFormValid) return
-    this.store$.dispatch(login(this.formValue))
-  }
+	login = () => {
+		if (!this.isFormValid) return
+		this.store$.dispatch(login(this.formValue))
+	}
 }

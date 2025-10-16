@@ -8,7 +8,8 @@
 		"build:front": "npx nx build movilBA --configuration=production",
 		"build:core": "npx nx build core --configuration=production",
 		"e2e:front": "nx e2e movilBA-e2e",
-		"e2e:core": "nx e2e core-e2e"
+		"e2e:core": "nx e2e core-e2e",
+		"format": "prettier --write ."
 	},
 	"private": true,
 	"dependencies": {
@@ -111,7 +112,7 @@
 		"ng-packagr": "~20.1.0",
 		"nx": "^21.4.1",
 		"postcss": "^8.5.6",
-		"prettier": "^2.6.2",
+		"prettier": "^3.6.2",
 		"tailwindcss": "^4.1.12",
 		"ts-node": "10.9.1",
 		"tslib": "^2.3.0",

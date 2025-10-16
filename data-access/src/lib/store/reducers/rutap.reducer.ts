@@ -12,7 +12,7 @@ export interface RutapState {
 export const rutapInitialState: RutapState = {
 	loading: false,
 	error: null,
-	entidades: null
+	entidades: null,
 }
 
 //REDUCER
@@ -26,13 +26,13 @@ const _rutapReducer = createReducer(
 
 	on(setEntidades, (state, { data }) => ({
 		...state,
-		entidades: data
+		entidades: data,
 	})),
 
 	on(rutapError, (state, { data }) => ({
 		...state,
-		error: data
-	}))
+		error: data,
+	})),
 )
 
 export function rutapReducer(state: RutapState | undefined, action: Action<string>) {

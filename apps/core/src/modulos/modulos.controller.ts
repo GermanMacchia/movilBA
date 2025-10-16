@@ -7,7 +7,7 @@ import { ModulosService } from './modulos.service'
 @Controller('modulos')
 @RequireModule(Modulos.PERMISOS)
 export class ModulosController {
-	constructor(private readonly modulosService: ModulosService) { }
+	constructor(private readonly modulosService: ModulosService) {}
 
 	@Post()
 	create(@Body() createModuloDto: ModuloDTO) {

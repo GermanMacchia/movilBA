@@ -1,25 +1,30 @@
 <div class="grid grid-cols-2 grid-rows-5 gap-x-7">
-    @for (item of routes(); track item.label) {
-    <div class="w-full hover:drop-shadow-lg"
-        [class]="item.disabled ? 'hover:drop-shadow-none sepia-[.75] pointer-events-none' :''">
-        @if (item.label) {
-        <div class="flex flex-col">
-            <div class="w-full h-2" [style]="{background: item['color']}"></div>
-            <div class="flex py-4 justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="px-2 py-1" [style]="{background: item['color']}">
-                        <i [class]="item.icon" class="text-xl"></i>
-                    </div>
-                    <p>{{item.label}}</p>
-                </div>
-                <div>
-                    <button [routerLink]="item.routerLink" class="btn btn-circle bg-transparent border-none">
-                        <i class="bi bi-arrow-right-circle"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        }
-    </div>
-    }
+	@for (item of routes(); track item.label) {
+		<div
+			class="w-full hover:drop-shadow-lg"
+			[class]="
+				item.disabled ? 'hover:drop-shadow-none sepia-[.75] pointer-events-none' : ''
+			">
+			@if (item.label) {
+				<div class="flex flex-col">
+					<div class="w-full h-2" [style]="{ background: item['color'] }"></div>
+					<div class="flex py-4 justify-between">
+						<div class="flex items-center gap-3">
+							<div class="px-2 py-1" [style]="{ background: item['color'] }">
+								<i [class]="item.icon" class="text-xl"></i>
+							</div>
+							<p>{{ item.label }}</p>
+						</div>
+						<div>
+							<button
+								[routerLink]="item.routerLink"
+								class="btn btn-circle bg-transparent border-none">
+								<i class="bi bi-arrow-right-circle"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	}
 </div>

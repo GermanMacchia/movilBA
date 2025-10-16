@@ -1,114 +1,106 @@
 {
-  "name": "movilBA",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
-  "prefix": "app",
-  "sourceRoot": "apps/movilBA/src",
-  "tags": [],
-  "targets": {
-    "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
-      "options": {
-        "outputPath": "dist/apps/movilBA",
-        "index": "apps/movilBA/src/index.html",
-        "main": "apps/movilBA/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
-        "tsConfig": "apps/movilBA/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/movilBA/src/assets",
-          {
-            "glob": "**/*",
-            "input": "apps/movilBA/public"
-          }
-        ],
-        "styles": [
-          "apps/movilBA/src/styles.scss"
-        ]
-      },
-      "configurations": {
-        "production": {
-          "baseHref": "/modulos/",
-          "deployUrl": "/modulos/",
-          "assets": [
-            {
-              "glob": "**/*",
-              "input": "apps/movilBA/src/assets",
-              "output": "/assets/"
-            }
-          ],
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "1mb",
-              "maximumError": "1mb"
-            },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "1mb",
-              "maximumError": "1mb"
-            }
-          ],
-          "outputHashing": "all"
-        },
-        "development": {
-          "buildOptimizer": false,
-          "optimization": false,
-          "vendorChunk": true,
-          "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true
-        }
-      },
-      "defaultConfiguration": "production"
-    },
-    "serve": {
-      "continuous": true,
-      "executor": "@angular-devkit/build-angular:dev-server",
-      "options": {
-        "proxyConfig": "apps/movilBA/proxy.conf.json"
-      },
-      "configurations": {
-        "production": {
-          "buildTarget": "movilBA:build:production"
-        },
-        "development": {
-          "buildTarget": "movilBA:build:development"
-        }
-      },
-      "defaultConfiguration": "development"
-    },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "buildTarget": "movilBA:build"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/vite:test",
-      "outputs": [
-        "{options.reportsDirectory}"
-      ],
-      "options": {
-        "reportsDirectory": "../../coverage/apps/movilBA"
-      }
-    },
-    "serve-static": {
-      "continuous": true,
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "movilBA:build",
-        "port": 4200,
-        "spa": true
-      }
-    }
-  }
+	"name": "movilBA",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "application",
+	"prefix": "app",
+	"sourceRoot": "apps/movilBA/src",
+	"tags": [],
+	"targets": {
+		"build": {
+			"executor": "@angular-devkit/build-angular:browser",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/apps/movilBA",
+				"index": "apps/movilBA/src/index.html",
+				"main": "apps/movilBA/src/main.ts",
+				"polyfills": ["zone.js"],
+				"tsConfig": "apps/movilBA/tsconfig.app.json",
+				"inlineStyleLanguage": "scss",
+				"assets": [
+					"apps/movilBA/src/assets",
+					{
+						"glob": "**/*",
+						"input": "apps/movilBA/public"
+					}
+				],
+				"styles": ["apps/movilBA/src/styles.scss"]
+			},
+			"configurations": {
+				"production": {
+					"baseHref": "/modulos/",
+					"deployUrl": "/modulos/",
+					"assets": [
+						{
+							"glob": "**/*",
+							"input": "apps/movilBA/src/assets",
+							"output": "/assets/"
+						}
+					],
+					"budgets": [
+						{
+							"type": "initial",
+							"maximumWarning": "1mb",
+							"maximumError": "1mb"
+						},
+						{
+							"type": "anyComponentStyle",
+							"maximumWarning": "1mb",
+							"maximumError": "1mb"
+						}
+					],
+					"outputHashing": "all"
+				},
+				"development": {
+					"buildOptimizer": false,
+					"optimization": false,
+					"vendorChunk": true,
+					"extractLicenses": false,
+					"sourceMap": true,
+					"namedChunks": true
+				}
+			},
+			"defaultConfiguration": "production"
+		},
+		"serve": {
+			"continuous": true,
+			"executor": "@angular-devkit/build-angular:dev-server",
+			"options": {
+				"proxyConfig": "apps/movilBA/proxy.conf.json"
+			},
+			"configurations": {
+				"production": {
+					"buildTarget": "movilBA:build:production"
+				},
+				"development": {
+					"buildTarget": "movilBA:build:development"
+				}
+			},
+			"defaultConfiguration": "development"
+		},
+		"extract-i18n": {
+			"executor": "@angular-devkit/build-angular:extract-i18n",
+			"options": {
+				"buildTarget": "movilBA:build"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint"
+		},
+		"test": {
+			"executor": "@nx/vite:test",
+			"outputs": ["{options.reportsDirectory}"],
+			"options": {
+				"reportsDirectory": "../../coverage/apps/movilBA"
+			}
+		},
+		"serve-static": {
+			"continuous": true,
+			"executor": "@nx/web:file-server",
+			"options": {
+				"buildTarget": "movilBA:build",
+				"port": 4200,
+				"spa": true
+			}
+		}
+	}
 }

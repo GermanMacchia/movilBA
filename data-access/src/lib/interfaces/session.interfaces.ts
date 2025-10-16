@@ -1,4 +1,4 @@
-import { Permiso } from "./permisos.interfaces"
+import { Permiso } from './permisos.interfaces'
 
 export interface Session {
 	access_token: string

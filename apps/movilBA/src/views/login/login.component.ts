@@ -18,18 +18,19 @@ import { filter } from 'rxjs'
 	providers: [LoginService],
 	templateUrl: './login.component.html',
 	styles: `
-  #background-image{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    filter: opacity(.5); 
-    z-index: -1; 
-}`,
+		#background-image {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			filter: opacity(0.5);
+			z-index: -1;
+		}
+	`,
 	host: {
 		class: 'flex flex-col h-screen items-center justify-center',
 	},
@@ -49,7 +50,7 @@ export class LoginComponent implements OnInit {
 			.select(selectSession)
 			.pipe(
 				filter(ele => !!ele),
-				untilDestroyed(this)
+				untilDestroyed(this),
 			)
 			.subscribe(() => this.router.navigate(['']))
 	}

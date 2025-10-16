@@ -4,16 +4,15 @@ import {
 	DataType,
 	ForeignKey,
 	Model,
-	Table
-} from 'sequelize-typescript';
-import { Usuario } from './usuario.model';
+	Table,
+} from 'sequelize-typescript'
+import { Usuario } from './usuario.model'
 
 export enum LogType {
 	CREATE = 'create',
 	WRITE = 'write',
 	DELETE = 'delete',
 }
-
 
 @Table({ tableName: 'logs' })
 export class Log extends Model {
@@ -23,29 +22,27 @@ export class Log extends Model {
 		autoIncrement: true,
 		type: DataType.INTEGER,
 	})
-	id: number;
+	id: number
 
 	@ForeignKey(() => Usuario)
 	@Column({
 		allowNull: false,
 		type: DataType.INTEGER,
 	})
-	usuario_id: number;
+	usuario_id: number
 
 	@Column({
 		type: DataType.STRING(120),
 		allowNull: false,
 	})
-	descripcion: string;
+	descripcion: string
 
 	@Column({
 		type: DataType.ENUM(...Object.values(LogType)),
 		allowNull: false,
 	})
-	tipo_log: LogType;
-
+	tipo_log: LogType
 
 	@BelongsTo(() => Usuario, 'usuario_id')
 	usuario: Usuario
-
 }
