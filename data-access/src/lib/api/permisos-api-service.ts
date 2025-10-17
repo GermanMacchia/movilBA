@@ -15,6 +15,11 @@ export class PermisosApiService extends HttpHandler {
 			permisos,
 		})
 
+	deletePermiso = (id: number) =>
+		this.http.delete(
+			this.endpoints.permisos.permisos(this.getApi(this.api)) + `/${id}`,
+		)
+
 	createUsuario = ({ nombre, email, cuil, clave }: any) =>
 		this.http.post(this.endpoints.permisos.usuarios(this.getApi(this.api)), {
 			nombre,
@@ -22,4 +27,19 @@ export class PermisosApiService extends HttpHandler {
 			cuil,
 			password: clave,
 		})
+
+	updateUsuario = ({ id, nombre, email, cuil }: any) =>
+		this.http.put(
+			this.endpoints.permisos.usuarios(this.getApi(this.api)) + `/${id}`,
+			{
+				nombre,
+				email,
+				cuil,
+			},
+		)
+
+	deleteUsuario = (id: number) =>
+		this.http.delete(
+			this.endpoints.permisos.usuarios(this.getApi(this.api)) + `/${id}`,
+		)
 }

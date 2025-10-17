@@ -18,16 +18,6 @@ export const logoutError = createAction(
 	props<{ error: any }>(),
 )
 
-export const sessionError = createAction(
-	'[Auth] Session Error',
-	props<{ error: any }>(),
-)
-
-export const setSession = createAction(
-	'[Auth] Set Usuario Data',
-	props<{ data: Session }>(),
-)
-
 export const logoutSuccess = createAction('[Auth] LogoutSuccess')
 
 export const logout = createAction('[Auth] Logout')

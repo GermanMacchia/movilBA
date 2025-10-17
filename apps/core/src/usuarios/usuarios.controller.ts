@@ -6,9 +6,10 @@ import {
 	Param,
 	ParseIntPipe,
 	Post,
+	Put,
 } from '@nestjs/common'
 
-import { UsuarioDTO } from '../app/dtos/usuario.dto'
+import { UsuarioCreateDTO, UsuarioEditDTO } from '../app/dtos/usuario.dto'
 import { Modulos, Permissions } from '../app/interfaces'
 import { LogType } from '../app/models/log.model'
 import { RegisterLog, RequireMask, RequireModule } from '../app/utils/decorators'
@@ -28,24 +29,23 @@ export class UsuariosController {
 	@Post()
 	@RequireMask([Permissions.CREATE])
 	@RegisterLog('Usuario Creado', LogType.CREATE)
-	crear(@Body() usuario: UsuarioDTO) {
+	create(@Body() usuario: UsuarioCreateDTO) {
 		return this.usuariosService.create(usuario)
 	}
 
-	// @Get(':cuil/info')
-	// async getCuilInfo(@Param('cuil') cuil: string) {
-	// 	return this.usuariosService.userInfo(cuil);
-	// }
-
-	// @Put(':usuario_id')
-	// editar(
-	// 	@Param('usuario_id', ParseIntPipe) usuario_id: number,
-	// 	@Body() usuario: UsuarioDTO,
-	// ) {
-	// 	return this.usuariosService.editar(usuario, usuario_id);
-	// }
+	@Put(':usuario_id')
+	@RequireMask([Permissions.WRITE])
+	@RegisterLog('Usuario Editado', LogType.WRITE)
+	edit(
+		@Param('usuario_id', ParseIntPipe) usuario_id: number,
+		@Body() usuario: UsuarioEditDTO,
+	) {
+		return this.usuariosService.edit(usuario_id, usuario)
+	}
 
 	@Delete(':usuario_id')
+	@RequireMask([Permissions.DELETE])
+	@RegisterLog('Usuario Creado', LogType.DELETE)
 	delete(@Param('usuario_id', ParseIntPipe) usuario_id: number) {
 		return this.usuariosService.delete(usuario_id)
 	}

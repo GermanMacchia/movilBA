@@ -11,3 +11,8 @@ export const selectLoginLoading = createSelector(
 	createFeatureSelector<LoginState>('login'),
 	state => state.loading,
 )
+
+export const selectLoginError = createSelector(
+	createFeatureSelector<LoginState>('login'),
+	state => state.error,
+)

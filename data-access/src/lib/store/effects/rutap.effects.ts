@@ -14,10 +14,12 @@ export class RutapEffects {
 	fetchEntidades$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(fetchEntidades),
-			tap(() => console.log('aca')),
-			switchMap(() => this.rutapApiService.entidades()),
-			map(entidades => setEntidades({ data: entidades })),
-			catchError(error => of(rutapError({ data: error }))),
+			switchMap(() =>
+				this.rutapApiService.entidades().pipe(
+					map(entidades => setEntidades({ data: entidades })),
+					catchError(error => of(rutapError({ data: error }))),
+				),
+			),
 		),
 	)
 }

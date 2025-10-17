@@ -20,12 +20,12 @@ export class FormModalService {
 	modalInfo = signal<FormModalInfo>(EMPTY_INFO)
 	formgroup: FormGroup | null = null
 	onCancel: () => void = () => {}
-	onAccept: () => void = () => {}
+	onAccept: (formgroup: FormGroup) => void = () => {}
 
 	openModal(
 		title: string,
 		data: FormData[],
-		onAccept: () => void,
+		onAccept: (formgroup: FormGroup) => void,
 		onCancel?: () => void,
 		info = '',
 		icon = '',
@@ -57,7 +57,12 @@ export class FormModalService {
 	}
 
 	handleAccept = () => {
-		this.onAccept()
+		if (!this.formgroup?.valid) {
+			this.formgroup?.markAllAsDirty()
+			this.formgroup?.markAllAsTouched()
+			return
+		}
+		this.onAccept(this.formgroup!)
 		this.modalVisible.next(false)
 	}
 

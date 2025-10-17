@@ -17,7 +17,7 @@ export const entidadesResolver: ResolveFn<any> = (_route, _state) => {
 				filter(updatedData => !!updatedData),
 				take(1),
 			),
-		), // <-- El paréntesis estaba aquí antes
+		),
 		catchError(() => of({ entidades: null })),
 	)
 }

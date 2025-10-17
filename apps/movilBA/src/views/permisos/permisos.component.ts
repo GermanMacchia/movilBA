@@ -5,14 +5,21 @@ import {
 	ActionHeaderComponent,
 	FormModal,
 	FormModalService,
+	InfoModalService,
 	SimpleListComponent,
 } from '@movilBA/ui'
 import { Store } from '@ngrx/store'
-import { createUsuario, selectUsuarios } from 'data-access/src/lib/store'
+import {
+	createUsuario,
+	deleteUsuario,
+	selectUsuarios,
+	updateUsuario,
+} from 'data-access/src/lib/store'
 import { NgxPermissionsService } from 'ngx-permissions'
 import { DataTypes } from 'ui/src/lib/common/enums'
 import type { FormData } from 'ui/src/lib/common/interfaces'
 import { PermisosModalComponent } from '../../components/permisos-modal/permisos-modal.component'
+import { FormGroup } from '@angular/forms'
 
 const formDefaultData: FormData[] = [
 	{ key: 'cuil', type: DataTypes.STRING, value: '' },
@@ -46,7 +53,9 @@ const formDefaultData: FormData[] = [
 export class PermisosComponent implements OnInit {
 	formModalService = inject(FormModalService)
 	permissionsService = inject(NgxPermissionsService)
+	infoModalService = inject(InfoModalService)
 	store$ = inject(Store)
+
 	types = DataTypes
 	data$: any = this.store$.select(selectUsuarios)
 	canEdit = signal<boolean>(false)
@@ -58,27 +67,40 @@ export class PermisosComponent implements OnInit {
 
 	async ngOnInit() {
 		const canEdit = await this.permissionsService.hasPermission('PERMISOS.CREATE')
-
 		this.canEdit.set(canEdit)
 	}
 
 	openModalForm = () =>
+		this.formModalService.openModal('Crear Usuario', formDefaultData, this.sendForm)
+
+	setEdit = (usuario: Usuario) =>
 		this.formModalService.openModal(
-			'Crear Usuario',
-			formDefaultData,
-			this.sendForm,
-			this.cancel,
+			'Editar Usuario',
+			this.getDataValues(usuario),
+			(formgroup: FormGroup) =>
+				this.infoModalService.openAsConfirm(() =>
+					this.store$.dispatch(updateUsuario({ ...formgroup.value })),
+				),
 		)
+
+	getDataValues = (usuario: Usuario): FormData[] =>
+		formDefaultData
+			.filter(ele => ele.key !== 'clave')
+			.map((ele: FormData) => ({
+				...ele,
+				value: (usuario as any)[ele.key],
+			}))
 
 	openPermissions = (usuario: Usuario) => {
 		this.selectedUser.set(usuario)
 		this.permisosModal.openModal()
 	}
 
-	sendForm = () =>
-		this.store$.dispatch(
-			createUsuario({ ...this.formModalService.formgroup?.value }),
-		)
+	sendForm = (formgroup: FormGroup) =>
+		this.store$.dispatch(createUsuario({ ...formgroup.value }))
 
-	cancel = () => {}
+	setDelete = (usuario: Usuario) =>
+		this.infoModalService.openAsConfirm(() =>
+			this.store$.dispatch(deleteUsuario({ id: usuario.id })),
+		)
 }

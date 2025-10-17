@@ -6,7 +6,7 @@ import to from 'await-to-js'
 import { Cache } from 'cache-manager'
 import { Sequelize } from 'sequelize-typescript'
 import { CORE_DB } from '../app/dbs/coreDB.module'
-import { UsuarioDTO } from '../app/dtos/usuario.dto'
+import { UsuarioCreateDTO, UsuarioEditDTO } from '../app/dtos/usuario.dto'
 import { Modulo, Permiso } from '../app/models'
 import { Usuario } from '../app/models/usuario.model'
 import { handleException } from '../app/utils/handleException'
@@ -112,7 +112,7 @@ export class UsuarioRepository {
 			)
 	}
 
-	async createUsuario(usuario: UsuarioDTO) {
+	async createUsuario(usuario: UsuarioCreateDTO) {
 		const [error, _data] = await to(this.usuarioModel.create({ ...usuario }))
 
 		if (error)
@@ -126,8 +126,24 @@ export class UsuarioRepository {
 		return { message: 'created', status: HttpStatus.CREATED }
 	}
 
-	async deleteUsuario(usuario_id: number) {
+	async updateUsuario(usuario_id: number, usuarioData: UsuarioEditDTO) {
 		const [error, data] = await to(
+			this.usuarioModel.update(usuarioData, { where: { id: usuario_id } }),
+		)
+
+		if (error)
+			handleException(
+				this.logger,
+				'updateUsuario error',
+				HttpStatus.INTERNAL_SERVER_ERROR,
+				{ name: 'error', message: 'internal Server Error' },
+			)
+
+		return data
+	}
+
+	async deleteUsuario(usuario_id: number) {
+		const [error, _data] = await to(
 			this.usuarioModel.destroy({ where: { id: usuario_id } }),
 		)
 
@@ -139,7 +155,7 @@ export class UsuarioRepository {
 				{ name: 'error', message: 'internal Server Error' },
 			)
 
-		return data
+		return { statusCode: HttpStatus.OK }
 	}
 
 	async restoreUsuario(usuario: Usuario) {

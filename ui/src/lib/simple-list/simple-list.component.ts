@@ -24,6 +24,7 @@ export class SimpleListComponent {
 			info: string
 			action: (ele: any) => void
 			disabled?: boolean
+			disableCondition?: (ele: any) => boolean
 		}[]
 	>()
 	data = input.required<any[]>()
@@ -32,11 +33,11 @@ export class SimpleListComponent {
 
 	getValue = (ele: any, key: string) => {
 		const keys = key.split('.')
-		let value
+		let value = ele
 
 		for (let idx = 0; idx < keys.length; idx++) {
-			const key = keys[idx]
-			value = ele[key]
+			const currentKey = keys[idx]
+			value = value[currentKey]
 		}
 
 		return value

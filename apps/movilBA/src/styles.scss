@@ -6,15 +6,17 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
 @plugin "daisyui" {
 	themes:
 		corporate --default,
-		dark --prefersdark;
+		dim --prefersdark;
 }
+
+@custom-variant dark (&:where([data-theme=dim], [data-theme=dim] *));
 
 /* Estilos globales para controlar el viewport */
 html,
 body {
 	margin: 0;
 	padding: 0;
-	scrollbar-gutter: stable;
+	scrollbar-gutter: unset;
 }
 
 /* Contenedor principal de la aplicación */
@@ -27,7 +29,8 @@ body {
 }
 
 #inner-router {
-	padding: 2rem;
+	padding: 1.75rem;
+	overflow-y: auto;
 }
 
 .router-shell {

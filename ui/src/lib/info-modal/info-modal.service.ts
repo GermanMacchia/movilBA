@@ -24,6 +24,23 @@ export class InfoModalService {
 	onCancel: () => void = () => {}
 	onAccept: () => void = () => {}
 
+	openAsConfirm(onAccept: (form?: any) => void, onCancel?: () => void) {
+		this.modalInfo.set({
+			showCancel: true,
+			title: 'Atención',
+			body: `Está a punto de modificar los datos.
+			¿Desea continuar con el proceso?`,
+			icon: 'bi bi-exclamation-diamond',
+			severityClass: this.severityInfo['warn'],
+		})
+
+		this.onAccept = onAccept
+		if (onCancel) this.onCancel = onCancel
+		else this.onCancel = () => this.modalVisible.next(false)
+
+		this.modalVisible.next(true)
+	}
+
 	openModal(
 		title: string,
 		body: string,
@@ -54,15 +71,15 @@ export class InfoModalService {
 
 	handleAccept = () => {
 		this.onAccept()
+		this.modalVisible.next(false)
 	}
 
 	handleCancel = () => {
 		this.onCancel()
+		this.modalVisible.next(false)
 	}
 
 	reset() {
-		this.modalVisible.next(false)
-
 		this.onCancel = () => {}
 		this.onAccept = () => {}
 
