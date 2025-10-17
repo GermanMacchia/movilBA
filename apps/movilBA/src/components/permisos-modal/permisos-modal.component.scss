@@ -1,7 +1,8 @@
 .select {
 	padding-inline-start: 0;
 	padding-inline-end: 0;
-	border: none;
+	border: 0 !important;
+	justify-content: center;
 	font-weight: 500;
 	font-size: 1rem;
 	&:focus,
@@ -10,20 +11,40 @@
 		outline-offset: none;
 	}
 }
-.side-btn {
-	color: gray;
-	&-plus:hover {
-		color: green;
-	}
-	&:hover {
-		color: red;
-	}
-}
+
 table {
 	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+
 	th,
 	td {
 		text-align: center;
-		border: 1px solid black;
+		border: 1px solid #e5e7eb;
+		padding: 0.5rem;
+		vertical-align: middle;
+
+		&.border-none {
+			border: none;
+		}
 	}
+
+	th {
+		font-weight: 600;
+	}
+}
+
+.modal-box {
+	min-width: 600px;
+	max-width: 700px;
+}
+
+.bi-check {
+	font-size: 1.1rem;
+	font-weight: bold;
+}
+
+.bi-x {
+	font-size: 1.1rem;
+	font-weight: bold;
 }

@@ -1,7 +1,7 @@
-<dialog #dialog class="modal modal-middle">
+<dialog #dialog class="modal modal-middle min-width-[20rem]">
 	<div class="modal-box">
 		<div class="flex w-full items-center justify-between">
-			<h3 class="text-lg font-bold">{{ service.modalInfo().title }}</h3>
+			<h3 class="text-lg font-bold my-6">{{ service.modalInfo().title }}</h3>
 			@if(service.modalInfo().icon){
 			<i style="font-size: 2.5rem" [class]="service.modalInfo().icon"></i>
 			}
@@ -18,14 +18,14 @@
 				<!--String-->
 				@case (types.STRING) {
 				<label class="input">
-					{{item.key | titlecase}}
+					<span class="font-bold">{{item.key | titlecase}}</span>
 					<input type="text" [formControlName]="item.key" />
 				</label>
 				}
 				<!--Password-->
 				@case (types.PASSWORD) {
 				<label class="input mb-[2rem]">
-					{{item.key | titlecase}}
+					<span class="font-bold">{{item.key | titlecase}}</span>
 					<input
 						autocomplete="off"
 						[formControlName]="item.key"
@@ -44,14 +44,14 @@
 				<!--Email-->
 				@case (types.EMAIL) {
 				<label class="input">
-					{{item.key | titlecase}}
+					<span class="font-bold">{{item.key | titlecase}}</span>
 					<input [formControlName]="item.key" type="email" />
 				</label>
 				}
 				<!--Boolean-->
 				@case (types.BOOLEAN) {
 				<label>
-					{{item.key | titlecase}}
+					<span class="font-bold">{{item.key | titlecase}}</span>
 					<input
 						[formControlName]="item.key"
 						type="checkbox"
@@ -64,11 +64,13 @@
 		</div>
 		}
 		<div class="modal-action flex gap-3">
-			<button class="btn bg-[#A7E399]" (click)="service.handleAccept()">
+			<button class="btn btn-soft btn-success" (click)="service.handleAccept()">
+				<i class="bi bi-check2-circle"></i>
 				Aceptar
 			</button>
 			@if(service.modalInfo()){
-			<button class="btn bg-[#FF6363]" (click)="service.handleCancel()">
+			<button class="btn btn-soft btn-error" (click)="service.handleCancel()">
+				<i class="bi bi-x-circle"></i>
 				Cancelar
 			</button>
 			}

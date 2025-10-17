@@ -7,5 +7,7 @@
 @plugin "daisyui" {
 	themes:
 		corporate --default,
-		dark --prefersdark;
+		dim --prefersdark;
 }
+
+@custom-variant dark (&:where([data-theme=dim], [data-theme=dim] *));

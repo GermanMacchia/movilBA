@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core'
 
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { catchError, map, mergeMap, of, tap } from 'rxjs'
+import { catchError, map, mergeMap, of, switchMap, tap } from 'rxjs'
 
 import { AuthApiService } from '../../api/auth-api-service'
 import { AuthService } from '../../services'
@@ -16,14 +16,15 @@ export class LoginEffects {
 	login$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(loginActions.login),
-			mergeMap((form: { cuil: string; password: string }) =>
-				this.apiService.login(form),
+			switchMap((form: { cuil: string; password: string }) =>
+				this.apiService.login(form).pipe(
+					map(data => {
+						this.authService.setSession(data)
+						return loginActions.loginSuccess({ data })
+					}),
+					catchError(error => of(loginActions.loginError({ error }))),
+				),
 			),
-			map(data => {
-				this.authService.setSession(data)
-				return loginActions.loginSuccess({ data })
-			}),
-			catchError(error => of(loginActions.loginError(error))),
 		),
 	)
 

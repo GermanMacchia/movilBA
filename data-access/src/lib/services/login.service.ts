@@ -28,7 +28,10 @@ export class LoginService extends FormHandler {
 	}
 
 	login = () => {
+		console.log('antes')
 		if (!this.isFormValid) return
+
+		console.log('despacho')
 		this.store$.dispatch(login(this.formValue))
 	}
 }

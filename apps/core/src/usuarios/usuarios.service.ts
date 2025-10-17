@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config'
 
 import * as bcrypt from 'bcrypt'
 
-import { UsuarioDTO } from '../app/dtos/usuario.dto'
+import { UsuarioCreateDTO, UsuarioEditDTO } from '../app/dtos/usuario.dto'
 import { UsuarioRepository } from './usuarios.repository'
 
 @Injectable()
@@ -17,7 +17,7 @@ export class UsuariosService {
 		return this.db.findAll()
 	}
 
-	async create(usuario: UsuarioDTO) {
+	async create(usuario: UsuarioCreateDTO) {
 		const user = await this.db.findByCuil(usuario.cuil)
 
 		if (user && user.deletedAt) return this.db.restoreUsuario(user)
@@ -38,35 +38,7 @@ export class UsuariosService {
 		return this.db.deleteUsuario(usuario_id)
 	}
 
-	// async userInfo(cuil: string) {
-	// 	const user = await this.db.findCuil(cuil, true);
-
-	// 	if (user) throw new ConflictException('Usuario existente');
-
-	// 	return this.cuilADInfo(cuil);
-	// }
-
-	/*
-	 * Hace un llamado a endpoint de AD GCBA para verificar que el cuil esté registrado
-	 */
-	// async cuilADInfo(cuil: string) {
-	// 	try {
-	// 		const response = await firstValueFrom(
-	// 			this.httpService.get(this.config.cuentasUrl.replace('[C]', cuil), {
-	// 				headers: {
-	// 					'Content-Type': this.config.content_type,
-	// 					client_id: this.config.client_id,
-	// 					client_secret: this.config.client_secret,
-	// 				},
-	// 			}),
-	// 		);
-
-	// 		return response.data;
-	// 	} catch (error) {
-	// 		throw new HttpException(
-	// 			error.response?.data?.message,
-	// 			error.response?.status,
-	// 		);
-	// 	}
-	// }
+	edit(usuario_id: number, usuarioData: UsuarioEditDTO) {
+		return this.db.updateUsuario(usuario_id, usuarioData)
+	}
 }

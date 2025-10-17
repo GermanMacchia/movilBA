@@ -4,6 +4,8 @@ import {
 	Component,
 	ElementRef,
 	inject,
+	input,
+	signal,
 	ViewChild,
 } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -16,24 +18,33 @@ import { FormModalService } from './form-modal.service'
 	imports: [TitleCasePipe, ReactiveFormsModule],
 	templateUrl: './form-modal.html',
 	styles: `
-		:host ::ng-deep .input {
+		.input {
+			width: var(--input-width);
 			&:focus,
 			&:focus-within {
 				--input-color: green;
 				outline: none;
 			}
 		}
-		:host ::ng-deep .modal-box,
+		.modal-box,
 		.modal-middle {
-			width: inherit !important;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: auto;
 		}
 	`,
+	host: {
+		'[style.--input-width]': 'inputWidth()',
+	},
 })
 export class FormModal implements AfterViewInit {
 	service = inject(FormModalService)
 	types = DataTypes
 	@ViewChild('dialog')
 	dialog!: ElementRef<HTMLDialogElement>
+	inputWidth = input<string>('25rem')
 
 	ngAfterViewInit(): void {
 		this.service.modalVisible

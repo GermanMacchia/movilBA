@@ -3,10 +3,11 @@ import { Component, inject, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import {
 	LoginService,
+	selectLoginError,
 	selectLoginLoading,
 	selectSession,
 } from '@movil-ba/data-access'
-import { LoginCardComponent } from '@movilBA/ui'
+import { LoginCardComponent, ToastComponent, ToastService } from '@movilBA/ui'
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 import { Store } from '@ngrx/store'
 import { filter } from 'rxjs'
@@ -14,8 +15,8 @@ import { filter } from 'rxjs'
 @UntilDestroy()
 @Component({
 	selector: 'app-login',
-	imports: [LoginCardComponent, AsyncPipe],
-	providers: [LoginService],
+	imports: [LoginCardComponent, AsyncPipe, ToastComponent],
+	providers: [LoginService, ToastService],
 	templateUrl: './login.component.html',
 	styles: `
 		#background-image {
@@ -37,6 +38,7 @@ import { filter } from 'rxjs'
 })
 export class LoginComponent implements OnInit {
 	loginService = inject(LoginService)
+	toastService = inject(ToastService)
 	location = inject(Location)
 	bgUrl = ''
 	store$ = inject(Store)
@@ -53,5 +55,23 @@ export class LoginComponent implements OnInit {
 				untilDestroyed(this),
 			)
 			.subscribe(() => this.router.navigate(['']))
+
+		this.store$
+			.select(selectLoginError)
+			.pipe(
+				filter(ele => !!ele),
+				untilDestroyed(this),
+			)
+			.subscribe(error => {
+				this.toastService.toast({
+					body:
+						error.statusCode === 401
+							? 'Datos invalidos'
+							: error.statusCode === 429
+								? `Demasiadas peticiones. Intente más tarde`
+								: error.message,
+					severity: error.statusCode === 401 ? 'warning' : 'error',
+				})
+			})
 	}
 }

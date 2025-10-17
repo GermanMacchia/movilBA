@@ -38,7 +38,6 @@ export class PermisosModalComponent {
 		this.toggleBit(idx, event.target.checked)
 
 	selectChange = (event: any) => {
-		console.log(event.target.value)
 		this.modulo_id.set(event.target.value)
 	}
 
@@ -74,6 +73,9 @@ export class PermisosModalComponent {
 	}
 
 	openModal = () => this.permisos.nativeElement.showModal()
-	closeModal = () => this.permisos.nativeElement.close()
+	closeModal = () => {
+		this.permisos.nativeElement.close()
+		this.editMode.set(false)
+	}
 	split = (permisos: string) => permisos.split('')
 }

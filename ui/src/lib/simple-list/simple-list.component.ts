@@ -18,26 +18,26 @@ export class SimpleListComponent {
 	 * [{key: 'usuarios.admin.nombre', type: DataTypes.STRING}]
 	 */
 	dataKeys = input.required<{ key: string; type: DataTypes; trueCase?: any }[]>()
-	actions =
-		input<
-			{
-				icon: string
-				info: string
-				action: (ele: any) => void
-				disabled?: boolean
-			}[]
-		>()
+	actions = input<
+		{
+			icon: string
+			info: string
+			action: (ele: any) => void
+			disabled?: boolean
+			disableCondition?: (ele: any) => boolean
+		}[]
+	>()
 	data = input.required<any[]>()
 	headers = input.required<string[]>()
 	types = DataTypes
 
 	getValue = (ele: any, key: string) => {
 		const keys = key.split('.')
-		let value
+		let value = ele
 
 		for (let idx = 0; idx < keys.length; idx++) {
-			const key = keys[idx]
-			value = ele[key]
+			const currentKey = keys[idx]
+			value = value[currentKey]
 		}
 
 		return value

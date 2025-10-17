@@ -1,6 +1,6 @@
-import { IsDefined, IsEmail, IsString } from 'class-validator'
+import { IsDefined, IsEmail, IsOptional, IsString } from 'class-validator'
 
-export class UsuarioDTO {
+export class UsuarioCreateDTO {
 	@IsString()
 	@IsDefined()
 	cuil: string
@@ -15,6 +15,21 @@ export class UsuarioDTO {
 
 	@IsString()
 	@IsDefined()
+	@IsEmail()
+	email: string
+}
+
+export class UsuarioEditDTO {
+	@IsString()
+	@IsOptional()
+	cuil: string
+
+	@IsString()
+	@IsOptional()
+	nombre: string
+
+	@IsString()
+	@IsOptional()
 	@IsEmail()
 	email: string
 }

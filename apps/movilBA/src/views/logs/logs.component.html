@@ -1,0 +1,18 @@
+<div class="logs-container">
+	<h2>Logs del Sistema</h2>
+	<p>Total de registros: {{ (total$ | async) || 0 }}</p>
+
+	<lib-simple-list
+		[dataKeys]="[
+			{ key: 'descripcion', type: types.STRING },
+			{ key: 'tipo_log', type: types.STRING },
+			{ key: 'created_at', type: types.DATE },
+			{ key: 'usuario.nombre', type: types.STRING },
+			{ key: 'usuario.email', type: types.EMAIL },
+			{ key: 'usuario.cuil', type: types.STRING },
+		]"
+		[headers]="['Descripción', 'Tipo', 'Fecha', 'Usuario', 'Email', 'CUIL']"
+		[actions]="[]"
+		[data]="(data$ | async) || []">
+	</lib-simple-list>
+</div>

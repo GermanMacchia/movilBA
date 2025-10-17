@@ -5,15 +5,18 @@ import {
 	displayResolver,
 	entidadesResolver,
 	LoginGuard,
+	logsResolver,
 	MODULOS,
 	permisosResolver,
 } from '@movil-ba/data-access'
 import { ngxPermissionsGuard } from 'ngx-permissions'
 import { DisplayComponent } from '../views/display/display.component'
 import { LoginComponent } from '../views/login/login.component'
+import { LogsComponent } from '../views/logs/logs.component'
 import { MainComponent } from '../views/main/main.component'
 import { PermisosComponent } from '../views/permisos/permisos.component'
 import { EntidadesComponent } from '../views/rutap/entidades/entidades.component'
+import { EntidadComponent } from '../views/rutap/entidad/entidad.component'
 
 export const appRoutes: Route[] = [
 	{
@@ -48,6 +51,16 @@ export const appRoutes: Route[] = [
 				},
 				loadChildren: () => permisosRoutes,
 			},
+			{
+				path: 'logs',
+				canActivate: [ngxPermissionsGuard],
+				data: {
+					permissions: {
+						only: `${MODULOS.permisos}.${ACCIONES.read}`,
+					},
+				},
+				loadChildren: () => logsRoutes,
+			},
 		],
 	},
 	{ path: 'login', canActivate: [LoginGuard], component: LoginComponent },
@@ -62,6 +75,10 @@ const rutapRoutes: Route[] = [
 		},
 		component: EntidadesComponent,
 	},
+	{
+		path: 'entidad/:id',
+		component: EntidadComponent,
+	},
 ]
 
 const permisosRoutes: Route[] = [
@@ -71,5 +88,15 @@ const permisosRoutes: Route[] = [
 			modulos: permisosResolver,
 		},
 		component: PermisosComponent,
+	},
+]
+
+const logsRoutes: Route[] = [
+	{
+		path: '',
+		resolve: {
+			logs: logsResolver,
+		},
+		component: LogsComponent,
 	},
 ]

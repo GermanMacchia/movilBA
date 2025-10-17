@@ -1,4 +1,4 @@
-import { TitleCasePipe } from '@angular/common'
+import { CommonModule, TitleCasePipe } from '@angular/common'
 import {
 	AfterViewInit,
 	Component,
@@ -6,25 +6,35 @@ import {
 	inject,
 	input,
 	model,
+	OnChanges,
+	signal,
+	SimpleChanges,
 	ViewChild,
 } from '@angular/core'
 import { Router, RouterLink } from '@angular/router'
 import { NgxPermissionsModule } from 'ngx-permissions'
+import { FormsModule, ɵInternalFormsSharedModule } from '@angular/forms'
 
 export const theme_value = 'theme_value'
 
 @Component({
 	selector: 'lib-drawer',
-	providers: [],
-	imports: [TitleCasePipe, NgxPermissionsModule, RouterLink],
+	imports: [
+		TitleCasePipe,
+		NgxPermissionsModule,
+		RouterLink,
+		ɵInternalFormsSharedModule,
+		FormsModule,
+	],
 	styleUrl: '../styles.scss',
 	templateUrl: './drawer.component.html',
 })
-export class DrawerComponent implements AfterViewInit {
+export class DrawerComponent implements AfterViewInit, OnChanges {
 	router = inject(Router)
 	logout = input.required<() => void>()
 	usuario = input<string>()
 	rol = input<string>()
+	themeCheck = false
 	items = input<
 		{
 			label: string
@@ -37,14 +47,21 @@ export class DrawerComponent implements AfterViewInit {
 	themes = input.required<{ dark: string; light: string }>()
 	appname = input<string>()
 	paths = input<{ label: string; url: string }[]>([])
+	hideOnRoute = input(false)
 
 	open = model<string>('drawer-open')
 	toggleDrawer = () => this.open.update(open => (open ? '' : 'drawer-open'))
 
-	@ViewChild('themeCheck') themeCheck!: ElementRef<HTMLInputElement>
-
 	ngAfterViewInit(): void {
 		this.checkTheme()
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		if (this.hideOnRoute() && changes['paths'].currentValue.length !== 1)
+			this.open.set('')
+
+		if (this.hideOnRoute() && changes['paths'].currentValue.length === 1)
+			this.open.set('drawer-open')
 	}
 
 	back = () => {
@@ -72,6 +89,7 @@ export class DrawerComponent implements AfterViewInit {
 		document
 			.getElementsByTagName('html')[0]
 			.setAttribute('data-theme', this.themes().dark)
-		this.themeCheck.nativeElement.checked = true
+
+		this.themeCheck = true
 	}
 }

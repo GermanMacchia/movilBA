@@ -1,5 +1,5 @@
-<div class="overflow-auto h-[75vh] mt-6">
-	<table class="table table-md table-pin-rows table-pin-cols">
+<div class="overflow-y-auto w-full h-[75vh] mt-6">
+	<table class="table table-md table-pin-rows table-pin-cols w-full table-fixed">
 		<thead>
 			<tr>
 				@for (title of headers(); track $index) {
@@ -11,20 +11,24 @@
 			@for (ele of data(); track $index) {
 				<tr>
 					@for (data of dataKeys(); track $index) {
-						<td class="text-center">
+						<td class="text-center px-2">
 							@switch (data.type) {
 								<!--String-->
 								@case (types.STRING) {
-									<p>{{ getValue(ele, data.key) | titlecase }}</p>
+									<p class="truncate">
+										{{ getValue(ele, data.key) | titlecase }}
+									</p>
 								}
 								<!--Date-->
 								@case (types.DATE) {
-									<p>{{ getValue(ele, data.key) | date }}</p>
+									<p class="truncate">
+										{{ getValue(ele, data.key) | date }}
+									</p>
 								}
 								<!--Email-->
 								@case (types.EMAIL) {
 									<p
-										class="cursor-pointer"
+										class="cursor-pointer truncate"
 										(click)="sendEmail(getValue(ele, data.key))">
 										{{ getValue(ele, data.key) }}
 									</p>
@@ -41,22 +45,24 @@
 							}
 						</td>
 					}
-					<td class="flex gap-4 justify-center">
-						@for (item of actions(); track $index) {
-							<div class="tooltip">
-								<div class="tooltip-content">
-									{{ item.info }}
+					@if (actions()?.length) {
+						<td class="flex gap-4 items-center justify-center px-2">
+							@for (item of actions(); track $index) {
+								<div class="tooltip">
+									<div class="tooltip-content">
+										{{ item.info }}
+									</div>
+									<button
+										[disabled]="item.disabled || item?.disableCondition?.(ele)"
+										style="height: inherit"
+										class="btn p-0 bg-transparent border-none"
+										(click)="item.action(ele)">
+										<i [class]="item.icon"></i>
+									</button>
 								</div>
-								<button
-									[disabled]="item.disabled"
-									style="height: inherit"
-									class="btn p-0 bg-transparent border-none"
-									(click)="item.action(ele)">
-									<i [class]="item.icon"></i>
-								</button>
-							</div>
-						}
-					</td>
+							}
+						</td>
+					}
 				</tr>
 			}
 		</tbody>

@@ -2,7 +2,8 @@
 	[logout]="handleLogout"
 	[paths]="paths()"
 	(openChange)="sidebarOpen($event)"
-	[themes]="{ light: 'corporate', dark: 'dark' }"
+	[themes]="{ light: 'corporate', dark: 'dim' }"
+	[hideOnRoute]="true"
 	[items]="[
 		{
 			label: 'Inicio',
@@ -15,6 +16,12 @@
 			routerLink: 'permisos',
 			icon: 'bi bi-person-badge',
 		},
+		{
+			label: 'Logs',
+			only: 'PERMISOS.READ',
+			routerLink: 'logs',
+			icon: 'bi bi-journal-text',
+		},
 	]"
 	appname="MóvilBA"
 	[rol]="authService.ranked()"
@@ -23,3 +30,4 @@
 	<router-outlet></router-outlet>
 </div>
 <lib-info-modal></lib-info-modal>
+<lib-toast></lib-toast>

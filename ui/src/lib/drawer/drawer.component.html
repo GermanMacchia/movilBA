@@ -70,7 +70,7 @@
 				</button>
 				<div class="flex items-center p-3 gap-5">
 					<div class="rounded-md bg-[#8de2d6]" style="padding: 0.4rem 0.75rem">
-						<p class="text-2xl">
+						<p class="text-2xl dark:text-white">
 							{{ appname()?.charAt(0)?.toUpperCase() }}
 						</p>
 					</div>
@@ -134,7 +134,10 @@
 			@if (open()) {
 				<div class="px-2">
 					<label class="toggle text-base-content">
-						<input type="checkbox" #themeCheck (change)="changeTheme()" />
+						<input
+							type="checkbox"
+							[(ngModel)]="themeCheck"
+							(change)="changeTheme()" />
 						<svg
 							aria-label="sun"
 							xmlns="http://www.w3.org/2000/svg"

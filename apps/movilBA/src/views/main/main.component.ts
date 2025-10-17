@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common'
 import { Component, inject, OnInit, signal } from '@angular/core'
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router'
 import { AuthService, logout, selectSession } from '@movil-ba/data-access'
-import { DrawerComponent, InfoModalComponent } from '@movilBA/ui'
+import { DrawerComponent, InfoModalComponent, ToastComponent } from '@movilBA/ui'
 import { Store } from '@ngrx/store'
 import { filter } from 'rxjs'
 
@@ -10,7 +10,13 @@ type BreadCrumb = { label: string; url: string }
 
 @Component({
 	selector: 'app-main',
-	imports: [RouterOutlet, DrawerComponent, AsyncPipe, InfoModalComponent],
+	imports: [
+		RouterOutlet,
+		DrawerComponent,
+		AsyncPipe,
+		InfoModalComponent,
+		ToastComponent,
+	],
 	templateUrl: './main.component.html',
 	host: {
 		class: 'flex',
