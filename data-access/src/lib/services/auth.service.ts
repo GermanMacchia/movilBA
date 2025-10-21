@@ -44,7 +44,7 @@ export class AuthService {
 					return of(error)
 				}),
 			)
-			.subscribe()
+			.subscribe(data => sessionStorage.setItem(SESSION, JSON.stringify(data)))
 
 	logout = () =>
 		this.authApiService

@@ -7,6 +7,7 @@ import {
 	input,
 	model,
 	OnChanges,
+	OnInit,
 	signal,
 	SimpleChanges,
 	ViewChild,
@@ -29,7 +30,7 @@ export const theme_value = 'theme_value'
 	styleUrl: '../styles.scss',
 	templateUrl: './drawer.component.html',
 })
-export class DrawerComponent implements AfterViewInit, OnChanges {
+export class DrawerComponent implements OnInit, OnChanges {
 	router = inject(Router)
 	logout = input.required<() => void>()
 	usuario = input<string>()
@@ -52,7 +53,7 @@ export class DrawerComponent implements AfterViewInit, OnChanges {
 	open = model<string>('drawer-open')
 	toggleDrawer = () => this.open.update(open => (open ? '' : 'drawer-open'))
 
-	ngAfterViewInit(): void {
+	ngOnInit(): void {
 		this.checkTheme()
 	}
 

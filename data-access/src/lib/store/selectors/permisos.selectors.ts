@@ -21,6 +21,16 @@ export const selectLogs = createSelector(
 	state => state.logs,
 )
 
+export const selectModified = createSelector(
+	createFeatureSelector<PermisosState>('permisos'),
+	state => state.modified,
+)
+
+export const selectPemisosError = createSelector(
+	createFeatureSelector<PermisosState>('permisos'),
+	state => state.error,
+)
+
 export const selectLogsData = createSelector(selectLogs, logs => logs?.data || [])
 
 export const selectLogsTotal = createSelector(selectLogs, logs => logs?.total || 0)

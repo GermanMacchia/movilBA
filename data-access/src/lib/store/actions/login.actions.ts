@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store'
-import { Session } from '../../interfaces/session.interfaces'
 
 export const login = createAction(
 	'[Auth] Login',
@@ -21,3 +20,9 @@ export const logoutError = createAction(
 export const logoutSuccess = createAction('[Auth] LogoutSuccess')
 
 export const logout = createAction('[Auth] Logout')
+
+export const health = createAction('[Auth] Health')
+
+export const setAppInoperative = createAction('[Auth] App Inoperative')
+
+export const appOperative = createAction('[Auth] App Operative')

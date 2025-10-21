@@ -43,6 +43,12 @@ export class Log extends Model {
 	})
 	tipo_log: LogType
 
+	@Column({
+		type: DataType.JSON,
+		allowNull: true,
+	})
+	info: object
+
 	@BelongsTo(() => Usuario, 'usuario_id')
 	usuario: Usuario
 }

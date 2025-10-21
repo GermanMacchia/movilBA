@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core'
 
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { catchError, map, mergeMap, of, switchMap, tap } from 'rxjs'
+import { catchError, map, of, switchMap, tap } from 'rxjs'
 
 import { AuthApiService } from '../../api/auth-api-service'
 import { AuthService } from '../../services'
@@ -12,6 +12,18 @@ export class LoginEffects {
 	private actions$ = inject(Actions)
 	private apiService = inject(AuthApiService)
 	private authService = inject(AuthService)
+
+	health$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(loginActions.health),
+			switchMap(() =>
+				this.apiService.health().pipe(
+					map(() => loginActions.appOperative()),
+					catchError(() => of(loginActions.setAppInoperative())),
+				),
+			),
+		),
+	)
 
 	login$ = createEffect(() =>
 		this.actions$.pipe(

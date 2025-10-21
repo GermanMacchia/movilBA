@@ -12,7 +12,13 @@
 			{ key: 'usuario.cuil', type: types.STRING },
 		]"
 		[headers]="['Descripción', 'Tipo', 'Fecha', 'Usuario', 'Email', 'CUIL']"
-		[actions]="[]"
+		[actions]="[
+			{
+				icon: 'bi bi-info-circle',
+				info: 'Datos',
+				action: showData,
+			},
+		]"
 		[data]="(data$ | async) || []">
 	</lib-simple-list>
 </div>

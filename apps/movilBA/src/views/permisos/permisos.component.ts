@@ -7,11 +7,15 @@ import {
 	FormModalService,
 	InfoModalService,
 	SimpleListComponent,
+	ToastService,
 } from '@movilBA/ui'
 import { Store } from '@ngrx/store'
 import {
 	createUsuario,
 	deleteUsuario,
+	restoreUsuario,
+	selectModified,
+	selectPemisosError,
 	selectUsuarios,
 	updateUsuario,
 } from 'data-access/src/lib/store'
@@ -20,6 +24,7 @@ import { DataTypes } from 'ui/src/lib/common/enums'
 import type { FormData } from 'ui/src/lib/common/interfaces'
 import { PermisosModalComponent } from '../../components/permisos-modal/permisos-modal.component'
 import { FormGroup } from '@angular/forms'
+import { filter } from 'rxjs'
 
 const formDefaultData: FormData[] = [
 	{ key: 'cuil', type: DataTypes.STRING, value: '' },
@@ -54,6 +59,7 @@ export class PermisosComponent implements OnInit {
 	formModalService = inject(FormModalService)
 	permissionsService = inject(NgxPermissionsService)
 	infoModalService = inject(InfoModalService)
+	toastService = inject(ToastService)
 	store$ = inject(Store)
 
 	types = DataTypes
@@ -68,6 +74,32 @@ export class PermisosComponent implements OnInit {
 	async ngOnInit() {
 		const canEdit = await this.permissionsService.hasPermission('PERMISOS.CREATE')
 		this.canEdit.set(canEdit)
+		this.subscribePermisosError()
+		this.subscribePermisosModified()
+	}
+
+	private subscribePermisosModified() {
+		this.store$
+			.select(selectModified)
+			.pipe(filter(ele => !!ele))
+			.subscribe(data => {
+				this.toastService.toast({
+					body: data!,
+					severity: 'success',
+				})
+			})
+	}
+
+	private subscribePermisosError() {
+		this.store$
+			.select(selectPemisosError)
+			.pipe(filter(ele => !!ele))
+			.subscribe(error => {
+				this.toastService.toast({
+					body: 'Error en permisos',
+					severity: 'error',
+				})
+			})
 	}
 
 	openModalForm = () =>
@@ -79,9 +111,14 @@ export class PermisosComponent implements OnInit {
 			this.getDataValues(usuario),
 			(formgroup: FormGroup) =>
 				this.infoModalService.openAsConfirm(() =>
-					this.store$.dispatch(updateUsuario({ ...formgroup.value })),
+					this.store$.dispatch(
+						updateUsuario({ ...formgroup.value, id: usuario.id }),
+					),
 				),
 		)
+
+	notDeleted = (ele: any) => !ele.deletedAt
+	isDeleted = (ele: any) => ele.deletedAt
 
 	getDataValues = (usuario: Usuario): FormData[] =>
 		formDefaultData
@@ -102,5 +139,10 @@ export class PermisosComponent implements OnInit {
 	setDelete = (usuario: Usuario) =>
 		this.infoModalService.openAsConfirm(() =>
 			this.store$.dispatch(deleteUsuario({ id: usuario.id })),
+		)
+
+	userRestore = (usuario: Usuario) =>
+		this.infoModalService.openAsConfirm(() =>
+			this.store$.dispatch(restoreUsuario({ id: usuario.id })),
 		)
 }

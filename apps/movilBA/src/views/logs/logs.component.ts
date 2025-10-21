@@ -29,4 +29,6 @@ export class LogsComponent {
 	types = DataTypes
 	data$ = this.store$.select(selectLogsData)
 	total$ = this.store$.select(selectLogsTotal)
+
+	showData = (ele: any) => console.log(ele)
 }

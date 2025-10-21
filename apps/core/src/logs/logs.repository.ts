@@ -10,6 +10,7 @@ export interface LogInfo {
 	usuario_id: number
 	descripcion: string
 	tipo_log: LogType
+	info: any
 }
 
 export class LogsRepository {
@@ -22,14 +23,16 @@ export class LogsRepository {
 		this.logger = new Logger('Logs repository')
 	}
 
-	async createLog(info: LogInfo) {
-		return await this.logModel.create({ ...info })
+	async createLog(data: LogInfo) {
+		//para que no figure el password en bd info log
+		delete data.info?.body?.password
+		return await this.logModel.create({ ...data })
 	}
 
 	async findLogs({ limit, offset }) {
 		const [error, data] = await to(
 			this.logModel.findAll({
-				attributes: ['descripcion', 'tipo_log', 'created_at'],
+				attributes: ['descripcion', 'tipo_log', 'info', 'created_at'],
 				order: [['created_at', 'DESC']],
 				limit: limit,
 				offset: offset,

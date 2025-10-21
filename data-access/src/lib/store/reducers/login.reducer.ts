@@ -1,12 +1,21 @@
 import { Action, createReducer, on } from '@ngrx/store'
 import { Session } from '../../interfaces/session.interfaces'
-import { login, loginError, loginSuccess, logout, logoutError } from '../index'
+import {
+	appOperative,
+	login,
+	loginError,
+	loginSuccess,
+	logout,
+	logoutError,
+	setAppInoperative,
+} from '../index'
 
 //STATE
 export interface LoginState {
 	loading: boolean
 	error: any
 	session: Session | null
+	operative: null | boolean
 }
 
 //INITIAL
@@ -14,6 +23,7 @@ export const loginInitialState: LoginState = {
 	loading: false,
 	error: null,
 	session: null,
+	operative: null,
 }
 
 //REDUCER
@@ -29,6 +39,16 @@ const _loginReducer = createReducer(
 		...state,
 		loading: false,
 		session: data,
+	})),
+
+	on(setAppInoperative, state => ({
+		...state,
+		operative: false,
+	})),
+
+	on(appOperative, state => ({
+		...state,
+		operative: true,
 	})),
 
 	on(loginError, (state, { error }) => ({

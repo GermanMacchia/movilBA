@@ -3,6 +3,7 @@ import {
 	permisosError,
 	permisosLoading,
 	setLogs,
+	setModified,
 	setModulos,
 	setUsuarios,
 } from '../actions/permisos.actions'
@@ -14,6 +15,7 @@ export interface PermisosState {
 	error: any
 	usuarios: any
 	modulos: any
+	modified: null | string
 	logs: any
 }
 
@@ -22,6 +24,7 @@ export const permisosInitialState: PermisosState = {
 	loading: false,
 	error: null,
 	usuarios: null,
+	modified: null,
 	modulos: null,
 	logs: null,
 }
@@ -46,6 +49,11 @@ const _permisosReducer = createReducer(
 		usuarios: data,
 	})),
 
+	on(setModified, (state, { data }) => ({
+		...state,
+		modified: data,
+	})),
+
 	on(setModulos, (state, { data }) => ({
 		...state,
 		modulos: data,
@@ -56,10 +64,10 @@ const _permisosReducer = createReducer(
 		logs: data,
 	})),
 
-	on(permisosError, (state, { data }) => ({
+	on(permisosError, (state, { error }) => ({
 		...state,
 		loading: false,
-		error: data,
+		error: error,
 	})),
 )
 

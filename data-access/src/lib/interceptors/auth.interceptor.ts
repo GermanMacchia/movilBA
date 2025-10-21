@@ -41,11 +41,14 @@ export class AuthInterceptor implements HttpInterceptor {
 			})
 
 		return next.handle(authReq).pipe(
-			retry(2),
-			catchError(error => {
-				this.authService.resetpermissions()
-				return of(error)
-			}),
+			retry(0),
+			// catchError(error => {
+			// 	if (error.status === 401 || error.status === 403) {
+			// 		this.authService.resetpermissions()
+			// 	}
+
+			// 	throw error
+			// }),
 		)
 	}
 

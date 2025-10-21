@@ -13,7 +13,7 @@
 		@if(service.formgroup){
 		<div class="flex flex-col gap-3 py-4">
 			@for (item of service.modalInfo().data; track $index) {
-			<form autocomplete="off" [formGroup]="service.formgroup">
+			<form [formGroup]="service.formgroup">
 				@switch (item.type) {
 				<!--String-->
 				@case (types.STRING) {
@@ -24,7 +24,7 @@
 				}
 				<!--Password-->
 				@case (types.PASSWORD) {
-				<label class="input mb-[2rem]">
+				<label class="input mb-[1.5rem]">
 					<span class="font-bold">{{item.key | titlecase}}</span>
 					<input
 						autocomplete="off"
@@ -35,7 +35,7 @@
 						pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" />
 					<p class="validator-hint absolute left-0 top-[2.25rem]">
 						Debe al menos 8 carácteres,<br />
-						Incluyendo 1 mayúscula, 1 minúscula<br />y 1 número
+						Incluyendo 1 mayúscula, 1 minúscula y 1 número
 					</p>
 				</label>
 				}
@@ -45,7 +45,14 @@
 				@case (types.EMAIL) {
 				<label class="input">
 					<span class="font-bold">{{item.key | titlecase}}</span>
-					<input [formControlName]="item.key" type="email" />
+					<input
+						[formControlName]="item.key"
+						type="email"
+						class="input validator"
+						pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" />
+					<p class="validator-hint absolute mb-1 right-2 bottom-0">
+						Debe tener formato de email
+					</p>
 				</label>
 				}
 				<!--Boolean-->

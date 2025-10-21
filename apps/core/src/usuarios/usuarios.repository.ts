@@ -43,7 +43,6 @@ export class UsuarioRepository {
 	async findAll(): Promise<Usuario[]> {
 		const [error, data] = await to(
 			this.usuarioModel.findAll({
-				nest: true,
 				attributes: ['id', 'cuil', 'nombre', 'email', 'ultimo_login', 'deletedAt'],
 				paranoid: false,
 				include: this.permisosQuery,
@@ -58,7 +57,7 @@ export class UsuarioRepository {
 				{ name: 'error', message: 'internal Server Error' },
 			)
 
-		return data
+		return data?.map(user => user.get({ plain: true })) || []
 	}
 
 	/**
@@ -158,18 +157,18 @@ export class UsuarioRepository {
 		return { statusCode: HttpStatus.OK }
 	}
 
-	async restoreUsuario(usuario: Usuario) {
+	async restoreUsuario(usuario_id: number) {
 		const t = await this.sequelize.transaction()
 
 		try {
 			await this.usuarioModel.restore({
-				where: { cuil: usuario.cuil },
+				where: { id: usuario_id },
 				transaction: t,
 			})
 
 			await t.commit()
 
-			return { usuario_id: usuario.id, status: HttpStatus.OK }
+			return { statusCode: HttpStatus.OK }
 		} catch (error) {
 			await t.rollback()
 			handleException(

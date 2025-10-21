@@ -18,11 +18,9 @@ export class UsuariosService {
 	}
 
 	async create(usuario: UsuarioCreateDTO) {
-		const user = await this.db.findByCuil(usuario.cuil)
+		const [user] = (await this.db.findAll()).filter(ele => ele.cuil === usuario.cuil)
 
-		if (user && user.deletedAt) return this.db.restoreUsuario(user)
-
-		if (user && !user.deletedAt) throw new ConflictException('Usuario existente')
+		if (user) throw new ConflictException('Usuario existente')
 
 		const hash = await bcrypt.hash(usuario.password, 10)
 
@@ -38,7 +36,17 @@ export class UsuariosService {
 		return this.db.deleteUsuario(usuario_id)
 	}
 
-	edit(usuario_id: number, usuarioData: UsuarioEditDTO) {
+	restore(usuario_id: number) {
+		return this.db.restoreUsuario(usuario_id)
+	}
+
+	async edit(usuario_id: number, usuarioData: UsuarioEditDTO) {
+		const [user] = (await this.db.findAll()).filter(
+			ele => ele.cuil === usuarioData.cuil,
+		)
+
+		if (user.id !== usuario_id) throw new ConflictException('Cuil existente')
+
 		return this.db.updateUsuario(usuario_id, usuarioData)
 	}
 }

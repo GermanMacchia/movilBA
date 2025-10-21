@@ -45,8 +45,15 @@ export class UsuariosController {
 
 	@Delete(':usuario_id')
 	@RequireMask([Permissions.DELETE])
-	@RegisterLog('Usuario Creado', LogType.DELETE)
+	@RegisterLog('Usuario Restringido', LogType.DELETE)
 	delete(@Param('usuario_id', ParseIntPipe) usuario_id: number) {
 		return this.usuariosService.delete(usuario_id)
+	}
+
+	@Put('restore/:usuario_id')
+	@RequireMask([Permissions.WRITE])
+	@RegisterLog('Usuario Restaurado', LogType.WRITE)
+	restore(@Param('usuario_id', ParseIntPipe) usuario_id: number) {
+		return this.usuariosService.restore(usuario_id)
 	}
 }

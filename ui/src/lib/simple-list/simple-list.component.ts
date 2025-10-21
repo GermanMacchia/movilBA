@@ -23,6 +23,7 @@ export class SimpleListComponent {
 			icon: string
 			info: string
 			action: (ele: any) => void
+			condition?: (ele: any) => boolean
 			disabled?: boolean
 			disableCondition?: (ele: any) => boolean
 		}[]
