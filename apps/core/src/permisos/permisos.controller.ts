@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common'
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	ParseIntPipe,
+	Post,
+} from '@nestjs/common'
 import { PermisoDTO } from '../app/dtos/permiso.dto'
 import { Modulos, Permissions } from '../app/interfaces'
 import { LogType } from '../app/models/log.model'
@@ -10,12 +18,6 @@ import { PermisosService } from './permisos.service'
 export class PermisosController {
 	constructor(private readonly permisosService: PermisosService) {}
 
-	@Get()
-	@RequireMask([Permissions.READ])
-	findAll() {
-		return this.permisosService.findAll()
-	}
-
 	@Post()
 	@RequireMask([Permissions.CREATE])
 	@RegisterLog('Permiso Creado', LogType.CREATE)
@@ -23,13 +25,10 @@ export class PermisosController {
 		return this.permisosService.create(createPermisoDto)
 	}
 
-	@Get(':id')
-	findOne(@Param('id') id: string) {
-		return this.permisosService.findOne(+id)
-	}
-
 	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.permisosService.remove(+id)
+	@RequireMask([Permissions.DELETE])
+	@RegisterLog('Permiso Borrado', LogType.DELETE)
+	remove(@Param('id', ParseIntPipe) id: number) {
+		return this.permisosService.remove(id)
 	}
 }

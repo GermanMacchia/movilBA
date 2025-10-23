@@ -11,6 +11,8 @@ import {
 } from '@movilBA/ui'
 import { Store } from '@ngrx/store'
 import {
+	clearPermisosError,
+	clearPermisosModified,
 	createUsuario,
 	deleteUsuario,
 	restoreUsuario,
@@ -24,7 +26,8 @@ import { DataTypes } from 'ui/src/lib/common/enums'
 import type { FormData } from 'ui/src/lib/common/interfaces'
 import { PermisosModalComponent } from '../../components/permisos-modal/permisos-modal.component'
 import { FormGroup } from '@angular/forms'
-import { filter } from 'rxjs'
+import { distinctUntilChanged, filter } from 'rxjs'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 
 const formDefaultData: FormData[] = [
 	{ key: 'cuil', type: DataTypes.STRING, value: '' },
@@ -33,11 +36,11 @@ const formDefaultData: FormData[] = [
 	{ key: 'clave', type: DataTypes.PASSWORD, value: '' },
 ]
 
+@UntilDestroy()
 @Component({
 	selector: 'app-permisos',
 	imports: [
 		SimpleListComponent,
-		AsyncPipe,
 		ActionHeaderComponent,
 		FormModal,
 		PermisosModalComponent,
@@ -63,7 +66,7 @@ export class PermisosComponent implements OnInit {
 	store$ = inject(Store)
 
 	types = DataTypes
-	data$: any = this.store$.select(selectUsuarios)
+	usuarios = signal<Usuario[]>([])
 	canEdit = signal<boolean>(false)
 
 	@ViewChild(PermisosModalComponent)
@@ -76,29 +79,56 @@ export class PermisosComponent implements OnInit {
 		this.canEdit.set(canEdit)
 		this.subscribePermisosError()
 		this.subscribePermisosModified()
+		this.subscribeUsuarios()
+	}
+
+	private subscribeUsuarios() {
+		this.store$
+			.select(selectUsuarios)
+			.pipe(untilDestroyed(this))
+			.subscribe((data: Usuario[]) => {
+				this.usuarios.set([...data].sort((a, b) => +a.cuil - +b.cuil))
+
+				if (this.selectedUser()) {
+					this.selectedUser.update(
+						selected =>
+							data.find((usuario: Usuario) => usuario.id === selected?.id) ?? null,
+					)
+				}
+			})
 	}
 
 	private subscribePermisosModified() {
 		this.store$
 			.select(selectModified)
-			.pipe(filter(ele => !!ele))
+			.pipe(
+				untilDestroyed(this),
+				filter(ele => !!ele),
+			)
 			.subscribe(data => {
 				this.toastService.toast({
 					body: data!,
 					severity: 'success',
 				})
+				// Clear
+				this.store$.dispatch(clearPermisosModified())
 			})
 	}
 
 	private subscribePermisosError() {
 		this.store$
 			.select(selectPemisosError)
-			.pipe(filter(ele => !!ele))
-			.subscribe(error => {
+			.pipe(
+				untilDestroyed(this),
+				filter(ele => !!ele),
+			)
+			.subscribe(() => {
 				this.toastService.toast({
 					body: 'Error en permisos',
 					severity: 'error',
 				})
+				// Clear
+				this.store$.dispatch(clearPermisosError())
 			})
 	}
 

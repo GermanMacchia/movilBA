@@ -1,10 +1,12 @@
-import { Controller, Delete, Get, Param } from '@nestjs/common'
+import { Controller, Delete, Get, Param, UseFilters } from '@nestjs/common'
 import { Modulos, Permissions } from '../app/interfaces'
 
 import { RequireMask, RequireModule } from '../app/utils/decorators'
 import { EntidadesService } from './entidades.service'
+import { DatabaseExceptionFilter } from '../app/dbs/db-exception.filter'
 
 @Controller('entidades')
+@UseFilters(DatabaseExceptionFilter)
 @RequireModule(Modulos.RUTAP)
 export class EntidadesController {
 	constructor(private readonly entidadesService: EntidadesService) {}
@@ -13,15 +15,5 @@ export class EntidadesController {
 	@RequireMask([Permissions.READ])
 	findAll() {
 		return this.entidadesService.findAll()
-	}
-
-	@Get(':id')
-	findOne(@Param('id') id: string) {
-		return this.entidadesService.findOne(+id)
-	}
-
-	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.entidadesService.remove(+id)
 	}
 }

@@ -17,9 +17,7 @@ export class UsuarioRepository {
 		{
 			model: Permiso,
 			nest: true,
-			required: false,
-			duplicating: false,
-			attributes: ['permisos'],
+			attributes: ['permisos', 'id'],
 			include: [
 				{
 					model: Modulo,
@@ -54,7 +52,7 @@ export class UsuarioRepository {
 				this.logger,
 				'findAll error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' },
+				{ name: 'error', message: 'Internal Server Error' },
 			)
 
 		return data?.map(user => user.get({ plain: true })) || []
@@ -87,7 +85,7 @@ export class UsuarioRepository {
 				this.logger,
 				'findByCuil error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' },
+				{ name: 'error', message: 'Internal Server Error' },
 			)
 
 		const user = data?.get({ plain: true })
@@ -97,7 +95,7 @@ export class UsuarioRepository {
 		return user
 	}
 
-	async updateUsuarioLogon(id: number) {
+	async updateLogon(id: number) {
 		const [error, _data] = await to(
 			this.usuarioModel.update({ ultimo_login: new Date() }, { where: { id } }),
 		)
@@ -105,27 +103,27 @@ export class UsuarioRepository {
 		if (error)
 			handleException(
 				this.logger,
-				'updateUsuarioLogon error',
+				'updateLogon error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' },
+				{ name: 'error', message: 'Internal Server Error' },
 			)
 	}
 
-	async createUsuario(usuario: UsuarioCreateDTO) {
+	async create(usuario: UsuarioCreateDTO) {
 		const [error, _data] = await to(this.usuarioModel.create({ ...usuario }))
 
 		if (error)
 			handleException(
 				this.logger,
-				'createUsuario error',
+				'create error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' },
+				{ name: 'error', message: 'Internal Server Error' },
 			)
 
 		return { message: 'created', status: HttpStatus.CREATED }
 	}
 
-	async updateUsuario(usuario_id: number, usuarioData: UsuarioEditDTO) {
+	async update(usuario_id: number, usuarioData: UsuarioEditDTO) {
 		const [error, data] = await to(
 			this.usuarioModel.update(usuarioData, { where: { id: usuario_id } }),
 		)
@@ -133,15 +131,15 @@ export class UsuarioRepository {
 		if (error)
 			handleException(
 				this.logger,
-				'updateUsuario error',
+				'update error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' },
+				{ name: 'error', message: 'Internal Server Error' },
 			)
 
 		return data
 	}
 
-	async deleteUsuario(usuario_id: number) {
+	async remove(usuario_id: number) {
 		const [error, _data] = await to(
 			this.usuarioModel.destroy({ where: { id: usuario_id } }),
 		)
@@ -149,15 +147,15 @@ export class UsuarioRepository {
 		if (error)
 			handleException(
 				this.logger,
-				'deleteUsuario error',
+				'remove error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' },
+				{ name: 'error', message: 'Internal Server Error' },
 			)
 
 		return { statusCode: HttpStatus.OK }
 	}
 
-	async restoreUsuario(usuario_id: number) {
+	async restore(usuario_id: number) {
 		const t = await this.sequelize.transaction()
 
 		try {
@@ -173,9 +171,9 @@ export class UsuarioRepository {
 			await t.rollback()
 			handleException(
 				this.logger,
-				'restoreUsuario error',
+				'restore error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' },
+				{ name: 'error', message: 'Internal Server Error' },
 			)
 		}
 	}

@@ -29,7 +29,7 @@ export class LogsRepository {
 		return await this.logModel.create({ ...data })
 	}
 
-	async findLogs({ limit, offset }) {
+	async findAll({ limit, offset }) {
 		const [error, data] = await to(
 			this.logModel.findAll({
 				attributes: ['descripcion', 'tipo_log', 'info', 'created_at'],
@@ -46,9 +46,9 @@ export class LogsRepository {
 		if (error)
 			handleException(
 				this.logger,
-				'findLogs error',
+				'findAll error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' },
+				{ name: 'error', message: 'Internal Server Error' },
 			)
 
 		return {

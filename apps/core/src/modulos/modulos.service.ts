@@ -6,13 +6,10 @@ import { ModulosRespository } from './modulos.repository'
 export class ModulosService {
 	constructor(private modulosRepository: ModulosRespository) {}
 
-	create(createPermisoDto: ModuloDTO) {
-		return this.modulosRepository.create(createPermisoDto)
-	}
+	create = (createPermisoDto: ModuloDTO) =>
+		this.modulosRepository.create(createPermisoDto)
 
-	findAll() {
-		return this.modulosRepository.findAll()
-	}
+	findAll = () => this.modulosRepository.findAll()
 
 	findOne(id: number) {
 		return `This action returns a #${id} permiso`

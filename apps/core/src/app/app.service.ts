@@ -1,31 +1,43 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@nestjs/common'
-import { InjectConnection } from '@nestjs/sequelize'
 import { HealthCheckService, HealthIndicatorService } from '@nestjs/terminus'
-import { Sequelize } from 'sequelize'
 import { DbHealthIndicator } from './utils/dbHealthIndicator'
+import { MultiDbService } from './dbs/multi-db.service'
+import { Sequelize } from 'sequelize'
+import { InjectConnection } from '@nestjs/sequelize'
 import { CORE_DB } from './dbs/coreDB.module'
-import { ENTIDADES_DB } from './dbs/entidadesDB.module'
 
 @Injectable()
 export class AppService {
 	constructor(
 		@InjectConnection(CORE_DB) private coreDb: Sequelize,
-		@InjectConnection(ENTIDADES_DB) private entidadesDb: Sequelize,
-		private health: HealthCheckService,
-		private healthIndicator: HealthIndicatorService,
+		private readonly health: HealthCheckService,
+		private readonly multiDbService: MultiDbService,
+		private readonly healthIndicator: HealthIndicatorService,
 	) {}
 
-	async getHealth(): Promise<any> {
+	async getHealth(allDatabases = false) {
+		const coreDB = [
+			{
+				name: 'Core',
+				db: async () => this.coreDb,
+			},
+		]
+
 		const dbHealthIndicator = new DbHealthIndicator(
-			[
-				{ name: 'Core', db: this.coreDb },
-				{ name: 'Entidades', db: this.entidadesDb },
-			],
+			allDatabases
+				? [
+						...coreDB,
+						{
+							name: 'Entidades',
+							db: async () => this.multiDbService.getConnection('database_re'),
+						},
+					]
+				: coreDB,
 			this.healthIndicator,
 		)
-		return await this.health.check([
-			() => dbHealthIndicator.checkHealth('databases'),
+
+		return this.health.check([
+			() => dbHealthIndicator.checkHealth(allDatabases ? 'databases' : 'coreDB'),
 		])
 	}
 }

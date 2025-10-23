@@ -6,7 +6,7 @@ export class DbHealthIndicator {
 	private readonly logger: Logger
 
 	constructor(
-		private dbConections: { name: string; db: Sequelize }[],
+		private dbConections: { name: string; db: () => Promise<Sequelize> }[],
 		private readonly healthIndicatorService: HealthIndicatorService,
 	) {
 		this.logger = new Logger('DB Health Indicator')
@@ -18,22 +18,22 @@ export class DbHealthIndicator {
 
 		for (const connection of this.dbConections) {
 			try {
-				await connection.db.authenticate()
+				;(await connection.db()).authenticate()
 			} catch (error) {
 				this.logger.error(error.message)
-				errors.push(`Error en ${connection.name}: ${error.message}`)
+				errors.push(`Error en ${connection.name}`)
 			}
 		}
 
 		if (errors.length) {
 			return indicator.down({
-				message: 'Errores en conexiones de base de datos',
+				message: 'Error en conexion de base de datos',
 				errors: errors,
 			})
 		}
 
 		return indicator.up({
-			message: 'Todas las conexiones están funcionando correctamente',
+			message: 'Todos los servicios están operativos',
 		})
 	}
 }

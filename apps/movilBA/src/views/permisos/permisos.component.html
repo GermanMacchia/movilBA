@@ -43,7 +43,7 @@
 			disabled: !canEdit(),
 		},
 	]"
-	[data]="(data$ | async)!">
+	[data]="usuarios()">
 </lib-simple-list>
 <lib-form-modal></lib-form-modal>
 <app-permisos-modal [selectedUser]="selectedUser()!"></app-permisos-modal>

@@ -63,3 +63,6 @@ export const permisosError = createAction(
 	'[Permisos] set Error',
 	props<{ error: any }>(),
 )
+
+export const clearPermisosError = createAction('[Permisos] Clear Error')
+export const clearPermisosModified = createAction('[Permisos] Clear Modified')

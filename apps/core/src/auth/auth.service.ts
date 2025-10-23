@@ -20,7 +20,7 @@ export class AuthService {
 	) {}
 
 	async login(user: any) {
-		await this.usuarioRepository.updateUsuarioLogon(user.id)
+		await this.usuarioRepository.updateLogon(user.id)
 		return this.generateToken(user)
 	}
 
@@ -45,9 +45,10 @@ export class AuthService {
 		try {
 			const slicedToken = token.startsWith('Bearer ') ? token.slice(7) : token
 			const secret = this.config.get<string>('app.jwt.secret')
-			const decoded = this.jwtService.verify(slicedToken, { secret })
+			const { cuil } = this.jwtService.verify(slicedToken, { secret })
 			await this.addToBlackList(token)
-			return this.generateToken(decoded)
+			const user = await this.usuarioRepository.findByCuil(cuil)
+			return this.generateToken(user)
 		} catch (error) {
 			throw new HttpException(error.message, HttpStatus.UNAUTHORIZED)
 		}

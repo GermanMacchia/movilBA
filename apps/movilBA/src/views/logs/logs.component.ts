@@ -1,5 +1,12 @@
 import { AsyncPipe } from '@angular/common'
-import { Component, inject, OnInit, signal } from '@angular/core'
+import {
+	Component,
+	ElementRef,
+	inject,
+	OnInit,
+	signal,
+	ViewChild,
+} from '@angular/core'
 import { selectLogsData, selectLogsTotal } from 'data-access/src/lib/store'
 import { SimpleListComponent } from '@movilBA/ui'
 import { Store } from '@ngrx/store'
@@ -24,11 +31,15 @@ import { DataTypes } from 'ui/src/lib/common/enums'
 })
 export class LogsComponent {
 	private store$ = inject(Store)
-	private permissionsService = inject(NgxPermissionsService)
-
 	types = DataTypes
 	data$ = this.store$.select(selectLogsData)
 	total$ = this.store$.select(selectLogsTotal)
+	logInfo = signal<string>('{}')
+	@ViewChild('dialog')
+	dialog!: ElementRef<HTMLDialogElement>
 
-	showData = (ele: any) => console.log(ele)
+	showData = (ele: any) => {
+		this.logInfo.set(JSON.stringify(ele?.info ?? {}, null, 2))
+		this.dialog.nativeElement.showModal()
+	}
 }

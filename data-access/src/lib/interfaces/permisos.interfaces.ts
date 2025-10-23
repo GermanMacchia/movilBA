@@ -9,6 +9,7 @@ export interface Usuario {
 }
 
 export interface Permiso {
+	id: number
 	permisos: string
 	modulo: Modulo
 }

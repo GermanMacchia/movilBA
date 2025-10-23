@@ -1,5 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store'
 import {
+	clearPermisosError,
+	clearPermisosModified,
 	permisosError,
 	permisosLoading,
 	setLogs,
@@ -68,6 +70,16 @@ const _permisosReducer = createReducer(
 		...state,
 		loading: false,
 		error: error,
+	})),
+
+	on(clearPermisosError, state => ({
+		...state,
+		error: null,
+	})),
+
+	on(clearPermisosModified, state => ({
+		...state,
+		modified: null,
 	})),
 )
 

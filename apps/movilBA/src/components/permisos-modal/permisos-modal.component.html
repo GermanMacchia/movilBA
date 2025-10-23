@@ -12,6 +12,13 @@
 				selectedUser()?.cuil
 			}}]
 		</h3>
+		<div class="relative">
+			@if (warning()) {
+				<p class="absolute right-12 m-0 top-[-1.5rem] text-red-200">
+					Formulario incompleto
+				</p>
+			}
+		</div>
 		<table class="table-fixed">
 			<thead>
 				<tr>
@@ -43,7 +50,9 @@
 						<td class="border-none">
 							<div class="w-12 h-8 flex items-center justify-center">
 								@if (editMode()) {
-									<button class="btn btn-circle hover:bg-red-400 hover:text-white">
+									<button
+										(click)="deletePermiso(item.id)"
+										class="btn btn-circle hover:bg-red-400 hover:text-white">
 										<i class="bi bi-trash"></i>
 									</button>
 								}
@@ -54,8 +63,11 @@
 				<tr class="h-[3.5rem]">
 					@if (editMode()) {
 						<td class="px-2">
-							<select class="select w-full" (change)="selectChange($event)">
-								<option disabled selected>Seleccionar módulo</option>
+							<select
+								[value]="modulo_id()"
+								(change)="selectChange($event)"
+								class="select w-full">
+								<option value="0" disabled>Seleccionar módulo</option>
 								@for (item of modulos(); track $index) {
 									<option [value]="item.id">
 										{{ item.nombre | titlecase }}
@@ -78,7 +90,7 @@
 						<td class="border-none">
 							<div class="w-12 h-8 flex items-center justify-center">
 								<button class="btn btn-circle hover:bg-green-400 hover:text-white">
-									<i class="bi bi-plus text-xl" (click)="crearPermiso()"></i>
+									<i class="bi bi-plus text-xl" (click)="createPermiso()"></i>
 								</button>
 							</div>
 						</td>
@@ -89,7 +101,7 @@
 
 		<div class="modal-action flex gap-3" *ngxPermissionsOnly="'PERMISOS.CREATE'">
 			@if (editMode()) {
-				<button class="btn btn-soft btn-error" (click)="editMode.set(false)">
+				<button class="btn btn-soft btn-error" (click)="cancel()">
 					<i class="bi bi-x-square"></i>
 					Cancelar
 				</button>

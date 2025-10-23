@@ -8,14 +8,13 @@ import { UsuarioRepository } from './usuarios.repository'
 
 @Injectable()
 export class UsuariosService {
-	constructor(
-		private readonly db: UsuarioRepository,
-		private readonly configService: ConfigService,
-	) {}
+	constructor(private readonly db: UsuarioRepository) {}
 
-	users() {
-		return this.db.findAll()
-	}
+	users = () => this.db.findAll()
+
+	delete = (usuario_id: number) => this.db.remove(usuario_id)
+
+	restore = (usuario_id: number) => this.db.restore(usuario_id)
 
 	async create(usuario: UsuarioCreateDTO) {
 		const [user] = (await this.db.findAll()).filter(ele => ele.cuil === usuario.cuil)
@@ -24,20 +23,12 @@ export class UsuariosService {
 
 		const hash = await bcrypt.hash(usuario.password, 10)
 
-		return this.db.createUsuario({
+		return this.db.create({
 			nombre: usuario.nombre,
 			cuil: usuario.cuil,
 			email: usuario.email,
 			password: hash,
 		})
-	}
-
-	delete(usuario_id: number) {
-		return this.db.deleteUsuario(usuario_id)
-	}
-
-	restore(usuario_id: number) {
-		return this.db.restoreUsuario(usuario_id)
 	}
 
 	async edit(usuario_id: number, usuarioData: UsuarioEditDTO) {
@@ -47,6 +38,6 @@ export class UsuariosService {
 
 		if (user.id !== usuario_id) throw new ConflictException('Cuil existente')
 
-		return this.db.updateUsuario(usuario_id, usuarioData)
+		return this.db.update(usuario_id, usuarioData)
 	}
 }

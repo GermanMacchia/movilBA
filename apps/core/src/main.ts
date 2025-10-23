@@ -7,6 +7,7 @@ import { Logger, ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app/app.module'
 import passport from 'passport'
+import { DatabaseExceptionFilter } from './app/dbs/db-exception.filter'
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule)
