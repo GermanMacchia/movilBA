@@ -8,6 +8,14 @@ export enum ACCIONES {
 export enum MODULOS {
 	rutap = 'RUTAP',
 	permisos = 'PERMISOS',
+	rutax = 'RUTAX',
+	rurem = 'RUREM',
+	rutramur = 'RUTRAMUR',
+	capacitacion = 'CAPACITACION',
+	vtv = 'VTV',
+	escolares = 'ESCOLARES',
+	pesados = 'PESADOS',
+	verificaciones = 'VERIFICACIONES',
 }
 
 export enum tipoVista {
