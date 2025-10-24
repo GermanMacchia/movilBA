@@ -32,10 +32,18 @@
 			icon: 'bi bi-person-dash',
 			info: 'Restringir',
 			action: setDelete,
+			condition: notDeleted,
+			disabled: !canEdit(),
+		},
+		{
+			icon: 'bi bi-arrow-repeat',
+			info: 'Restaurar',
+			action: userRestore,
+			condition: isDeleted,
 			disabled: !canEdit(),
 		},
 	]"
-	[data]="(data$ | async)!">
+	[data]="usuarios()">
 </lib-simple-list>
 <lib-form-modal></lib-form-modal>
 <app-permisos-modal [selectedUser]="selectedUser()!"></app-permisos-modal>

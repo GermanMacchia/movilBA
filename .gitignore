@@ -23,7 +23,9 @@ SERVIDOR.md
 NX-SCHEMAS.md
 
 apps/core/.env
+apps/movilBA/src/assets/config.json
 # IDE - VSCode
+
 .vscode
 .vscode/*
 !.vscode/settings.json
@@ -51,6 +53,8 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 
 .angular
+.kiro
+.verdaccio
 
 vite.config.*.timestamp*
 vitest.config.*.timestamp*

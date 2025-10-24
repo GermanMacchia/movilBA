@@ -17,6 +17,7 @@ import { MainComponent } from '../views/main/main.component'
 import { PermisosComponent } from '../views/permisos/permisos.component'
 import { EntidadesComponent } from '../views/rutap/entidades/entidades.component'
 import { EntidadComponent } from '../views/rutap/entidad/entidad.component'
+import { ErrorComponent } from '../views/error/error.component'
 
 export const appRoutes: Route[] = [
 	{
@@ -64,6 +65,7 @@ export const appRoutes: Route[] = [
 		],
 	},
 	{ path: 'login', canActivate: [LoginGuard], component: LoginComponent },
+	{ path: 'error', component: ErrorComponent },
 	{ path: '**', pathMatch: 'full', redirectTo: 'login' },
 ]
 

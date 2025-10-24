@@ -15,4 +15,12 @@ export class AppController {
 	getCheck() {
 		return this.appService.getHealth()
 	}
+
+	@Get('health-databases')
+	@HealthCheck()
+	@Public()
+	@Throttle({ default: { limit: 100, ttl: 60000 } })
+	getDBCheck() {
+		return this.appService.getHealth(true)
+	}
 }

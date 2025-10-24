@@ -13,8 +13,9 @@ import { LogsModule } from '../logs/logs.module'
 import { ModulosModule } from '../modulos/modulos.module'
 import { PermisosModule } from '../permisos/permisos.module'
 import { UsuariosModule } from '../usuarios/usuarios.module'
+import { DatabaseModule } from './dbs/dynamic.module'
 import { CoreDBModule } from './dbs/coreDB.module'
-import { EntidadesDBModule } from './dbs/entidadesDB.module'
+import { MultiDbService } from './dbs/multi-db.service'
 
 @Module({
 	imports: [
@@ -38,7 +39,6 @@ import { EntidadesDBModule } from './dbs/entidadesDB.module'
 					: [{ ttl: 0, limit: 0 }],
 		}),
 		TerminusModule,
-		EntidadesDBModule,
 		CoreDBModule,
 		AuthModule,
 		LogsModule,
@@ -48,6 +48,6 @@ import { EntidadesDBModule } from './dbs/entidadesDB.module'
 		PermisosModule,
 	],
 	controllers: [AppController],
-	providers: [AppService],
+	providers: [AppService, MultiDbService],
 })
 export class AppModule {}

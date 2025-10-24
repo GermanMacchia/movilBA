@@ -42,4 +42,10 @@ export class PermisosApiService extends HttpHandler {
 		this.http.delete(
 			this.endpoints.permisos.usuarios(this.getApi(this.api)) + `/${id}`,
 		)
+
+	restoreUsuario = (id: number) =>
+		this.http.put(
+			this.endpoints.permisos.restore(this.getApi(this.api)) + `/${id}`,
+			{},
+		)
 }

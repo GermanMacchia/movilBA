@@ -21,9 +21,9 @@ export class ModulosRespository {
 		if (error)
 			handleException(
 				this.logger,
-				'findEntidades error',
+				'create error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' },
+				{ name: 'error', message: 'Internal Server Error' },
 			)
 
 		return data
@@ -39,7 +39,7 @@ export class ModulosRespository {
 				this.logger,
 				'findAll error',
 				HttpStatus.INTERNAL_SERVER_ERROR,
-				{ name: 'error', message: 'internal Server Error' },
+				{ name: 'error', message: 'Internal Server Error' },
 			)
 
 		return data

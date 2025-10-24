@@ -29,4 +29,13 @@ export type LoginInfo = {
 	formControlName: string
 	placeholder: string
 }
+
 export type LoginData = { input: LoginInfo; password: LoginInfo }
+
+export interface ModulosRoutes {
+	label: string
+	routerLink: string
+	color: string
+	icon: string
+	only: string
+}

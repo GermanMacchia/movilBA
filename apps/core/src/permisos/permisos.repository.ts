@@ -1,7 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common'
+import { HttpStatus, Injectable, Logger } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
 import { CORE_DB } from '../app/dbs/coreDB.module'
 import { Permiso } from '../app/models/permiso.model'
+import { handleException } from '../app/utils/handleException'
+import to from 'await-to-js'
 
 @Injectable()
 export class PermisosRepository {
@@ -12,19 +14,31 @@ export class PermisosRepository {
 		private permisoModel: typeof Permiso,
 	) {}
 
-	create(createPermisoDto: any) {
-		return this.permisoModel.create(createPermisoDto)
+	async create(createPermisoDto: any) {
+		const [error, data] = await to(this.permisoModel.create(createPermisoDto))
+
+		if (error)
+			handleException(
+				this.logger,
+				'create error',
+				HttpStatus.INTERNAL_SERVER_ERROR,
+				{ name: 'error', message: 'Internal Server Error' },
+			)
+
+		return data
 	}
 
-	findAll() {
-		return `This action returns all permisos`
-	}
+	async remove(id: number) {
+		const [error, data] = await to(this.permisoModel.destroy({ where: { id } }))
 
-	findOne(id: number) {
-		return `This action returns a #${id} permiso`
-	}
+		if (error)
+			handleException(
+				this.logger,
+				'remove error',
+				HttpStatus.INTERNAL_SERVER_ERROR,
+				{ name: 'error', message: 'Internal Server Error' },
+			)
 
-	remove(id: number) {
-		return `This action removes a #${id} permiso`
+		return { statusCode: HttpStatus.OK }
 	}
 }

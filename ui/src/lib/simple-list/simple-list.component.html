@@ -48,18 +48,36 @@
 					@if (actions()?.length) {
 						<td class="flex gap-4 items-center justify-center px-2">
 							@for (item of actions(); track $index) {
-								<div class="tooltip">
-									<div class="tooltip-content">
-										{{ item.info }}
+								<!--Si existe condicion y se cumple-->
+								@if (item.condition && item.condition(ele)) {
+									<div class="tooltip">
+										<div class="tooltip-content">
+											{{ item.info }}
+										</div>
+										<button
+											[disabled]="item.disabled || item?.disableCondition?.(ele)"
+											style="height: inherit"
+											class="btn p-1 bg-transparent border-none"
+											(click)="item.action(ele)">
+											<i [class]="item.icon"></i>
+										</button>
 									</div>
-									<button
-										[disabled]="item.disabled || item?.disableCondition?.(ele)"
-										style="height: inherit"
-										class="btn p-0 bg-transparent border-none"
-										(click)="item.action(ele)">
-										<i [class]="item.icon"></i>
-									</button>
-								</div>
+								}
+								<!--Si no existe condicion-->
+								@if (!item.condition) {
+									<div class="tooltip">
+										<div class="tooltip-content">
+											{{ item.info }}
+										</div>
+										<button
+											[disabled]="item.disabled || item?.disableCondition?.(ele)"
+											style="height: inherit"
+											class="btn p-1 bg-transparent border-none"
+											(click)="item.action(ele)">
+											<i [class]="item.icon"></i>
+										</button>
+									</div>
+								}
 							}
 						</td>
 					}

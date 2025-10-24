@@ -19,6 +19,11 @@ export const createUsuario = createAction(
 	props<{ data: any }>(),
 )
 
+export const setModified = createAction(
+	'[Permisos] data mutation',
+	props<{ data: any }>(),
+)
+
 export const updateUsuario = createAction(
 	'[Permisos] update Usuario',
 	props<{ data: any }>(),
@@ -26,6 +31,11 @@ export const updateUsuario = createAction(
 
 export const deleteUsuario = createAction(
 	'[Permisos] delete Usuario',
+	props<{ id: number }>(),
+)
+
+export const restoreUsuario = createAction(
+	'[Permisos] restore Usuario',
 	props<{ id: number }>(),
 )
 
@@ -51,5 +61,8 @@ export const setLogs = createAction('[Permisos] set Logs', props<{ data: any }>(
 export const permisosLoading = createAction('[Permisos] data Loading')
 export const permisosError = createAction(
 	'[Permisos] set Error',
-	props<{ data: any }>(),
+	props<{ error: any }>(),
 )
+
+export const clearPermisosError = createAction('[Permisos] Clear Error')
+export const clearPermisosModified = createAction('[Permisos] Clear Modified')

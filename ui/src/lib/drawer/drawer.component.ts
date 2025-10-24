@@ -7,29 +7,24 @@ import {
 	input,
 	model,
 	OnChanges,
+	OnInit,
 	signal,
 	SimpleChanges,
 	ViewChild,
 } from '@angular/core'
 import { Router, RouterLink } from '@angular/router'
 import { NgxPermissionsModule } from 'ngx-permissions'
-import { FormsModule, ɵInternalFormsSharedModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms'
 
 export const theme_value = 'theme_value'
 
 @Component({
 	selector: 'lib-drawer',
-	imports: [
-		TitleCasePipe,
-		NgxPermissionsModule,
-		RouterLink,
-		ɵInternalFormsSharedModule,
-		FormsModule,
-	],
+	imports: [TitleCasePipe, NgxPermissionsModule, RouterLink, FormsModule],
 	styleUrl: '../styles.scss',
 	templateUrl: './drawer.component.html',
 })
-export class DrawerComponent implements AfterViewInit, OnChanges {
+export class DrawerComponent implements OnInit, OnChanges {
 	router = inject(Router)
 	logout = input.required<() => void>()
 	usuario = input<string>()
@@ -52,7 +47,7 @@ export class DrawerComponent implements AfterViewInit, OnChanges {
 	open = model<string>('drawer-open')
 	toggleDrawer = () => this.open.update(open => (open ? '' : 'drawer-open'))
 
-	ngAfterViewInit(): void {
+	ngOnInit(): void {
 		this.checkTheme()
 	}
 
