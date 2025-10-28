@@ -18,10 +18,6 @@ export class AuthService {
 	public isPermissionGranted = signal<boolean>(false)
 	private infoModalService = inject(InfoModalService)
 
-	constructor() {
-		this.setDataOnReload()
-	}
-
 	setSession = (session: any) => {
 		this.isPermissionGranted.set(true)
 		sessionStorage.setItem(SESSION, JSON.stringify(session))
@@ -59,14 +55,32 @@ export class AuthService {
 		location.reload()
 	}
 
-	setDataOnReload = () => {
-		const session = sessionStorage.getItem(SESSION)
+	setDataOnReload = (): Promise<void> => {
+		return new Promise<void>(resolve => {
+			const session = sessionStorage.getItem(SESSION)
 
-		if (!session) return
+			if (!session) {
+				resolve()
+				return
+			}
 
-		this.setSession(JSON.parse(session))
-		this.store$.dispatch(loginSuccess({ data: JSON.parse(session) }))
+			const parsed = JSON.parse(session)
+
+			this.setSession(parsed)
+			this.store$.dispatch(loginSuccess({ data: parsed }))
+
+			resolve()
+		})
 	}
+
+	// setDataOnReload = () => {
+	// 	const session = sessionStorage.getItem(SESSION)
+
+	// 	if (!session) return
+
+	// 	this.setSession(JSON.parse(session))
+	// 	this.store$.dispatch(loginSuccess({ data: JSON.parse(session) }))
+	// }
 
 	flushPermission = () => {
 		this.isPermissionGranted.set(false)
@@ -96,4 +110,9 @@ export class AuthService {
 		this.ranked.set(ranked)
 		return permissions
 	}
+}
+
+export function authSetDataOnReload() {
+	const authService = inject(AuthService)
+	return authService.setDataOnReload()
 }

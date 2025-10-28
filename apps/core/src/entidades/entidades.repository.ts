@@ -35,11 +35,53 @@ export class EntidadesRepository {
 		return data
 	}
 
-	findOne(id: number) {
-		return `This action returns a #${id} entidade`
+	async findVehiculos(id: number) {
+		//cualquier error en la conexion esta controlado por db-exception
+		const entidadesDB = await this.multiDbService.getConnection('database_re')
+
+		const [error, data] = await to(
+			entidadesDB.query(
+				'SELECT * FROM v_mba_vehiculos_por_entidad WHERE entidad_id = :id',
+				{
+					replacements: { id },
+					type: QueryTypes.SELECT,
+				},
+			),
+		)
+
+		if (error)
+			handleException(
+				this.logger,
+				'findVehiculos error',
+				HttpStatus.INTERNAL_SERVER_ERROR,
+				{ name: 'error', message: 'Internal Server Error' },
+			)
+
+		return data
 	}
 
-	remove(id: number) {
-		return `This action removes a #${id} entidade`
+	async findLineas(id: number) {
+		//cualquier error en la conexion esta controlado por db-exception
+		const entidadesDB = await this.multiDbService.getConnection('database_re')
+
+		const [error, data] = await to(
+			entidadesDB.query(
+				'SELECT * FROM v_mba_lineas_entidad_detalle WHERE entidad_id = :id',
+				{
+					replacements: { id },
+					type: QueryTypes.SELECT,
+				},
+			),
+		)
+
+		if (error)
+			handleException(
+				this.logger,
+				'findLineas error',
+				HttpStatus.INTERNAL_SERVER_ERROR,
+				{ name: 'error', message: 'Internal Server Error' },
+			)
+
+		return data
 	}
 }

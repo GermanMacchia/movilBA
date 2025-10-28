@@ -19,6 +19,13 @@
 										{{ getValue(ele, data.key) | titlecase }}
 									</p>
 								}
+
+								<!--Number-->
+								@case (types.NUMBER) {
+									<p class="truncate">
+										{{ getValue(ele, data.key) }}
+									</p>
+								}
 								<!--Date-->
 								@case (types.DATE) {
 									<p class="truncate">

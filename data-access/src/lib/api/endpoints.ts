@@ -13,6 +13,10 @@ export const ENDPOINTS = {
 	},
 	rutap: {
 		entidades: (url: string) => `${url}/api/entidades`,
+		vehiculos: (url: string, entidad_id: number) =>
+			`${url}/api/entidades/vehiculos/${entidad_id}`,
+		lineas: (url: string, entidad_id: number) =>
+			`${url}/api/entidades/lineas/${entidad_id}`,
 	},
 	logs: {
 		logs: (url: string) => `${url}/api/logs`,

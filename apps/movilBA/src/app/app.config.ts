@@ -15,6 +15,7 @@ import { provideEffects } from '@ngrx/effects'
 import { provideStore } from '@ngrx/store'
 import { provideStoreDevtools } from '@ngrx/store-devtools'
 import {
+	authSetDataOnReload,
 	AuthInterceptor,
 	initializeApp,
 	LoginEffects,
@@ -30,6 +31,7 @@ export const appConfig: ApplicationConfig = {
 		NgxPermissionsService,
 		provideBrowserGlobalErrorListeners(),
 		provideAppInitializer(initializeApp),
+		provideAppInitializer(authSetDataOnReload),
 		provideZoneChangeDetection({ eventCoalescing: true }),
 		provideRouter(appRoutes),
 		importProvidersFrom(NgxPermissionsModule.forRoot()),

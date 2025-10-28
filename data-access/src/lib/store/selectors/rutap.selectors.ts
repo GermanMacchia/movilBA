@@ -10,3 +10,13 @@ export const selectEntidades = createSelector(
 	createFeatureSelector<RutapState>('rutap'),
 	state => state.entidades,
 )
+
+export const selectVehiculos = createSelector(
+	createFeatureSelector<RutapState>('rutap'),
+	state => state.vehiculos,
+)
+
+export const selectLineas = createSelector(
+	createFeatureSelector<RutapState>('rutap'),
+	state => state.lineas,
+)

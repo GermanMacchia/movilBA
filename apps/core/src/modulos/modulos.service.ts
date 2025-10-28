@@ -10,12 +10,4 @@ export class ModulosService {
 		this.modulosRepository.create(createPermisoDto)
 
 	findAll = () => this.modulosRepository.findAll()
-
-	findOne(id: number) {
-		return `This action returns a #${id} permiso`
-	}
-
-	remove(id: number) {
-		return `This action removes a #${id} permiso`
-	}
 }

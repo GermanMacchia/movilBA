@@ -1,6 +1,6 @@
 @if (entidad$ | async; as entidad) {
 	<div class="container mx-auto p-6">
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 			<!-- Información General -->
 			<div
 				class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
@@ -13,6 +13,16 @@
 						<h2 class="text-lg font-semibold text-gray-900">Información General</h2>
 					</div>
 					<div class="space-y-3">
+						<div class="flex justify-between items-center">
+							<span
+								class="text-sm font-medium text-gray-500 min-w-0 flex-shrink-0 mr-3"
+								>Estado:</span
+							>
+							<span
+								class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+								{{ entidad.estado_operacional | titlecase }}
+							</span>
+						</div>
 						<div class="flex justify-between items-start">
 							<span
 								class="text-sm font-medium text-gray-500 min-w-0 flex-shrink-0 mr-3"
@@ -62,29 +72,6 @@
 				</div>
 			</div>
 
-			<!-- Estado Operacional -->
-			<div
-				class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
-				<div class="p-6">
-					<div class="flex items-center mb-4">
-						<div
-							class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
-							<i class="bi bi-gear text-gray-600 text-lg"></i>
-						</div>
-						<h2 class="text-lg font-semibold text-gray-900">Estado Operacional</h2>
-					</div>
-					<div class="space-y-3">
-						<div class="flex justify-between items-center">
-							<span class="text-sm font-medium text-gray-500">Estado:</span>
-							<span
-								class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-								{{ entidad.estado_operacional | titlecase }}
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-
 			<!-- Estadísticas -->
 			<div
 				class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
@@ -115,18 +102,7 @@
 							</div>
 							<div class="text-xs text-gray-500 mt-1">Vehículos</div>
 						</div>
-						<div class="text-center">
-							<div class="text-2xl font-bold text-gray-900">
-								{{ entidad.vehiculos_con_linea }}
-							</div>
-							<div class="text-xs text-gray-500 mt-1">Con Línea</div>
-						</div>
-						<div class="text-center">
-							<div class="text-2xl font-bold text-gray-900">
-								{{ entidad.vehiculos_activos }}
-							</div>
-							<div class="text-xs text-gray-500 mt-1">Activos</div>
-						</div>
+
 						<div class="text-center">
 							<div class="text-2xl font-bold text-gray-900">
 								{{ entidad.total_personas }}
@@ -139,7 +115,7 @@
 
 			<!-- Contacto -->
 			<div
-				class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200 md:col-span-2 lg:col-span-3">
+				class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200 md:col-span-2">
 				<div class="p-6">
 					<div class="flex items-center mb-6">
 						<div
@@ -184,7 +160,7 @@
 						</div>
 
 						<!-- Teléfonos -->
-						@if (entidad.telefonos?.length > 0) {
+						@if (entidad?.telefonos && entidad.telefonos.length) {
 							<div class="space-y-4">
 								<h3
 									class="text-sm font-medium text-gray-700 uppercase tracking-wide border-b border-gray-200 pb-2">
@@ -222,9 +198,8 @@
 								</div>
 							</div>
 						}
-
 						<!-- Correos -->
-						@if (entidad.correos?.length > 0) {
+						@if (entidad?.correos && entidad.correos.length > 0) {
 							<div class="space-y-4">
 								<h3
 									class="text-sm font-medium text-gray-700 uppercase tracking-wide border-b border-gray-200 pb-2">
@@ -264,6 +239,654 @@
 						}
 					</div>
 				</div>
+			</div>
+			<!-- Líneas -->
+			@if (lineas$ | async; as lineas) {
+				<div
+					class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200 md:col-span-2">
+					<div class="p-6">
+						<div class="flex items-center mb-6">
+							<div
+								class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+								<i class="bi bi-diagram-3 text-gray-600 text-lg"></i>
+							</div>
+							<h2 class="text-lg font-semibold text-gray-900">
+								Líneas ({{ lineas.length }})
+							</h2>
+						</div>
+
+						<!-- Grid de tarjetas de líneas -->
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+							@for (linea of lineas; track linea.numero_linea) {
+								<div
+									class="bg-gray-50 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow duration-200">
+									<div class="p-4">
+										<div class="flex items-center justify-between mb-3">
+											<div class="flex items-center">
+												<div
+													class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold mr-3"
+													[style.background-color]="linea.color_linea || '#6B7280'">
+													{{ linea.numero_linea }}
+												</div>
+												<div>
+													<div class="font-semibold text-gray-900">
+														Línea {{ linea.numero_linea }}
+													</div>
+													<div class="text-xs text-gray-500">
+														{{ linea.detalles.ramales.length || 0 }} ramales
+													</div>
+												</div>
+											</div>
+											<div class="flex items-center space-x-2">
+												<button
+													class="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors duration-200"
+													title="Ver detalles"
+													(click)="abrirModalLinea(linea)">
+													<i class="bi bi-eye text-sm"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+			}
+
+			<!-- Vehículos -->
+			@if (vehiculos$ | async; as vehiculos) {
+				<div
+					class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200 md:col-span-2">
+					<div class="p-6">
+						<div class="flex items-center justify-between mb-6">
+							<div class="flex items-center">
+								<div
+									class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+									<i class="bi bi-truck text-gray-600 text-lg"></i>
+								</div>
+								<h2 class="text-lg font-semibold text-gray-900">
+									Vehículos ({{ getVehiculosFiltrados(vehiculos).length }})
+								</h2>
+							</div>
+						</div>
+
+						<!-- Filtros -->
+						<div
+							class="flex flex-col sm:flex-row gap-4 mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+							<!-- Buscador -->
+							<div class="flex-1 flex flex-col gap-2">
+								<label class="label" for="search-input" class="p-1">
+									<span class="label-text font-medium text-gray-700"
+										>Buscar vehículos</span
+									>
+								</label>
+								<div class="form-control">
+									<div class="input-group">
+										<input
+											id="search-input"
+											type="text"
+											placeholder="Buscar por dominio, interno, tipo..."
+											class="input w-full bg-white text-gray-800"
+											[(ngModel)]="searchTerm"
+											(input)="onSearchChange($event)" />
+									</div>
+								</div>
+							</div>
+
+							<!-- Filtro por línea -->
+							<div class="w-full sm:w-56 flex flex-col gap-2">
+								<label class="label" for="linea-select" class="p-1">
+									<span class="label-text font-medium text-gray-700"
+										>Filtrar por línea</span
+									>
+								</label>
+								<select
+									id="linea-select"
+									class="select w-full bg-white text-gray-800"
+									[(ngModel)]="selectedLineaFilter"
+									(change)="onLineaFilterChange($event)">
+									<option value="">Todas las líneas</option>
+									@for (linea of getLineasUnicas(vehiculos); track linea) {
+										<option [value]="linea">Línea {{ linea }}</option>
+									}
+								</select>
+							</div>
+						</div>
+
+						@if (vehiculos.length > 0) {
+							<!-- Tabla -->
+							<div
+								class="overflow-x-auto shadow-sm rounded-lg border border-gray-200">
+								<table class="table w-full bg-white">
+									<thead class="bg-gray-50">
+										<tr>
+											<th class="text-center font-semibold text-gray-700 py-4">
+												Dominio
+											</th>
+											<th class="text-center font-semibold text-gray-700 py-4">
+												Estado
+											</th>
+											<th class="text-center font-semibold text-gray-700 py-4">
+												Tipo
+											</th>
+											<th class="text-center font-semibold text-gray-700 py-4">
+												Interno
+											</th>
+											<th class="text-center font-semibold text-gray-700 py-4">
+												Línea
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										@for (
+											vehiculo of getVehiculosFiltrados(vehiculos);
+											track vehiculo.dominio
+										) {
+											<tr class="hover:bg-gray-100 transition-colors duration-150">
+												<td
+													class="text-center font-mono font-bold text-gray-900 py-4">
+													{{ vehiculo.dominio }}
+												</td>
+												<td class="text-center py-4 font-medium text-gray-800">
+													{{ vehiculo.estado_vehiculo | titlecase }}
+												</td>
+												<td class="text-center font-medium text-gray-800 py-4">
+													{{ vehiculo.tipo_vehiculo | titlecase }}
+												</td>
+												<td class="text-center font-bold text-gray-900 py-4">
+													{{ vehiculo.interno }}
+												</td>
+												<td class="text-center py-4 font-medium text-gray-800">
+													{{ vehiculo.numero_linea }}
+												</td>
+											</tr>
+										} @empty {
+											<tr>
+												<td colspan="5" class="text-center py-12">
+													<div class="flex flex-col items-center">
+														<i class="bi bi-search text-gray-400 text-5xl mb-3"></i>
+														<p class="text-gray-600 font-medium">
+															No se encontraron vehículos
+														</p>
+														<p class="text-gray-500 text-sm mt-1">
+															Intenta ajustar los filtros de búsqueda
+														</p>
+													</div>
+												</td>
+											</tr>
+										}
+									</tbody>
+								</table>
+							</div>
+						} @else {
+							<div class="text-center py-8">
+								<i class="bi bi-truck text-gray-300 text-4xl mb-4"></i>
+								<p class="text-gray-500">No hay vehículos disponibles</p>
+							</div>
+						}
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+}
+
+<!-- Modal de detalles de línea -->
+@if (modalLineaAbierto && lineaSeleccionada) {
+	<div
+		class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+		<div
+			class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+			<!-- Header del modal -->
+			<div class="flex items-center justify-between p-6 border-b border-gray-200">
+				<div class="flex items-center">
+					<div
+						class="w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold mr-4"
+						[style.background-color]="lineaSeleccionada.color_linea || '#6B7280'">
+						{{ lineaSeleccionada.numero_linea }}
+					</div>
+					<div>
+						<h2 class="text-xl font-semibold text-gray-900">
+							Línea {{ lineaSeleccionada.numero_linea }}
+						</h2>
+						<p class="text-sm text-gray-500">Detalles completos de la línea</p>
+					</div>
+				</div>
+				<button
+					class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+					(click)="cerrarModalLinea()">
+					<i class="bi bi-x-lg text-xl"></i>
+				</button>
+			</div>
+
+			<!-- Contenido del modal -->
+			<div class="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+					<!-- Información General -->
+					<div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+						<h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+							<i class="bi bi-info-circle mr-2 text-blue-600"></i>
+							Información General
+						</h3>
+						<div class="space-y-3">
+							<div class="flex justify-between items-center">
+								<span class="text-sm font-medium text-gray-500">Número:</span>
+								<span class="text-sm font-semibold text-gray-900">{{
+									lineaSeleccionada.numero_linea
+								}}</span>
+							</div>
+							<div class="flex justify-between items-center">
+								<span class="text-sm font-medium text-gray-500">ID Línea:</span>
+								<span class="text-sm text-gray-900">{{
+									lineaSeleccionada.linea_id
+								}}</span>
+							</div>
+							<div class="flex justify-between items-center">
+								<span class="text-sm font-medium text-gray-500">ID Entidad:</span>
+								<span class="text-sm text-gray-900">{{
+									lineaSeleccionada.entidad_id
+								}}</span>
+							</div>
+							@if (lineaSeleccionada.color_linea) {
+								<div class="flex justify-between items-center">
+									<span class="text-sm font-medium text-gray-500">Color:</span>
+									<div class="flex items-center">
+										<div
+											class="w-6 h-6 rounded border border-gray-300 mr-2"
+											[style.background-color]="lineaSeleccionada.color_linea"></div>
+										<span class="text-sm font-mono text-gray-900">{{
+											lineaSeleccionada.color_linea
+										}}</span>
+									</div>
+								</div>
+							}
+						</div>
+					</div>
+
+					<!-- Estadísticas -->
+					<div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+						<h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+							<i class="bi bi-bar-chart mr-2 text-green-600"></i>
+							Estadísticas
+						</h3>
+						<div class="grid grid-cols-2 gap-4">
+							<div
+								class="text-center bg-white rounded-lg p-3 border border-gray-200">
+								<div class="text-2xl font-bold text-gray-900">
+									{{ lineaSeleccionada.detalles.ramales.length || 0 }}
+								</div>
+								<div class="text-xs text-gray-500 mt-1">Ramales</div>
+							</div>
+							<div
+								class="text-center bg-white rounded-lg p-3 border border-gray-200">
+								<div class="text-2xl font-bold text-gray-900">
+									{{ getTotalParadas(lineaSeleccionada) }}
+								</div>
+								<div class="text-xs text-gray-500 mt-1">Paradas</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Ramales -->
+				@if (
+					lineaSeleccionada.detalles.ramales &&
+					lineaSeleccionada.detalles.ramales.length > 0
+				) {
+					<div class="mt-6">
+						<h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+							<i class="bi bi-diagram-3 mr-2 text-purple-600"></i>
+							Ramales ({{ lineaSeleccionada.detalles.ramales.length }})
+						</h3>
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+							@for (
+								ramal of lineaSeleccionada.detalles.ramales;
+								track ramal.id || $index
+							) {
+								<div
+									class="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-sm transition-shadow duration-200">
+									<div class="flex items-start justify-between mb-3">
+										<div>
+											<h4 class="font-semibold text-gray-900">
+												Ramal {{ ramal.ramal }}
+											</h4>
+											<p class="text-sm text-gray-600 mt-1">ID: {{ ramal.id }}</p>
+										</div>
+									</div>
+
+									<div class="space-y-2 mb-3">
+										<div class="flex items-center text-sm">
+											<i class="bi bi-geo-alt-fill text-green-600 mr-2"></i>
+											<span class="text-gray-600">Partida:</span>
+											<span class="ml-1 font-medium text-gray-900">{{
+												ramal.cabecera_partida
+											}}</span>
+										</div>
+										<div class="flex items-center text-sm">
+											<i class="bi bi-geo-alt text-red-600 mr-2"></i>
+											<span class="text-gray-600">Destino:</span>
+											<span class="ml-1 font-medium text-gray-900">{{
+												ramal.cabecera_destino
+											}}</span>
+										</div>
+									</div>
+
+									@if (ramal.color_linea) {
+										<div class="border-t border-gray-100 pt-3">
+											<div class="flex items-center justify-between">
+												<span class="text-sm font-medium text-gray-700">Color:</span>
+												<div class="flex items-center">
+													<div
+														class="w-4 h-4 rounded border border-gray-300 mr-2"
+														[style.background-color]="ramal.color_linea"></div>
+													<span class="text-xs font-mono text-gray-600">{{
+														ramal.color_linea
+													}}</span>
+												</div>
+											</div>
+										</div>
+									}
+								</div>
+							}
+						</div>
+					</div>
+				}
+
+				<!-- Información adicional de detalles -->
+				@if (
+					lineaSeleccionada.detalles.notas ||
+					lineaSeleccionada.detalles.paradas ||
+					lineaSeleccionada.detalles.documentos ||
+					lineaSeleccionada.detalles.recorridos ||
+					lineaSeleccionada.detalles.asignaciones
+				) {
+					<div class="mt-6 bg-gray-50 rounded-lg p-4 border border-gray-200">
+						<h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+							<i class="bi bi-clipboard-data mr-2 text-orange-600"></i>
+							Información Adicional
+						</h3>
+						<div class="space-y-3">
+							@if (lineaSeleccionada.detalles.notas) {
+								<div>
+									<span class="text-sm font-medium text-gray-700">Notas:</span>
+									<p class="text-sm text-gray-600 mt-1">
+										{{ lineaSeleccionada.detalles.notas }}
+									</p>
+								</div>
+							}
+							@if (lineaSeleccionada.detalles.paradas) {
+								<div>
+									<span class="text-sm font-medium text-gray-700">Paradas:</span>
+									<p class="text-sm text-gray-600 mt-1">
+										{{ lineaSeleccionada.detalles.paradas }}
+									</p>
+								</div>
+							}
+							@if (lineaSeleccionada.detalles.documentos) {
+								<div>
+									<span class="text-sm font-medium text-gray-700">Documentos:</span>
+									<p class="text-sm text-gray-600 mt-1">
+										{{ lineaSeleccionada.detalles.documentos }}
+									</p>
+								</div>
+							}
+							@if (lineaSeleccionada.detalles.recorridos) {
+								<div>
+									<span class="text-sm font-medium text-gray-700">Recorridos:</span>
+									<p class="text-sm text-gray-600 mt-1">
+										{{ lineaSeleccionada.detalles.recorridos }}
+									</p>
+								</div>
+							}
+							@if (lineaSeleccionada.detalles.asignaciones) {
+								<div>
+									<span class="text-sm font-medium text-gray-700"
+										>Asignaciones:</span
+									>
+									<p class="text-sm text-gray-600 mt-1">
+										{{ lineaSeleccionada.detalles.asignaciones }}
+									</p>
+								</div>
+							}
+						</div>
+					</div>
+				}
+			</div>
+
+			<!-- Footer del modal -->
+			<div class="flex justify-end p-6 border-t border-gray-200 bg-gray-50">
+				<button
+					class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200"
+					(click)="cerrarModalLinea()">
+					Cerrar
+				</button>
+			</div>
+		</div>
+	</div>
+}
+
+<!-- Modal de detalles de línea -->
+@if (modalLineaAbierto && lineaSeleccionada) {
+	<div
+		class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+		(click)="cerrarModalLinea()">
+		<div
+			class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+			(click)="$event.stopPropagation()">
+			<!-- Header del modal -->
+			<div class="flex items-center justify-between p-6 border-b border-gray-200">
+				<div class="flex items-center">
+					<div
+						class="w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold mr-4"
+						[style.background-color]="lineaSeleccionada.color_linea || '#6B7280'">
+						{{ lineaSeleccionada.numero_linea }}
+					</div>
+					<div>
+						<h2 class="text-xl font-semibold text-gray-900">
+							Línea {{ lineaSeleccionada.numero_linea }}
+						</h2>
+						<p class="text-sm text-gray-500">Detalles completos de la línea</p>
+					</div>
+				</div>
+				<button
+					class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+					(click)="cerrarModalLinea()">
+					<i class="bi bi-x-lg text-xl"></i>
+				</button>
+			</div>
+
+			<!-- Contenido del modal -->
+			<div class="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+					<!-- Información General -->
+					<div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+						<h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+							<i class="bi bi-info-circle mr-2 text-blue-600"></i>
+							Información General
+						</h3>
+						<div class="space-y-3">
+							<div class="flex justify-between items-center">
+								<span class="text-sm font-medium text-gray-500">Número:</span>
+								<span class="text-sm font-semibold text-gray-900">{{
+									lineaSeleccionada.numero_linea
+								}}</span>
+							</div>
+							<div class="flex justify-between items-center">
+								<span class="text-sm font-medium text-gray-500">ID Línea:</span>
+								<span class="text-sm text-gray-900">{{
+									lineaSeleccionada.linea_id
+								}}</span>
+							</div>
+							<div class="flex justify-between items-center">
+								<span class="text-sm font-medium text-gray-500">ID Entidad:</span>
+								<span class="text-sm text-gray-900">{{
+									lineaSeleccionada.entidad_id
+								}}</span>
+							</div>
+							@if (lineaSeleccionada.color_linea) {
+								<div class="flex justify-between items-center">
+									<span class="text-sm font-medium text-gray-500">Color:</span>
+									<div class="flex items-center">
+										<div
+											class="w-6 h-6 rounded border border-gray-300 mr-2"
+											[style.background-color]="lineaSeleccionada.color_linea"></div>
+										<span class="text-sm font-mono text-gray-900">{{
+											lineaSeleccionada.color_linea
+										}}</span>
+									</div>
+								</div>
+							}
+						</div>
+					</div>
+
+					<!-- Estadísticas -->
+					<div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+						<h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+							<i class="bi bi-bar-chart mr-2 text-green-600"></i>
+							Estadísticas
+						</h3>
+						<div class="grid grid-cols-1 gap-4">
+							<div
+								class="text-center bg-white rounded-lg p-3 border border-gray-200">
+								<div class="text-2xl font-bold text-gray-900">
+									{{ lineaSeleccionada.detalles.ramales.length || 0 }}
+								</div>
+								<div class="text-xs text-gray-500 mt-1">Ramales</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Ramales -->
+				@if (
+					lineaSeleccionada.detalles.ramales &&
+					lineaSeleccionada.detalles.ramales.length > 0
+				) {
+					<div class="mt-6">
+						<h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+							<i class="bi bi-diagram-3 mr-2 text-purple-600"></i>
+							Ramales ({{ lineaSeleccionada.detalles.ramales.length }})
+						</h3>
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+							@for (ramal of lineaSeleccionada.detalles.ramales; track ramal.id) {
+								<div
+									class="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-sm transition-shadow duration-200">
+									<div class="flex items-start justify-between mb-3">
+										<div>
+											<h4 class="font-semibold text-gray-900">
+												Ramal {{ ramal.ramal }}
+											</h4>
+											<p class="text-sm text-gray-600 mt-1">ID: {{ ramal.id }}</p>
+										</div>
+									</div>
+
+									<div class="space-y-2 mb-3">
+										<div class="flex items-center text-sm">
+											<i class="bi bi-geo-alt-fill text-green-600 mr-2"></i>
+											<span class="text-gray-600">Partida:</span>
+											<span class="ml-1 font-medium text-gray-900">{{
+												ramal.cabecera_partida
+											}}</span>
+										</div>
+										<div class="flex items-center text-sm">
+											<i class="bi bi-geo-alt text-red-600 mr-2"></i>
+											<span class="text-gray-600">Destino:</span>
+											<span class="ml-1 font-medium text-gray-900">{{
+												ramal.cabecera_destino
+											}}</span>
+										</div>
+									</div>
+
+									@if (ramal.color_linea) {
+										<div class="border-t border-gray-100 pt-3">
+											<div class="flex items-center justify-between">
+												<span class="text-sm font-medium text-gray-700">Color:</span>
+												<div class="flex items-center">
+													<div
+														class="w-4 h-4 rounded border border-gray-300 mr-2"
+														[style.background-color]="ramal.color_linea"></div>
+													<span class="text-xs font-mono text-gray-600">{{
+														ramal.color_linea
+													}}</span>
+												</div>
+											</div>
+										</div>
+									}
+								</div>
+							}
+						</div>
+					</div>
+				}
+
+				<!-- Información adicional de detalles -->
+				@if (
+					lineaSeleccionada.detalles.notas ||
+					lineaSeleccionada.detalles.paradas ||
+					lineaSeleccionada.detalles.documentos ||
+					lineaSeleccionada.detalles.recorridos ||
+					lineaSeleccionada.detalles.asignaciones
+				) {
+					<div class="mt-6 bg-gray-50 rounded-lg p-4 border border-gray-200">
+						<h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+							<i class="bi bi-clipboard-data mr-2 text-orange-600"></i>
+							Información Adicional
+						</h3>
+						<div class="space-y-3">
+							@if (lineaSeleccionada.detalles.notas) {
+								<div>
+									<span class="text-sm font-medium text-gray-700">Notas:</span>
+									<p class="text-sm text-gray-600 mt-1">
+										{{ lineaSeleccionada.detalles.notas }}
+									</p>
+								</div>
+							}
+							@if (lineaSeleccionada.detalles.paradas) {
+								<div>
+									<span class="text-sm font-medium text-gray-700">Paradas:</span>
+									<p class="text-sm text-gray-600 mt-1">
+										{{ lineaSeleccionada.detalles.paradas }}
+									</p>
+								</div>
+							}
+							@if (lineaSeleccionada.detalles.documentos) {
+								<div>
+									<span class="text-sm font-medium text-gray-700">Documentos:</span>
+									<p class="text-sm text-gray-600 mt-1">
+										{{ lineaSeleccionada.detalles.documentos }}
+									</p>
+								</div>
+							}
+							@if (lineaSeleccionada.detalles.recorridos) {
+								<div>
+									<span class="text-sm font-medium text-gray-700">Recorridos:</span>
+									<p class="text-sm text-gray-600 mt-1">
+										{{ lineaSeleccionada.detalles.recorridos }}
+									</p>
+								</div>
+							}
+							@if (lineaSeleccionada.detalles.asignaciones) {
+								<div>
+									<span class="text-sm font-medium text-gray-700"
+										>Asignaciones:</span
+									>
+									<p class="text-sm text-gray-600 mt-1">
+										{{ lineaSeleccionada.detalles.asignaciones }}
+									</p>
+								</div>
+							}
+						</div>
+					</div>
+				}
+			</div>
+
+			<!-- Footer del modal -->
+			<div class="flex justify-end p-6 border-t border-gray-200 bg-gray-50">
+				<button
+					class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200"
+					(click)="cerrarModalLinea()">
+					Cerrar
+				</button>
 			</div>
 		</div>
 	</div>
