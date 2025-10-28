@@ -12,22 +12,22 @@ import {
 } from '@movil-ba/data-access'
 import { DataTypes } from '@movilBA/ui'
 import { Store } from '@ngrx/store'
+import {
+	ListaVehiculosComponent,
+	ModalLineasComponent,
+} from 'apps/movilBA/src/components'
 import { map, Observable } from 'rxjs'
 
 @Component({
 	selector: 'app-entidad',
-	imports: [AsyncPipe, TitleCasePipe, FormsModule],
+	imports: [
+		AsyncPipe,
+		TitleCasePipe,
+		FormsModule,
+		ModalLineasComponent,
+		ListaVehiculosComponent,
+	],
 	templateUrl: './entidad.component.html',
-	styles: `
-		.input,
-		.select {
-			&:focus,
-			&:focus-within {
-				--input-color: none;
-				outline: none;
-			}
-		}
-	`,
 })
 export class EntidadComponent {
 	store$ = inject(Store)
@@ -35,10 +35,6 @@ export class EntidadComponent {
 	dataTypes = DataTypes
 	selectedLinea = signal<number | null>(null)
 	entidad_id: number
-
-	// Filtros para vehículos
-	searchTerm = ''
-	selectedLineaFilter = ''
 
 	// Modal de línea
 	modalLineaAbierto = false
@@ -120,56 +116,6 @@ export class EntidadComponent {
 		subscription.unsubscribe()
 	}
 
-	// Métodos para filtrado de vehículos
-	onSearchChange(event: any) {
-		this.searchTerm = event.target.value
-	}
-
-	onLineaFilterChange(event: any) {
-		this.selectedLineaFilter = event.target.value
-	}
-
-	getVehiculosFiltrados(vehiculos: Vehiculo[]): Vehiculo[] {
-		if (!vehiculos) return []
-
-		let filtrados = [...vehiculos]
-
-		// Filtrar por término de búsqueda
-		if (this.searchTerm.trim()) {
-			const termino = this.searchTerm.toLowerCase().trim()
-			filtrados = filtrados.filter(
-				vehiculo =>
-					vehiculo.dominio?.toLowerCase().includes(termino) ||
-					vehiculo.interno?.toString().toLowerCase().includes(termino) ||
-					vehiculo.tipo_vehiculo?.toLowerCase().includes(termino),
-			)
-		}
-
-		// Filtrar por línea seleccionada
-		if (this.selectedLineaFilter) {
-			filtrados = filtrados.filter(
-				vehiculo => vehiculo.numero_linea?.toString() === this.selectedLineaFilter,
-			)
-		}
-
-		return filtrados
-	}
-
-	getLineasUnicas(vehiculos: Vehiculo[]): string[] {
-		if (!vehiculos) return []
-
-		const lineas = vehiculos
-			.map(v => v.numero_linea?.toString())
-			.filter((linea, index, arr) => linea && arr.indexOf(linea) === index)
-			.sort((a, b) => {
-				const numA = parseInt(a || '0')
-				const numB = parseInt(b || '0')
-				return numA - numB
-			})
-
-		return lineas as string[]
-	}
-
 	// Métodos para el modal de línea
 	abrirModalLinea(linea: Linea) {
 		this.lineaSeleccionada = linea
@@ -185,5 +131,52 @@ export class EntidadComponent {
 		// Como la interfaz Ramal no tiene paradas, retornamos 0 por ahora
 		// o podríamos usar otra lógica según los datos disponibles
 		return 0
+	}
+
+	// Arrays para usar con @for
+	getInfoGeneralItems(entidad: Entidad) {
+		return [
+			{
+				label: 'Estado',
+				value: entidad.estado_operacional,
+				pipe: 'titlecase',
+				type: 'badge',
+				class: 'bg-green-100 text-green-800',
+			},
+			{ label: 'Nombre', value: entidad.nombre, pipe: 'titlecase' },
+			{ label: 'Nombre Corto', value: entidad.nombre_corto, pipe: 'titlecase' },
+			{ label: 'CUIT', value: entidad.cuit, class: 'font-mono' },
+			{ label: 'Tipo', value: entidad.tipo_entidad, pipe: 'titlecase' },
+			{ label: 'Razón Social', value: entidad.razon_social, pipe: 'titlecase' },
+		]
+	}
+
+	getEstadisticasItems(entidad: Entidad) {
+		return [
+			{ label: 'Líneas', value: entidad.total_lineas },
+			{ label: 'Ramales', value: entidad.total_ramales },
+			{ label: 'Vehículos', value: entidad.total_vehiculos },
+			{ label: 'Personas', value: entidad.total_personas },
+		]
+	}
+
+	getContactoPrincipalItems(entidad: Entidad) {
+		const items = []
+		if (entidad.telefono_principal) {
+			items.push({
+				icon: 'bi-telephone-fill',
+				value: entidad.telefono_principal,
+				label: 'Teléfono principal',
+			})
+		}
+		if (entidad.email_principal) {
+			items.push({
+				icon: 'bi-envelope-fill',
+				value: entidad.email_principal,
+				label: 'Email principal',
+				class: 'break-all',
+			})
+		}
+		return items
 	}
 }

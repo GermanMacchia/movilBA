@@ -1,0 +1,186 @@
+@if (modalAbierto && lineaSeleccionada) {
+	<!-- DaisyUI Modal -->
+	<div class="modal modal-open">
+		<div class="modal-box max-w-4xl w-11/12 max-h-[90vh]">
+			<!-- Header del modal -->
+			<div class="flex items-center justify-between mb-6">
+				<div class="flex items-center">
+					<div
+						class="w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold mr-4"
+						[style.background-color]="lineaSeleccionada.color_linea || '#6B7280'">
+						{{ lineaSeleccionada.numero_linea }}
+					</div>
+					<div>
+						<h2 class="text-xl font-semibold">
+							Línea {{ lineaSeleccionada.numero_linea }}
+						</h2>
+						<p class="text-sm opacity-70">Detalles completos de la línea</p>
+					</div>
+				</div>
+				<button class="btn btn-sm btn-circle btn-ghost" (click)="onCerrarModal()">
+					<i class="bi bi-x-lg text-xl"></i>
+				</button>
+			</div>
+
+			<!-- Contenido del modal -->
+			<div class="overflow-y-auto max-h-[calc(90vh-200px)]">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+					<!-- Información General -->
+					<div
+						class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+						<div class="p-6">
+							<div class="flex items-center mb-4">
+								<div
+									class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+									<i class="bi bi-info-circle text-gray-600 text-lg"></i>
+								</div>
+								<h3 class="text-lg font-semibold text-gray-900">
+									Información General
+								</h3>
+							</div>
+							<div class="space-y-3">
+								@for (item of getInfoItems(); track item.label) {
+									<div class="flex justify-between items-center">
+										<span class="text-sm font-medium text-gray-500"
+											>{{ item.label }}:</span
+										>
+										@if (item.type === 'color') {
+											<div class="flex items-center">
+												<div
+													class="w-6 h-6 rounded border border-gray-300 mr-2"
+													[style.background-color]="item.value"></div>
+												<span class="text-sm font-mono text-gray-900">{{
+													item.value
+												}}</span>
+											</div>
+										} @else {
+											<span class="text-sm font-semibold text-gray-900">{{
+												item.value
+											}}</span>
+										}
+									</div>
+								}
+							</div>
+						</div>
+					</div>
+
+					<!-- Estadísticas -->
+					<div
+						class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+						<div class="p-6">
+							<div class="flex items-center mb-4">
+								<div
+									class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+									<i class="bi bi-bar-chart text-gray-600 text-lg"></i>
+								</div>
+								<h3 class="text-lg font-semibold text-gray-900">Estadísticas</h3>
+							</div>
+							<div class="grid grid-cols-2 gap-4">
+								@for (stat of getEstadisticas(); track stat.label) {
+									<div class="text-center">
+										<div class="text-2xl font-bold text-gray-900">
+											{{ stat.value }}
+										</div>
+										<div class="text-xs text-gray-500 mt-1">{{ stat.label }}</div>
+									</div>
+								}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Ramales -->
+				@if (
+					lineaSeleccionada.detalles.ramales &&
+					lineaSeleccionada.detalles.ramales.length > 0
+				) {
+					<div class="mt-6">
+						<h3 class="text-lg font-semibold mb-4 flex items-center">
+							<i class="bi bi-diagram-3 mr-2 text-secondary"></i>
+							Ramales ({{ lineaSeleccionada.detalles.ramales.length }})
+						</h3>
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+							@for (ramal of lineaSeleccionada.detalles.ramales; track ramal.id) {
+								<div
+									class="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-sm transition-shadow duration-200">
+									<div class="flex items-start justify-between mb-3">
+										<div>
+											<h4 class="font-semibold text-gray-900">
+												Ramal {{ ramal.ramal }}
+											</h4>
+											<p class="text-sm text-gray-600 mt-1">ID: {{ ramal.id }}</p>
+										</div>
+									</div>
+
+									<div class="space-y-2 mb-3">
+										@for (ubicacion of getUbicaciones(ramal); track ubicacion.tipo) {
+											<div class="flex items-center text-sm">
+												<i class="bi {{ ubicacion.icon }} mr-2"></i>
+												<span class="text-gray-600">{{ ubicacion.tipo }}:</span>
+												<span class="ml-1 font-medium text-gray-900">{{
+													ubicacion.valor
+												}}</span>
+											</div>
+										}
+									</div>
+
+									@if (ramal.color_linea) {
+										<div class="border-t border-gray-100 pt-3">
+											<div class="flex items-center justify-between">
+												<span class="text-sm font-medium text-gray-700">Color:</span>
+												<div class="flex items-center">
+													<div
+														class="w-4 h-4 rounded border border-gray-300 mr-2"
+														[style.background-color]="ramal.color_linea"></div>
+													<span class="text-xs font-mono text-gray-600">{{
+														ramal.color_linea
+													}}</span>
+												</div>
+											</div>
+										</div>
+									}
+								</div>
+							}
+						</div>
+					</div>
+				}
+
+				<!-- Información adicional -->
+				@if (getInfoAdicional().length > 0) {
+					<div
+						class="mt-6 bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+						<div class="p-6">
+							<div class="flex items-center mb-4">
+								<div
+									class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+									<i class="bi bi-clipboard-data text-gray-600 text-lg"></i>
+								</div>
+								<h3 class="text-lg font-semibold text-gray-900">
+									Información Adicional
+								</h3>
+							</div>
+							<div class="space-y-3">
+								@for (info of getInfoAdicional(); track info.label) {
+									<div>
+										<span class="text-sm font-medium text-gray-700"
+											>{{ info.label }}:</span
+										>
+										<p class="text-sm text-gray-600 mt-1">{{ info.value }}</p>
+									</div>
+								}
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+
+			<!-- Footer del modal -->
+			<div class="modal-action">
+				<button class="btn btn-neutral" (click)="onCerrarModal()">Cerrar</button>
+			</div>
+		</div>
+
+		<!-- Backdrop para cerrar modal -->
+		<div class="modal-backdrop" (click)="onCerrarModal()"></div>
+	</div>
+}
