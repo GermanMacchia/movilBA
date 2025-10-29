@@ -1,7 +1,7 @@
 @if (modalAbierto && lineaSeleccionada) {
 	<!-- DaisyUI Modal -->
 	<div class="modal modal-open">
-		<div class="modal-box max-w-4xl w-11/12 max-h-[90vh]">
+		<div class="modal-box max-w-4xl w-11/12 max-h-[95vh]">
 			<!-- Header del modal -->
 			<div class="flex items-center justify-between mb-6">
 				<div class="flex items-center">
@@ -23,7 +23,7 @@
 			</div>
 
 			<!-- Contenido del modal -->
-			<div class="overflow-y-auto max-h-[calc(90vh-200px)]">
+			<div class="overflow-y-auto max-h-[calc(95vh-200px)]">
 				<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 					<!-- Información General -->
 					<div
@@ -139,6 +139,42 @@
 											</div>
 										</div>
 									}
+								</div>
+							}
+						</div>
+					</div>
+				}
+
+				<!-- Asignaciones -->
+				@if (getAsignaciones().length > 0) {
+					<div class="mt-6">
+						<h3 class="text-lg font-semibold mb-4 flex items-center">
+							<i class="bi bi-person-check mr-2 text-primary"></i>
+							Asignaciones ({{ getAsignaciones().length }})
+						</h3>
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+							@for (asignacion of getAsignaciones(); track $index) {
+								<div
+									class="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-sm transition-shadow duration-200">
+									<div class="space-y-2">
+										@for (key of Object.keys(asignacion); track key) {
+											@if (
+												asignacion[key] !== null &&
+												asignacion[key] !== undefined &&
+												asignacion[key] !== ''
+											) {
+												<div class="flex flex-col">
+													<span
+														class="text-xs font-medium text-gray-500 uppercase tracking-wide"
+														>{{ key.replace('_', ' ') }}</span
+													>
+													<span class="text-sm font-semibold text-gray-900 mt-1">{{
+														asignacion[key]
+													}}</span>
+												</div>
+											}
+										}
+									</div>
 								</div>
 							}
 						</div>

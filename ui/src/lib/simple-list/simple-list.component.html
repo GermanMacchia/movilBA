@@ -1,5 +1,58 @@
-<div class="overflow-y-auto w-full h-[75vh] mt-6">
-	<table class="table table-md table-pin-rows table-pin-cols w-full table-fixed">
+<!-- Barra superior con buscador, acciones y contador -->
+<div class="flex justify-between items-center mb-4">
+	<div class="flex flex-col gap-3">
+		@if (showSearch()) {
+			<label class="input">
+				<i class="bi bi-search"></i>
+				<input
+					type="text"
+					placeholder="Buscar..."
+					[(ngModel)]="searchTerm"
+					(input)="searchTerm.set($any($event.target).value)" />
+			</label>
+		} @else {
+			<div></div>
+		}
+		<div class="text-sm text-accent px-1">
+			@if (showPagination()) {
+				Mostrando {{ startIndex() }} - {{ endIndex() }} de
+				{{ filteredData().length }} registros
+			}
+		</div>
+	</div>
+	<!-- Acciones globales -->
+	@if (globalActions()?.length) {
+		<ul class="menu menu-horizontal rounded-box flex gap-3">
+			@for (item of globalActions(); track $index) {
+				<li [class]="item.info ? 'tooltip' : ''" *ngxPermissionsOnly="item.only">
+					@if (item.info) {
+						<div class="tooltip-content">
+							{{ item.info }}
+						</div>
+					}
+					<button
+						style="height: inherit"
+						class="btn p-2 border-none"
+						(click)="item.action()">
+						<i [class]="item.icon"></i>
+						@if (item.label) {
+							<p class="m-0 text-xs">
+								{{ item.label }}
+							</p>
+						}
+					</button>
+				</li>
+			}
+		</ul>
+	}
+</div>
+
+<div
+	class="overflow-y-auto w-full mt-6"
+	[class]="showPagination() ? 'h-[66vh]' : 'h-[75vh]'">
+	<table
+		[style.background-color]="backgroundColor()"
+		class="table table-md rounded-none w-full table-fixed bg-base-100">
 		<thead>
 			<tr>
 				@for (title of headers(); track $index) {
@@ -8,7 +61,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@for (ele of data(); track $index) {
+			@for (ele of paginatedData(); track $index) {
 				<tr>
 					@for (data of dataKeys(); track $index) {
 						<td class="text-center px-2">
@@ -93,3 +146,35 @@
 		</tbody>
 	</table>
 </div>
+
+<!-- Paginador -->
+@if (showPagination() && totalPages() > 1) {
+	<div class="flex justify-center items-center mt-4 gap-2">
+		<!-- Botón anterior -->
+		<button
+			class="btn btn-sm btn-outline"
+			[disabled]="currentPage() === 1"
+			(click)="prevPage()">
+			<i class="bi bi-chevron-left"></i>
+		</button>
+
+		<!-- Páginas -->
+		@for (page of getVisiblePages(); track page) {
+			<button
+				class="btn btn-sm"
+				[class.btn-primary]="page === currentPage()"
+				[class.btn-outline]="page !== currentPage()"
+				(click)="goToPage(page)">
+				{{ page }}
+			</button>
+		}
+
+		<!-- Botón siguiente -->
+		<button
+			class="btn btn-sm btn-outline"
+			[disabled]="currentPage() === totalPages()"
+			(click)="nextPage()">
+			<i class="bi bi-chevron-right"></i>
+		</button>
+	</div>
+}

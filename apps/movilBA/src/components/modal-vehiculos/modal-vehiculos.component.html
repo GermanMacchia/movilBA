@@ -1,0 +1,192 @@
+@if (modalAbierto && vehiculoSeleccionado) {
+	<!-- DaisyUI Modal -->
+	<div class="modal modal-open">
+		<div class="modal-box max-w-4xl w-11/12 max-h-[90vh]">
+			<!-- Header del modal -->
+			<div class="flex items-center justify-between mb-6">
+				<div class="flex items-center">
+					<div
+						class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+						<i class="bi bi-truck text-blue-600 text-lg"></i>
+					</div>
+					<div>
+						<h2 class="text-xl font-semibold">
+							{{ vehiculoSeleccionado.dominio }}
+						</h2>
+						<p class="text-sm opacity-70">Detalles completos del vehículo</p>
+					</div>
+				</div>
+				<button class="btn btn-sm btn-circle btn-ghost" (click)="onCerrarModal()">
+					<i class="bi bi-x-lg text-xl"></i>
+				</button>
+			</div>
+
+			<!-- Contenido del modal -->
+			<div class="overflow-y-auto max-h-[calc(90vh-200px)]">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+					<!-- Información General -->
+					<div
+						class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+						<div class="p-6">
+							<div class="flex items-center mb-4">
+								<div
+									class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+									<i class="bi bi-info-circle text-gray-600 text-lg"></i>
+								</div>
+								<h3 class="text-lg font-semibold text-gray-900">
+									Información General
+								</h3>
+							</div>
+							<div class="space-y-3">
+								@for (item of getInfoGeneral(); track item.label) {
+									<div class="flex justify-between items-center">
+										<span class="text-sm font-medium text-gray-500"
+											>{{ item.label }}:</span
+										>
+										<span class="text-sm font-semibold text-gray-900">{{
+											item.value
+										}}</span>
+									</div>
+								}
+							</div>
+						</div>
+					</div>
+
+					<!-- Información de Entidad -->
+					@if (getEntidadInfo().length > 0) {
+						<div
+							class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+							<div class="p-6">
+								<div class="flex items-center mb-4">
+									<div
+										class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+										<i class="bi bi-building text-gray-600 text-lg"></i>
+									</div>
+									<h3 class="text-lg font-semibold text-gray-900">Entidad</h3>
+								</div>
+								<div class="space-y-3">
+									@for (item of getEntidadInfo(); track item.label) {
+										<div class="flex justify-between items-center">
+											<span class="text-sm font-medium text-gray-500"
+												>{{ item.label }}:</span
+											>
+											<span class="text-sm font-semibold text-gray-900">{{
+												item.value
+											}}</span>
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+
+				<!-- Información Técnica -->
+				@if (getInfoTecnica().length > 0) {
+					<div class="mt-6">
+						<div
+							class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+							<div class="p-6">
+								<div class="flex items-center mb-4">
+									<div
+										class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+										<i class="bi bi-gear text-gray-600 text-lg"></i>
+									</div>
+									<h3 class="text-lg font-semibold text-gray-900">
+										Información Técnica
+									</h3>
+								</div>
+								<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+									@for (item of getInfoTecnica(); track item.label) {
+										<div class="flex justify-between items-center">
+											<span class="text-sm font-medium text-gray-500"
+												>{{ item.label }}:</span
+											>
+											<span class="text-sm font-semibold text-gray-900 font-mono">{{
+												item.value
+											}}</span>
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+
+				<!-- Información Adicional -->
+				@if (getInfoAdicional().length > 0) {
+					<div class="mt-6">
+						<div
+							class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+							<div class="p-6">
+								<div class="flex items-center mb-4">
+									<div
+										class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+										<i class="bi bi-clipboard-data text-gray-600 text-lg"></i>
+									</div>
+									<h3 class="text-lg font-semibold text-gray-900">
+										Información Adicional
+									</h3>
+								</div>
+								<div class="space-y-3">
+									@for (item of getInfoAdicional(); track item.label) {
+										<div class="flex justify-between items-center">
+											<span class="text-sm font-medium text-gray-500"
+												>{{ item.label }}:</span
+											>
+											<span class="text-sm font-semibold text-gray-900">{{
+												item.value
+											}}</span>
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+
+				<!-- Fechas -->
+				@if (getFechas().length > 0) {
+					<div class="mt-6">
+						<div
+							class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+							<div class="p-6">
+								<div class="flex items-center mb-4">
+									<div
+										class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+										<i class="bi bi-calendar text-gray-600 text-lg"></i>
+									</div>
+									<h3 class="text-lg font-semibold text-gray-900">Fechas</h3>
+								</div>
+								<div class="space-y-3">
+									@for (item of getFechas(); track item.label) {
+										<div class="flex justify-between items-center">
+											<span class="text-sm font-medium text-gray-500"
+												>{{ item.label }}:</span
+											>
+											<span class="text-sm font-semibold text-gray-900">
+												@if (item.type === 'date' && item.value) {
+													{{ item.value | date: 'dd/MM/yyyy' }}
+												} @else {
+													{{ item.value }}
+												}
+											</span>
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+
+			<!-- Footer del modal -->
+			<div class="modal-action">
+				<button class="btn btn-neutral" (click)="onCerrarModal()">Cerrar</button>
+			</div>
+		</div>
+
+		<!-- Backdrop para cerrar modal -->
+		<div class="modal-backdrop" (click)="onCerrarModal()"></div>
+	</div>
+}

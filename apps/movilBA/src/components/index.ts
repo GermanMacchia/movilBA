@@ -1,2 +1,6 @@
+export {
+	LineaCardComponent,
+	type LineaCardData,
+} from './linea-card/linea-card.component'
 export { ModalLineasComponent } from './modal-lineas/modal-lineas.component'
-export { ListaVehiculosComponent } from './lista-vehiculos/lista-vehiculos.component'
+export { ModalVehiculosComponent } from './modal-vehiculos/modal-vehiculos.component'

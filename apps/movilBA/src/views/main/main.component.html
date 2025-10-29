@@ -26,7 +26,9 @@
 	appname="MóvilBA"
 	[rol]="authService.ranked()"
 	[usuario]="(usuario | async)?.usuario?.nombre"></lib-drawer>
-<div class="router-shell mt-[3.5rem]" id="inner-router">
+<div
+	class="router-shell mt-[3.5rem] overflow-y-auto h-[calc(100vh-3.5rem)]"
+	id="inner-router">
 	<router-outlet></router-outlet>
 </div>
 <lib-toast></lib-toast>

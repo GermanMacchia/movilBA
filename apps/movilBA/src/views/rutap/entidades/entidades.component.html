@@ -15,4 +15,8 @@
 		'Acciones',
 	]"
 	[actions]="actions"
-	[data]="(data$ | async)!"></lib-simple-list>
+	[data]="(data$ | async)!"
+	[showSearch]="true"
+	[showPagination]="true"
+	[pageSize]="15"
+	[onPageLimit]="onPageLimit"></lib-simple-list>

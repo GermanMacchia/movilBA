@@ -1,0 +1,87 @@
+<div
+	class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+	<div class="p-6">
+		<!-- Header -->
+		<div class="flex items-center mb-4">
+			@if (data().titleIcon) {
+				<div
+					class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+					<i class="text-gray-600 text-lg" [ngClass]="data().titleIcon"></i>
+				</div>
+			}
+			<h2 class="text-lg font-semibold text-gray-900">{{ data().title }}</h2>
+		</div>
+
+		<!-- Content -->
+		<div [ngClass]="getLayoutClasses()">
+			@for (section of data().sections; track section.name) {
+				<!-- Stats variant -->
+				@if (data().variant === 'stats') {
+					<div class="text-center">
+						@if (section.icon) {
+							<div class="mb-2">
+								<i class="text-gray-400 text-lg" [ngClass]="section.icon"></i>
+							</div>
+						}
+						<div
+							class="text-2xl font-bold text-gray-900"
+							[ngClass]="section.contentClass">
+							{{ formatContent(section) }}
+						</div>
+						<div class="text-xs text-gray-500 mt-1">{{ section.name }}</div>
+					</div>
+				}
+
+				<!-- Minimal variant -->
+				@else if (data().variant === 'minimal') {
+					<div class="flex justify-between items-center py-2">
+						<span class="text-sm font-medium text-gray-500"
+							>{{ section.name }}:</span
+						>
+						@if (section.type === 'badge') {
+							<span
+								class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+								[ngClass]="section.contentClass">
+								{{ formatContent(section) }}
+							</span>
+						} @else {
+							<span
+								class="text-sm text-gray-900 text-right"
+								[ngClass]="section.contentClass">
+								{{ formatContent(section) }}
+							</span>
+						}
+					</div>
+				}
+
+				<!-- Default variant -->
+				@else {
+					<div
+						class="flex items-center gap-3 p-3 rounded-lg bg-base-200 hover:bg-base-300 transition-colors">
+						@if (section.icon) {
+							<div class="flex-shrink-0">
+								<i class="text-warning text-lg" [ngClass]="section.icon"></i>
+							</div>
+						}
+						<div class="flex flex-col min-w-0 flex-1">
+							<span class="text-sm font-medium text-base-content/70">{{
+								section.name
+							}}</span>
+							<span
+								class="text-sm font-semibold text-base-content truncate"
+								[ngClass]="section.contentClass">
+								{{ formatContent(section) }}
+							</span>
+						</div>
+						@if (section.isPrimary) {
+							<span
+								class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+								Principal
+							</span>
+						}
+					</div>
+				}
+			}
+		</div>
+	</div>
+</div>

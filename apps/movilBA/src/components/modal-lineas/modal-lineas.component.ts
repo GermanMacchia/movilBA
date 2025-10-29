@@ -1,15 +1,20 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
+import { CommonModule } from '@angular/common'
 import { Linea } from '@movil-ba/data-access'
 
 @Component({
 	selector: 'app-modal-lineas',
 	templateUrl: './modal-lineas.component.html',
 	standalone: true,
+	imports: [CommonModule],
 })
 export class ModalLineasComponent {
 	@Input() modalAbierto = false
 	@Input() lineaSeleccionada: Linea | null = null
 	@Output() cerrarModal = new EventEmitter<void>()
+
+	// Hacer Object disponible en el template
+	Object = Object
 
 	onCerrarModal() {
 		this.cerrarModal.emit()
@@ -77,25 +82,38 @@ export class ModalLineasComponent {
 		]
 	}
 
+	getAsignaciones() {
+		if (!this.lineaSeleccionada?.detalles?.asignaciones) return []
+		return this.lineaSeleccionada.detalles.asignaciones
+	}
+
 	getInfoAdicional(): { label: string; value: any }[] {
 		if (!this.lineaSeleccionada?.detalles) return []
 
 		const info: { label: string; value: any }[] = []
 		const detalles = this.lineaSeleccionada.detalles
 
+		// Excluimos asignaciones porque las mostramos en una sección separada
 		const campos = [
 			{ key: 'notas', label: 'Notas' },
 			{ key: 'paradas', label: 'Paradas' },
 			{ key: 'documentos', label: 'Documentos' },
 			{ key: 'recorridos', label: 'Recorridos' },
-			{ key: 'asignaciones', label: 'Asignaciones' },
 		]
 
 		campos.forEach(campo => {
-			if (detalles[campo.key as keyof typeof detalles]) {
+			const valor = detalles[campo.key as keyof typeof detalles]
+			if (valor) {
+				let valorProcesado: any = valor
+
+				// Procesar arrays para mostrarlos correctamente
+				if (Array.isArray(valor)) {
+					valorProcesado = `${valor.length} elemento(s)`
+				}
+
 				info.push({
 					label: campo.label,
-					value: detalles[campo.key as keyof typeof detalles],
+					value: valorProcesado,
 				})
 			}
 		})
