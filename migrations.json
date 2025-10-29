@@ -1,0 +1,112 @@
+{
+	"migrations": [
+		{
+			"version": "22.0.0-beta.1",
+			"description": "Updates release version config based on the breaking changes in Nx v22",
+			"implementation": "./src/migrations/update-22-0-0/release-version-config-changes",
+			"package": "nx",
+			"name": "22-0-0-release-version-config-changes"
+		},
+		{
+			"version": "22.0.0-beta.2",
+			"description": "Consolidates releaseTag* options into nested releaseTag object structure",
+			"implementation": "./src/migrations/update-22-0-0/consolidate-release-tag-config",
+			"package": "nx",
+			"name": "22-0-0-consolidate-release-tag-config"
+		},
+		{
+			"version": "21.5.0-beta.2",
+			"description": "Migrate the legacy 'development' custom condition to a workspace-unique custom condition name.",
+			"factory": "./src/migrations/update-21-5-0/migrate-development-custom-condition",
+			"package": "@nx/js",
+			"name": "migrate-development-custom-condition"
+		},
+		{
+			"version": "22.0.0-beta.0",
+			"description": "Remove the deprecated `external` and `externalBuildTargets` options from the `@nx/js:swc` and `@nx/js:tsc` executors.",
+			"factory": "./src/migrations/update-22-0-0/remove-external-options-from-js-executors",
+			"package": "@nx/js",
+			"name": "remove-external-options-from-js-executors"
+		},
+		{
+			"cli": "nx",
+			"version": "20.8.0-beta.0",
+			"requires": { "cypress": ">=14.0.0" },
+			"description": "Replaces the `experimentalSkipDomainInjection` configuration option with the new `injectDocumentDomain` configuration option.",
+			"implementation": "./src/migrations/update-20-8-0/set-inject-document-domain",
+			"package": "@nx/cypress",
+			"name": "set-inject-document-domain"
+		},
+		{
+			"cli": "nx",
+			"version": "20.8.0-beta.0",
+			"requires": { "cypress": ">=14.0.0" },
+			"description": "Removes the `experimentalFetchPolyfill` configuration option.",
+			"implementation": "./src/migrations/update-20-8-0/remove-experimental-fetch-polyfill",
+			"package": "@nx/cypress",
+			"name": "remove-experimental-fetch-polyfill"
+		},
+		{
+			"cli": "nx",
+			"version": "20.8.0-beta.0",
+			"requires": { "cypress": ">=14.0.0" },
+			"description": "Replaces the `experimentalJustInTimeCompile` configuration option with the new `justInTimeCompile` configuration option.",
+			"implementation": "./src/migrations/update-20-8-0/replace-experimental-just-in-time-compile",
+			"package": "@nx/cypress",
+			"name": "replace-experimental-just-in-time-compile"
+		},
+		{
+			"cli": "nx",
+			"version": "20.8.0-beta.0",
+			"requires": { "cypress": ">=14.0.0" },
+			"description": "Updates the module specifier for the Component Testing `mount` function.",
+			"implementation": "./src/migrations/update-20-8-0/update-component-testing-mount-imports",
+			"package": "@nx/cypress",
+			"name": "update-component-testing-mount-imports"
+		},
+		{
+			"version": "21.0.0-beta.10",
+			"description": "Removes the `tsConfig` and `copyFiles` options from the `@nx/cypress:cypress` executor.",
+			"implementation": "./src/migrations/update-21-0-0/remove-tsconfig-and-copy-files-options-from-cypress-executor",
+			"package": "@nx/cypress",
+			"name": "remove-tsconfig-and-copy-files-options-from-cypress-executor"
+		},
+		{
+			"version": "20.5.0-beta.2",
+			"description": "Install jiti as a devDependency to allow vite to parse TS postcss files.",
+			"implementation": "./src/migrations/update-20-5-0/install-jiti",
+			"package": "@nx/vite",
+			"name": "update-20-5-0-install-jiti"
+		},
+		{
+			"version": "20.5.0-beta.3",
+			"description": "Update resolve.conditions to include defaults that are no longer provided by Vite.",
+			"implementation": "./src/migrations/update-20-5-0/update-resolve-conditions",
+			"package": "@nx/vite",
+			"name": "update-20-5-0-update-resolve-conditions"
+		},
+		{
+			"version": "20.5.0-beta.3",
+			"description": "Add vite config temporary files to the ESLint configuration ignore patterns if ESLint is used.",
+			"implementation": "./src/migrations/update-20-5-0/eslint-ignore-vite-temp-files",
+			"package": "@nx/vite",
+			"name": "eslint-ignore-vite-temp-files"
+		},
+		{
+			"cli": "nx",
+			"version": "21.0.0-beta.11",
+			"description": "Remove isolatedConfig option for @nx/webpack:webpack",
+			"implementation": "./src/migrations/update-21-0-0/remove-isolated-config",
+			"package": "@nx/webpack",
+			"name": "update-21-0-0-remove-isolated-config"
+		},
+		{
+			"cli": "nx",
+			"version": "22.0.0-beta.0",
+			"description": "Remove deprecated deleteOutputPath and sassImplementation options from @nx/webpack:webpack",
+			"implementation": "./src/migrations/update-22-0-0/remove-deprecated-options",
+			"package": "@nx/webpack",
+			"name": "update-22-0-0-remove-deprecated-options"
+		}
+	]
+}

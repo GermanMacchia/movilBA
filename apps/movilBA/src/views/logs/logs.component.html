@@ -1,7 +1,6 @@
-<h2>Logs del Sistema</h2>
-<p>Total de registros: {{ (total$ | async) || 0 }}</p>
-
 <lib-simple-list
+	[showSearch]="true"
+	[showPagination]="true"
 	[dataKeys]="[
 		{ key: 'descripcion', type: types.STRING },
 		{ key: 'tipo_log', type: types.STRING },

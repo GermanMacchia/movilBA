@@ -1,8 +1,6 @@
-import { AsyncPipe } from '@angular/common'
 import { Component, inject, OnInit, signal, ViewChild } from '@angular/core'
 import { Usuario } from '@movil-ba/data-access'
 import {
-	ActionHeaderComponent,
 	FormModal,
 	FormModalService,
 	InfoModalService,
@@ -26,7 +24,7 @@ import { DataTypes } from 'ui/src/lib/common/enums'
 import type { FormData } from 'ui/src/lib/common/interfaces'
 import { PermisosModalComponent } from '../../components/permisos-modal/permisos-modal.component'
 import { FormGroup } from '@angular/forms'
-import { distinctUntilChanged, filter } from 'rxjs'
+import { filter } from 'rxjs'
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 
 const formDefaultData: FormData[] = [
@@ -39,12 +37,7 @@ const formDefaultData: FormData[] = [
 @UntilDestroy()
 @Component({
 	selector: 'app-permisos',
-	imports: [
-		SimpleListComponent,
-		ActionHeaderComponent,
-		FormModal,
-		PermisosModalComponent,
-	],
+	imports: [SimpleListComponent, FormModal, PermisosModalComponent],
 	templateUrl: './permisos.component.html',
 	styles: `
 		table {

@@ -24,4 +24,9 @@ export class EntidadesComponent {
 			action: (entidad: any) => this.router.navigate(['/rutap/entidad', entidad.id]),
 		},
 	]
+
+	onPageLimit = (page: number) => {
+		console.log(`Llegaste al límite de la página ${page}`)
+		// Aquí puedes implementar lógica adicional como cargar más datos
+	}
 }

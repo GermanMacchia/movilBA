@@ -142,4 +142,24 @@ export class LoginComponent implements OnInit, AfterContentInit {
 				})
 			})
 	}
+
+	private subscribeLoginError() {
+		this.store$
+			.select(selectLoginError)
+			.pipe(
+				filter(ele => !!ele),
+				untilDestroyed(this),
+			)
+			.subscribe(error => {
+				this.toastService.toast({
+					body:
+						error.statusCode === 401
+							? 'Datos invalidos'
+							: error.statusCode === 429
+								? `Demasiadas peticiones. Intente más tarde`
+								: error.message,
+					severity: error.statusCode === 401 ? 'warning' : 'error',
+				})
+			})
+	}
 }

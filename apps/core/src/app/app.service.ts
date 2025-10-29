@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { HealthCheckService, HealthIndicatorService } from '@nestjs/terminus'
+import { HealthCheckService } from '@nestjs/terminus'
 import { DbHealthIndicator } from './utils/dbHealthIndicator'
 import { MultiDbService } from './dbs/multi-db.service'
 import { Sequelize } from 'sequelize'
@@ -12,7 +12,6 @@ export class AppService {
 		@InjectConnection(CORE_DB) private coreDb: Sequelize,
 		private readonly health: HealthCheckService,
 		private readonly multiDbService: MultiDbService,
-		private readonly healthIndicator: HealthIndicatorService,
 	) {}
 
 	async getHealth(allDatabases = false) {
@@ -33,7 +32,6 @@ export class AppService {
 						},
 					]
 				: coreDB,
-			this.healthIndicator,
 		)
 
 		return this.health.check([

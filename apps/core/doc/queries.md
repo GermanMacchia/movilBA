@@ -1,5 +1,9 @@
 [Select Entidades](#entidades)
 
+[Select Vehiculos por Entidad](#vehiculos-por-entidad)
+
+[Select Lineas por Entidad](#lineas-por-entidad)
+
 ## Entidades:
 
 ```
@@ -175,4 +179,195 @@ ORDER BY
     END,
     e.nombre;
 
+```
+
+## Vehiculos por entidad
+
+```
+CREATE OR REPLACE VIEW v_mba_vehiculos_por_entidad AS
+SELECT
+    -- Datos de la entidad
+    e.id AS entidad_id,
+    e.nombre AS entidad_nombre,
+    e.nombre_corto AS entidad_nombre_corto,
+    e.cuit AS entidad_cuit,
+
+    -- Datos del vehículo
+    v.id AS vehiculo_id,
+    v.dominio,
+    v.numero_serie_chasis,
+    v.numero_serie_motor,
+    v.numero_serie_carroceria,
+    v.fecha_ultima_actualizacion,
+
+    -- Datos de colectivo (si aplica)
+    vdc.interno,
+    vdc.valor_litro,
+
+    -- Estado actual del vehículo
+    op_estado.nombre_mostrable AS estado_vehiculo,
+
+    -- Tipo y subtipo de vehículo
+    vt.descripcion AS tipo_vehiculo,
+    vst.descripcion AS subtipo_vehiculo,
+
+    -- Datos de la carrocería
+    c.carroceria_modelo,
+    c.cantidad_asientos,
+    fc.fabricante AS fabricante_carroceria,
+
+    -- Datos del chasis
+    ch.chasis_modelo,
+    fch.fabricante AS fabricante_chasis,
+
+    -- Datos del motor
+    m.motor_modelo,
+    fm.fabricante AS fabricante_motor,
+
+    -- Asignación actual
+    vea.fecha_desde AS asignacion_fecha_desde,
+    vea.fecha_hasta AS asignacion_fecha_hasta,
+    vea.observaciones AS asignacion_observaciones,
+
+    -- Línea asignada (si existe)
+    l.numero_linea,
+    l.color_linea,
+    vla.fecha_desde AS linea_fecha_desde,
+    vla.fecha_hasta AS linea_fecha_hasta
+
+FROM vehiculos v
+
+-- Asignación a entidad (asignaciones activas o más recientes)
+LEFT JOIN vehiculo_entidad_asignaciones vea ON v.id = vea.vehiculo_id
+    AND (vea.fecha_hasta IS NULL OR vea.fecha_hasta >= CURRENT_DATE)
+
+-- Entidad
+LEFT JOIN entidades e ON vea.entidad_id = e.id
+
+-- Datos específicos de colectivos
+LEFT JOIN vehiculos_datos_colectivos vdc ON v.id = vdc.vehiculo_id
+    AND (vdc.fecha_vigencia_hasta IS NULL OR vdc.fecha_vigencia_hasta >= CURRENT_DATE)
+
+-- Estado del vehículo
+LEFT JOIN opciones op_estado ON vdc.estado_id = op_estado.id
+
+-- Tipo y subtipo de transporte
+LEFT JOIN vehiculos_subtipos_transporte vst ON v.vehiculo_subtipo_transporte_id = vst.id
+LEFT JOIN vehiculos_tipos_transporte vt ON vst.vehiculo_tipo_id = vt.id
+
+-- Carrocería y fabricante
+LEFT JOIN carrocerias c ON v.carroceria_id = c.id
+LEFT JOIN fabricantes fc ON c.fabricante_id = fc.id
+
+-- Chasis y fabricante
+LEFT JOIN chasis ch ON v.chasis_id = ch.id
+LEFT JOIN fabricantes fch ON ch.fabricante_id = fch.id
+
+-- Motor y fabricante
+LEFT JOIN motores m ON v.motor_id = m.id
+LEFT JOIN fabricantes fm ON m.fabricante_id = fm.id
+
+-- Asignación a línea (asignaciones activas)
+LEFT JOIN vehiculo_linea_asignaciones vla ON v.id = vla.vehiculo_id
+    AND (vla.fecha_hasta IS NULL OR vla.fecha_hasta >= CURRENT_DATE)
+LEFT JOIN lineas l ON vla.linea_id = l.id
+
+WHERE vea.id IS NOT NULL  -- Solo vehículos con asignación
+
+ORDER BY e.nombre, v.dominio;
+```
+
+## Lineas por entidad:
+
+```
+CREATE OR REPLACE VIEW v_mba_lineas_entidad_detalle AS
+WITH base_lineas AS (
+  SELECT
+    l.id AS linea_id,
+    l.numero_linea,
+    l.color_linea,
+    l.entidad_id
+  FROM lineas l
+)
+SELECT
+  bl.entidad_id,
+  bl.linea_id,
+  bl.numero_linea,
+  bl.color_linea,
+  jsonb_build_object(
+    'ramales', (
+      SELECT jsonb_agg(
+        jsonb_build_object(
+          'id', r.id,
+          'ramal', r.ramal,
+          'color_linea', r.color_linea,
+          'cabecera_partida', r.cabecera_partida,
+          'cabecera_destino', r.cabecera_destino
+        )
+      )
+      FROM ramales r
+      WHERE r.linea_id = bl.linea_id
+    ),
+    'recorridos', (
+      SELECT jsonb_agg(
+        jsonb_build_object(
+          'id', re.id,
+          'descripcion_ruta', re.descripcion_ruta,
+          'sentido_id', re.sentido_id
+        )
+      )
+      FROM recorridos re
+      JOIN ramales rr ON rr.id = re.ramal_id
+      WHERE rr.linea_id = bl.linea_id
+    ),
+    'paradas', (
+      SELECT jsonb_agg(
+        jsonb_build_object(
+          'id', p.id,
+          'nombre', p.nombre,
+          'ubicacion', p.ubicacion
+        )
+      )
+      FROM paradas p
+      JOIN recorridos re ON re.id = p.recorrido_id
+      JOIN ramales rr ON rr.id = re.ramal_id
+      WHERE rr.linea_id = bl.linea_id
+    ),
+    'asignaciones', (
+      SELECT jsonb_agg(
+        jsonb_build_object(
+          'id', a.id,
+          'fecha_desde', a.fecha_desde,
+          'fecha_hasta', a.fecha_hasta,
+          'observaciones', a.observaciones
+        )
+      )
+      FROM linea_entidad_asignaciones a
+      WHERE a.linea_id = bl.linea_id
+    ),
+    'documentos', (
+      SELECT jsonb_agg(
+        jsonb_build_object(
+          'id', d.id,
+          'url', d.url,
+          'title', d.title,
+          'doc_type_opciones_id', d.doc_type_opciones_id
+        )
+      )
+      FROM links_and_docs d
+      WHERE d.entity_type = 'lineas' AND d.entity_id = bl.linea_id
+    ),
+    'notas', (
+      SELECT jsonb_agg(
+        jsonb_build_object(
+          'id', n.id,
+          'title', n.title,
+          'content', n.content
+        )
+      )
+      FROM notes n
+      WHERE n.entity_type = 'lineas' AND n.entity_id = bl.linea_id
+    )
+  ) AS detalles
+FROM base_lineas bl;
 ```

@@ -1,13 +1,13 @@
-<lib-action-header
-	[actions]="[
+<lib-simple-list
+	[showSearch]="true"
+	[globalActions]="[
 		{
 			icon: 'bi bi-person-plus',
 			action: openModalForm,
 			label: 'Crear Usuario',
 			only: 'PERMISOS.CREATE',
 		},
-	]"></lib-action-header>
-<lib-simple-list
+	]"
 	[dataKeys]="[
 		{ key: 'cuil', type: types.STRING },
 		{ key: 'nombre', type: types.STRING },

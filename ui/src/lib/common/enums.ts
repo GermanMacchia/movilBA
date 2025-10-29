@@ -4,4 +4,5 @@ export enum DataTypes {
 	BOOLEAN = 'boolean',
 	EMAIL = 'email',
 	PASSWORD = 'password',
+	NUMBER = 'number',
 }

@@ -3,6 +3,7 @@ import {
 	ACCIONES,
 	AppGuard,
 	displayResolver,
+	empresasResolver,
 	entidadesResolver,
 	LoginGuard,
 	logsResolver,
@@ -80,6 +81,9 @@ const rutapRoutes: Route[] = [
 	{
 		path: 'entidad/:id',
 		component: EntidadComponent,
+		resolve: {
+			modulos: empresasResolver,
+		},
 	},
 ]
 

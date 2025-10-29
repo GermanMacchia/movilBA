@@ -1,19 +1,22 @@
 import { Logger } from '@nestjs/common'
-import { HealthIndicatorResult, HealthIndicatorService } from '@nestjs/terminus'
+import {
+	HealthIndicatorResult,
+	HealthIndicator,
+	HealthCheckError,
+} from '@nestjs/terminus'
 import { Sequelize } from 'sequelize'
 
-export class DbHealthIndicator {
+export class DbHealthIndicator extends HealthIndicator {
 	private readonly logger: Logger
 
 	constructor(
 		private dbConections: { name: string; db: () => Promise<Sequelize> }[],
-		private readonly healthIndicatorService: HealthIndicatorService,
 	) {
+		super()
 		this.logger = new Logger('DB Health Indicator')
 	}
 
 	async checkHealth(key: string): Promise<HealthIndicatorResult> {
-		const indicator = this.healthIndicatorService.check(key)
 		const errors: string[] = []
 
 		for (const connection of this.dbConections) {
@@ -26,14 +29,12 @@ export class DbHealthIndicator {
 		}
 
 		if (errors.length) {
-			return indicator.down({
-				message: 'Error en conexion de base de datos',
-				errors: errors,
-			})
+			throw new HealthCheckError(
+				'Error en conexion de base de datos',
+				this.getStatus(key, false),
+			)
 		}
 
-		return indicator.up({
-			message: 'Todos los servicios están operativos',
-		})
+		return this.getStatus(key, true)
 	}
 }
