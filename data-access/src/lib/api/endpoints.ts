@@ -21,7 +21,4 @@ export const ENDPOINTS = {
 	logs: {
 		logs: (url: string) => `${url}/api/logs`,
 	},
-	logs: {
-		logs: (url: string) => `${url}/api/logs`,
-	},
 }
